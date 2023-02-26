@@ -1,10 +1,11 @@
 .sign-in-border {
+  border: 10px solid #0055cd;
   margin: 30px 25vw;
+  padding: 25px;
 }
 
 .sign-in-header {
-  margin-top: 20px;
-  margin-bottom: 35vh;
+  margin-bottom: 27vh;
   white-space: pre-line;
   font-size: 7vw;
   font-weight: bold;
@@ -18,10 +19,6 @@ form {
   justify-content: center;
 }
 
-.sign-in-border {
-  border: 10px solid #0055cd;
-}
-
 input {
   display: inline-block;
   padding: 10px 20px;
@@ -29,15 +26,12 @@ input {
   border-radius: 12px;
   font-size: x-large;
   border: 5px solid #0055cd;
-}
-
-.email-field {
   background-color: white;
   color: #0055cd;
 }
 
 .submit-button {
-  margin-bottom: 20px;
   background-color: #0055cd;
   color: white;
+  cursor: pointer;
 }
