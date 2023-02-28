@@ -1,0 +1,44 @@
+div.home-page header {
+  margin-top: 20px;
+  white-space: pre-line;
+  font-size: 8vw;
+  font-weight: bold;
+  color: #0055cd;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 20px 15px;
+  border-radius: 12px;
+  font-size: x-large;
+  border: 5px solid #0055cd;
+  cursor: pointer;
+}
+
+#sign-in {
+  background-color: #0055cd;
+  color: white;
+}
+
+#sign-up {
+  background-color: white;
+  color: #0055cd;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
