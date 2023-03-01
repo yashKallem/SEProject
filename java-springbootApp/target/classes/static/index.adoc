@@ -1,0 +1,15 @@
+Getting Started With Spring REST Docs of *Campus Collaborate*
+
+All the Rest API end points are available at
+http://localhost:8080/api/index
+
+This is an example output for a service running at http://localhost:8080/api/v1/auth/register
+
+request
+include::{snippets}/authentication-controller-test/test-register-user/http-request.adoc [ ]
+response
+include::{snippets}/authentication-controller-test/test-register-user/http-response.adoc [ ]
+
+
+
+As you can see the format is very simple, and in fact you always get the same message.

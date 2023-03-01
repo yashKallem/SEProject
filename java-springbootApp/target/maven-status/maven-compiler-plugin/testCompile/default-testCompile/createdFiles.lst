@@ -1,0 +1,4 @@
+com\campuscollaborate\CampusCollaborateTests.class
+com\campuscollaborate\controller\UserControllerTest.class
+com\campuscollaborate\UserControllerTest.class
+com\campuscollaborate\AuthenticationControllerTest.class
