@@ -1,0 +1,11 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 204
+
+{
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMC43OTc1MTY5OTkyNzgzMTAyQHdpdS5lZHUiLCJpYXQiOjE2Nzc1NzM2MTAsImV4cCI6MTY3NzU3NTA1MH0.VMp1euHUGoCvtj-xr_grQV50uAOz3dwla1zkAauXcfw",
+  "httpStatus" : null
+}
+----

@@ -6,3 +6,10 @@ services:
     command: npm start
     ports:
       - 3000:3000
+  java:
+    image: seproject/java:latest
+    container_name: javaApi
+    build: ./java-springbootApp
+#    command: npm start
+    ports:
+      - 8080:8080
