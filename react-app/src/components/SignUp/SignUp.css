@@ -1,13 +1,13 @@
-.sign-in-border {
+div.sign-up-page div#border {
   border: 10px solid #0055cd;
   margin: 30px 25vw;
-  padding: 25px;
+  padding: 15px;
 }
 
-.sign-in-header {
-  margin-bottom: 27vh;
-  white-space: pre-line;
-  font-size: 7vw;
+div.sign-up-page div#header {
+  /* white-space: pre-line; */
+  font-size: min(5vw, 10vh);
+  margin-bottom: 20px;
   font-weight: bold;
   color: #0055cd;
 }
@@ -24,7 +24,7 @@ input {
   padding: 10px 20px;
   margin: 5px;
   border-radius: 12px;
-  font-size: x-large;
+  font-size: large;
   border: 5px solid #0055cd;
   background-color: white;
   color: #0055cd;
@@ -33,5 +33,4 @@ input {
 .submit-button {
   background-color: #0055cd;
   color: white;
-  cursor: pointer;
 }
