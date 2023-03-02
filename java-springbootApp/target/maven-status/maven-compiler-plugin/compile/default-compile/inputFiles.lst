@@ -1,34 +1,34 @@
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\helper\Mapper.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\responseEntity\AuthenticationResponse.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\controller\UserController.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\CustomWebConfigurer.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\controller\ProjectController.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\service\AuthenticationService.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\responseEntity\CustomResponse.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\repository\UserRepository.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\config\JwtAuthenticationFilter.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\dto\ForgotPasswordRequestDto.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\dto\ProjectDto.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\requestEntity\AuthenticationRequest.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\controller\HomeController.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\dto\HomeDto.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\service\ProjectService.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\entity\ProjectEntity.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\requestEntity\RegisterRequest.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\LoggingService.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\InterceptLog.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\CampusCollaborate.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\utility\Role.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\LoggingServiceImpl.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\controller\DemoController.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\controller\RestAPIController.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\service\UserService.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\config\ApplicationConfig.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\controller\AuthenticationController.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\dto\UserDto.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\service\JwtService.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\entity\UserEntity.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\RequestBodyInterceptor.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\ResponseBodyInterceptor.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\repository\ProjectRepository.java
-C:\Users\shams\Downloads\SEProject-main\SEProject-main\java-springbootApp\src\main\java\com\campuscollaborate\config\SecurityConfiguration.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\requestEntity\RegisterRequest.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\helper\Mapper.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\repository\ProjectRepository.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\responseEntity\AuthenticationResponse.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\controller\DemoController.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\LoggingService.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\config\ApplicationConfig.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\LoggingServiceImpl.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\dto\ProjectDto.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\dto\ForgotPasswordRequestDto.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\config\SecurityConfiguration.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\requestEntity\AuthenticationRequest.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\controller\RestAPIController.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\controller\UserController.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\entity\UserEntity.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\controller\ProjectController.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\RequestBodyInterceptor.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\service\JwtService.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\utility\Role.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\service\AuthenticationService.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\config\JwtAuthenticationFilter.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\dto\UserDto.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\repository\UserRepository.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\responseEntity\CustomResponse.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\controller\HomeController.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\controller\AuthenticationController.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\ResponseBodyInterceptor.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\service\ProjectService.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\CustomWebConfigurer.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\LoggingConfig\InterceptLog.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\entity\ProjectEntity.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\service\UserService.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\CampusCollaborate.java
+C:\Course materials\SE Project\v2\SEProject\java-springbootApp\src\main\java\com\campuscollaborate\dto\HomeDto.java

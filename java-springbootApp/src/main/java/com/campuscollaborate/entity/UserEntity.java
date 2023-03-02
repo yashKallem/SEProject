@@ -55,6 +55,8 @@ public class UserEntity implements UserDetails {
     private List<Long> projectIds;
 
 
+
+
     @Override
     public String toString() {
         return "UserEntity{" +
