@@ -11,7 +11,7 @@ Host: localhost:8080
   "dob" : 760082400000,
   "educationLevel" : "masters",
   "courseOfStudy" : "CSE",
-  "email" : "s0.7975169992783102@wiu.edu",
+  "email" : "s0.9411169142849991@wiu.edu",
   "password" : "password",
   "phone" : "9876543210",
   "role" : "USER"

@@ -1,7 +1,7 @@
 [source,json,options="nowrap"]
 ----
 {
-  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMC43OTc1MTY5OTkyNzgzMTAyQHdpdS5lZHUiLCJpYXQiOjE2Nzc1NzM2MTAsImV4cCI6MTY3NzU3NTA1MH0.VMp1euHUGoCvtj-xr_grQV50uAOz3dwla1zkAauXcfw",
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMC45NDExMTY5MTQyODQ5OTkxQHdpdS5lZHUiLCJpYXQiOjE2Nzc3MzM1NTcsImV4cCI6MTY3NzczNDk5N30.H3KwRJZHOZXd3CHvJxgFwqFVIlCxSENFd-CtDJKMCF8",
   "httpStatus" : null
 }
 ----
