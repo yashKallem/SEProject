@@ -1,26 +1,41 @@
+.sign-up-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 div.sign-up-page div#border {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   border: 10px solid #0055cd;
   margin: 30px 25vw;
-  padding: 15px;
+  padding: 25px;
 }
 
 div.sign-up-page div#header {
-  /* white-space: pre-line; */
-  font-size: min(5vw, 10vh);
-  margin-bottom: 20px;
+  white-space: pre-line;
+  font-size: 10vh;
   font-weight: bold;
   color: #0055cd;
 }
 
-form {
+div.sign-up-page form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-input {
-  display: inline-block;
+div.sign-up-page div.form-fields {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+div.sign-up-page input {
   padding: 10px 20px;
   margin: 5px;
   border-radius: 12px;
@@ -30,7 +45,8 @@ input {
   color: #0055cd;
 }
 
-.submit-button {
+div.sign-up-page input[type=submit] {
   background-color: #0055cd;
   color: white;
+  cursor: pointer;
 }

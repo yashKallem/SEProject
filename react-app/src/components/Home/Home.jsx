@@ -11,10 +11,10 @@ class Home extends Component {
         <header>{title}</header>
         <div className="button-container">
           <Link to="/signin">
-            <button className="home-button" id="sign-in">Sign in</button>
+            <button id="sign-in">Sign in</button>
           </Link>
           <Link to="/signup">
-            <button className="home-button" id="sign-up">Create an account</button>
+            <button id="sign-up">Create an account</button>
           </Link>
         </div>
         <div className="img-container">

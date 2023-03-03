@@ -1,20 +1,27 @@
+.home-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 div.home-page header {
-  margin-top: 20px;
+  height: 40%;
   white-space: pre-line;
-  font-size: 8vw;
+  font-size: 12vh;
   font-weight: bold;
   color: #0055cd;
 }
 
 .button-container {
+  height: 10%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.home-button {
-  display: inline-block;
+div.home-page button {
   padding: 10px 20px;
   margin: 20px 15px;
   border-radius: 12px;
@@ -34,11 +41,7 @@ div.home-page header {
 }
 
 .img-container {
+  height: 40%;
   display: flex;
   justify-content: center;
-}
-
-img {
-  height: auto;
-  max-width: 100%;
 }
