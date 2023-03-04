@@ -9,6 +9,7 @@ com\campuscollaborate\responseEntity\AuthenticationResponse$AuthenticationRespon
 com\campuscollaborate\controller\RestAPIController.class
 com\campuscollaborate\entity\UserEntity$UserEntityBuilder.class
 com\campuscollaborate\repository\ProjectRepository.class
+com\campuscollaborate\config\CorsConfig.class
 com\campuscollaborate\entity\ProjectEntity$ProjectEntityBuilder.class
 com\campuscollaborate\requestEntity\AuthenticationRequest$AuthenticationRequestBuilder.class
 com\campuscollaborate\requestEntity\RegisterRequest.class
@@ -33,6 +34,7 @@ com\campuscollaborate\entity\ProjectEntity.class
 com\campuscollaborate\LoggingConfig\LoggingServiceImpl.class
 com\campuscollaborate\requestEntity\AuthenticationRequest.class
 com\campuscollaborate\CampusCollaborate.class
+com\campuscollaborate\config\CorsConfig$1.class
 com\campuscollaborate\controller\DemoController.class
 com\campuscollaborate\LoggingConfig\ResponseBodyInterceptor.class
 com\campuscollaborate\service\AuthenticationService.class
