@@ -6,22 +6,25 @@ import com.campuscollaborate.requestEntity.RegisterRequest;
 import com.campuscollaborate.responseEntity.AuthenticationResponse;
 import com.campuscollaborate.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
 
     private final AuthenticationService authenticationService;
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequest request){
+    public  ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequest request){
+
        return  ResponseEntity.ok(authenticationService.register(request));
     }
 
-    @GetMapping("/authenticate")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest request){
         return  ResponseEntity.ok(authenticationService.authenticate(request));
     }
