@@ -1,15 +1,76 @@
-Getting Started With Spring REST Docs of *Campus Collaborate*
+= Campus Collaborate REST API Documentation
 
-All the Rest API end points are available at
-http://localhost:8080/api/index
+== Authentication API
 
-This is an example output for a service running at http://localhost:8080/api/v1/auth/register
+The Authentication API allows users to register, login, and logout.
 
+=== Register a User
+
+Registers a new user.
+
+==== Request
+
+include::{snippets}/authentication-controller-test/test-add-user/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/authentication-controller-test/test-add-user/http-response.adoc[]
+
+==== Test Case: Adding the same user twice
+
+Given a running service at http://localhost:8080/api/v1/auth/register
+And a user with the email "example@test.com" has already been added to the database
+
+When a request is made to add a user with the same email "shamsi@wiu.edu" to the database
+Then the service should return a 409 Conflict status code
+And the response should contain an error message indicating that the user already exists
+
+Example output:
 request
-include::{snippets}/authentication-controller-test/test-register-user/http-request.adoc [ ]
+include::{snippets}/authentication-controller-test/test-already-added-user/http-request.adoc [ ]
 response
-include::{snippets}/authentication-controller-test/test-register-user/http-response.adoc [ ]
+include::{snippets}/authentication-controller-test/test-already-added-user/http-response.adoc [ ]
+
+
+Explanation:
+
+This test case checks if the service correctly handles the scenario when the same user is being added twice. In this example, we assume that a user with email "shamsi@wiu.edu" has already been added to the database. When a request is made to add another user with the same email, the service should detect the duplicate and return a 409 Conflict status code. The response should contain an error message indicating that the user already exists. This helps to ensure data integrity and prevent duplicate entries in the database.
+
+
+==== Login
+
+Logs in a user and returns a JWT token.
+
+==== Request
+
+include::{snippets}/authentication-controller-test/test-login-with-correct-password/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/authentication-controller-test/test-login-with-correct-password/http-response.adoc[]
+
+
+==== Test Case: Invalid credentials
+Given a running service at http://localhost:8080/api/v1/auth/authenticate
+To verify that an error message is returned when invalid credentials (email and password) are provided for user authentication.
+
+Test data:
+email: shamsi@wiu.edu
+password: password123
+
+==== Request
+
+include::{snippets}/authentication-controller-test/test-login-with-wrong-password/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/authentication-controller-test/test-login-with-wrong-password/http-response.adoc[]
+
+Expected result:
+
+The API should return a response with status code 401 (Unauthorized) and an error message indicating that the provided credentials are invalid.
+The error message should be well-formatted and should clearly indicate that the email and/or password provided are incorrect.
+The response should not contain any sensitive information such as the actual password of the user.
 
 
 
-As you can see the format is very simple, and in fact you always get the same message.

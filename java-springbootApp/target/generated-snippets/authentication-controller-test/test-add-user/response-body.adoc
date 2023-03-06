@@ -1,0 +1,7 @@
+[source,json,options="nowrap"]
+----
+{
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMjMxQHdpdS5lZHUiLCJpYXQiOjE2NzgwNjcyMzgsImV4cCI6MTY3ODA2ODY3OH0.lBsmZ6vtKpTDr6FXXKMx5ubjn-TWfby1qUK53WNYkYo",
+  "httpStatus" : "OK"
+}
+----
