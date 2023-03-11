@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .sign-in-border {
   border: 10px solid #0055cd;
   margin: 30px 25vw;
@@ -34,4 +35,57 @@ input {
   background-color: #0055cd;
   color: white;
   cursor: pointer;
+=======
+.sign-in-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.sign-in-page div#border {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 10px solid #0055cd;
+  margin: 30px 25vw;
+  padding: 25px;
+}
+
+div.sign-in-page div#header {
+  white-space: pre-line;
+  font-size: 10vh;
+  font-weight: bold;
+  color: #0055cd;
+}
+
+div.sign-in-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+div.sign-in-page div.form-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.sign-in-page input {
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 12px;
+  font-size: large;
+  border: 5px solid #0055cd;
+  background-color: white;
+  color: #0055cd;
+}
+
+div.sign-in-page input[type=submit] {
+  background-color: #0055cd;
+  color: white;
+  cursor: pointer;
+>>>>>>> Stashed changes
 }

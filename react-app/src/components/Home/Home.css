@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 div.home-page header {
   margin-top: 20px;
   white-space: pre-line;
@@ -41,4 +42,52 @@ div.home-page header {
 img {
   height: auto;
   max-width: 100%;
+=======
+.home-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.home-page header {
+  height: 40%;
+  white-space: pre-line;
+  font-size: 12vh;
+  font-weight: bold;
+  color: #0055cd;
+}
+
+.button-container {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+div.home-page button {
+  padding: 10px 20px;
+  margin: 20px 15px;
+  border-radius: 12px;
+  font-size: x-large;
+  border: 5px solid #0055cd;
+  cursor: pointer;
+}
+
+#sign-in {
+  background-color: #0055cd;
+  color: white;
+}
+
+#sign-up {
+  background-color: white;
+  color: #0055cd;
+}
+
+.img-container {
+  height: 40%;
+  display: flex;
+  justify-content: center;
+>>>>>>> Stashed changes
 }
