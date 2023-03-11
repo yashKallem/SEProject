@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navigate } from 'react-router-dom';
 import './SignIn.css';
 
 class SignIn extends Component {
@@ -6,7 +7,8 @@ class SignIn extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      isSignedIn: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,9 +31,13 @@ class SignIn extends Component {
         password: this.state.password
       })
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
       .then(data => {
-        this.props.history.push('/profile');
+        // console.log(data);
+        this.setState({ isSignedIn: true });
       })
       .catch(error => {
         console.error(error);
@@ -52,6 +58,9 @@ class SignIn extends Component {
             <input type="submit" value="Sign in" />
             {/* Forgot password? */}
           </form>
+          {this.state.isSignedIn && (
+            <Navigate to="/profile" replace={true} />
+          )}
         </div>
       </div>
     );

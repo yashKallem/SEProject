@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navigate } from 'react-router-dom';
 import './SignUp.css';
 
 class SignUp extends Component {
@@ -12,7 +13,8 @@ class SignUp extends Component {
       password: '',
       educationLevel: '',
       courseOfStudy: '',
-      phone: ''
+      phone: '',
+      hasCreated: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,31 +26,33 @@ class SignUp extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     fetch('http://localhost:8080/api/v1/auth/register', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         givenName: this.state.firstName,
         lastName: this.state.lastName,
-        dob: new Date(),
-        educationLevel: this.state.educationLevel,
-        courseOfStudy: this.state.courseOfStudy,
+        dob: this.state.dateOfBirth,
         email: this.state.email,
         password: this.state.password,
-        phone: this.state.phone,
-        role: "USER",
-      }),
-      headers: {
-        Accept: "application/json",
-        'Content-type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // setAuthTokens(data);
-        this.props.history.push('/profile');
+        educationLevel: this.state.educationLevel,
+        courseOfStudy: this.state.courseOfStudy,
+        phone: this.state.phone
       })
-      .catch((err) => {
-        console.log(err.message);
+    })
+      .then(response => {
+        if (!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+      .then(data => {
+        // console.log(data);
+        this.setState({ hasCreated: true });
+      })
+      .catch(error => {
+        console.error(error);
       });
   }
 
@@ -71,6 +75,9 @@ class SignUp extends Component {
             </div>
             <input type="submit" value="Sign up" />
           </form>
+          {this.state.hasCreated && (
+            <Navigate to="/profile" replace={true} />
+          )}
         </div>
       </div>
     );

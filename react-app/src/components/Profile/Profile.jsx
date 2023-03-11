@@ -16,38 +16,41 @@ class Profile extends Component {
     };
   }
 
-//   componentDidMount() {
+  //   componentDidMount() {
 
-//   }
+  //   }
 
   render() {
     return (
       <div className="profile-page">
-        <div className="sidebar" id="summary">
-          <div id="biography">
-            <h2>About</h2>
-            <div>{this.state.firstName} {this.state.lastName}</div>
-            <div>{this.state.courseOfStudy}</div>
-            <div>{this.state.educationLevel}</div>
+        {/* NAVBAR */}
+        <div className="sidebar-container">
+          <div className="sidebar" id="summary">
+            <div id="biography">
+              <h2>About</h2>
+              <div>{this.state.firstName} {this.state.lastName}</div>
+              <div>{this.state.courseOfStudy}</div>
+              <div>{this.state.educationLevel}</div>
+            </div>
+            <div id="contact">
+              <h2>Contact Information</h2>
+              <div>☻ {this.state.email}</div>
+              <div>☻ {this.state.phone}</div>
+            </div>
           </div>
-          <div id="contact">
-            <h2>Contact Information</h2>
-            <div>☻ {this.state.email}</div>
-            <div>☻ {this.state.phone}</div>
-          </div>
-        </div>
-        <div className="sidebar" id="experience">
-          <div id="education">
-            <h2>Education</h2>
-            {this.state.colleges.map(college => (
-              <div>{college}</div>
-            ))}
-          </div>
-          <div id="work">
-            <h2>Work Experience</h2>
-            {this.state.jobs.map(job => (
-              <div>{job}</div>
-            ))}
+          <div className="sidebar" id="experience">
+            <div id="education">
+              <h2>Education</h2>
+              {this.state.colleges.map(college => (
+                <div>{college}</div>
+              ))}
+            </div>
+            <div id="work">
+              <h2>Work Experience</h2>
+              {this.state.jobs.map(job => (
+                <div>{job}</div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

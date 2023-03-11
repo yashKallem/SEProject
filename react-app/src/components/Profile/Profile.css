@@ -1,15 +1,19 @@
 .profile-page {
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile-page .sidebar-container {
+  display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 
 .profile-page .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  /* gap: 10px; */
+  row-gap: 10px;
 }
 
 .profile-page #summary {
@@ -25,7 +29,6 @@
 
 .profile-page #education {
   overflow-y: auto;
-  margin: 20px;
 }
 
 .profile-page #work {
