@@ -1,0 +1,7 @@
+[source,json,options="nowrap"]
+----
+{
+  "token" : "Failed to save user: could not execute statement; SQL [n/a]; constraint [users_email_key]",
+  "httpStatus" : "CONFLICT"
+}
+----

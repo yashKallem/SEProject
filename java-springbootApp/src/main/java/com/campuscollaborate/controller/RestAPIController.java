@@ -17,5 +17,17 @@ public class RestAPIController {
         byte[] fileContent = FileCopyUtils.copyToByteArray(resource.getInputStream());
         return ResponseEntity.ok().body(fileContent);
     }
+    @GetMapping("/api/commands")
+    public ResponseEntity<byte[]> showCommands() throws IOException, java.io.IOException {
+        Resource resource = new ClassPathResource("/static/helpfulcommands.html");
+        byte[] fileContent = FileCopyUtils.copyToByteArray(resource.getInputStream());
+        return ResponseEntity.ok().body(fileContent);
+    }
+    @GetMapping("/api/authentication")
+    public ResponseEntity<byte[]> showAuthenticationApi() throws IOException, java.io.IOException {
+        Resource resource = new ClassPathResource("/static/authentication.html");
+        byte[] fileContent = FileCopyUtils.copyToByteArray(resource.getInputStream());
+        return ResponseEntity.ok().body(fileContent);
+    }
 }
 

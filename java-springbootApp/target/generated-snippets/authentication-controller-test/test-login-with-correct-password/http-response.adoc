@@ -1,0 +1,14 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 187
+
+{
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODUxODM0NCwiZXhwIjoxNjc4NTE5Nzg0fQ.reYdd9yNzTncnmn0AluMlRusgWmUNF2PJmhuKhhe5NY",
+  "httpStatus" : "OK"
+}
+----

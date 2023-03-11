@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.campuscollaborate.CampusCollaborateTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.72 s - in com.campuscollaborate.CampusCollaborateTests

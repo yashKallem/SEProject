@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docker PostgreSQL Commands</title>
+</head>
+<body>
+<div>
+    <h1>Command to run Docker PostgreSQL container</h1>
+    <p>The above command runs a Docker container with the latest version of the PostgreSQL image, sets the environment variable POSTGRES_PASSWORD to "postgrespw", and maps the container's port 5432 to the host's port 32768.</p>
+    <p style="color: blue;">Command:</p>
+    <p style="color: green;">docker run -e POSTGRES_PASSWORD=postgrespw -p 32768:5432 postgres:latest</p>
+</div>
+<div>
+    <h1>Command to take backup of PostgreSQL database running on Docker</h1>
+    <p>To take a backup of a PostgreSQL database running on Docker, you can use the pg_dump command. Here's an example command:</p>
+    <p style="color: blue;">Command:</p>
+    <p style="color: green;">docker exec &lt;container_name&gt; pg_dump -U &lt;username&gt; &lt;database_name&gt; &gt; backup.sql</p>
+    <p>This command runs the pg_dump command inside the Docker container and saves the output to a file named backup.sql in the current directory. Replace &lt;container_name&gt; with the name or ID of your PostgreSQL Docker container, &lt;username&gt; with the database user that you want to use for the backup, and &lt;database_name&gt; with the name of the database that you want to back up.</p>
+</div>
+</body>
+</html>
