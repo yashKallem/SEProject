@@ -1,7 +1,7 @@
 [source,json,options="nowrap"]
 ----
 {
-  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODA2NzIzOSwiZXhwIjoxNjc4MDY4Njc5fQ.NJH_nW9G1y9RJVdSneOQHNZqEgF8ts4BLFyIC2I80xk",
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODUxODM0NCwiZXhwIjoxNjc4NTE5Nzg0fQ.reYdd9yNzTncnmn0AluMlRusgWmUNF2PJmhuKhhe5NY",
   "httpStatus" : "OK"
 }
 ----

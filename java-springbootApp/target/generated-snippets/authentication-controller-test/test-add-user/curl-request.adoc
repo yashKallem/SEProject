@@ -8,7 +8,7 @@ $ curl 'http://localhost:8080/api/v1/auth/register' -i -X POST \
   "dob" : 760082400000,
   "educationLevel" : "masters",
   "courseOfStudy" : "CSE",
-  "email" : "s231@wiu.edu",
+  "email" : "s91@wiu.edu",
   "password" : "password",
   "phone" : "9876543210",
   "role" : "USER"
