@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   web:
     image: seproject/react:latest
@@ -6,10 +8,30 @@ services:
     command: npm start
     ports:
       - 3000:3000
+    depends_on:
+      - postgresdb
+    restart: always
+
   java:
     image: seproject/java:latest
     container_name: javaApi
     build: ./java-springbootApp
-#    command: npm start
     ports:
       - 8080:8080
+    depends_on:
+      - postgresdb
+    restart: always
+
+  postgresdb:
+    image: postgres:13.3
+    container_name: postgresdb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespw
+      POSTGRES_DB: campuscollaborate
+      POSTGRES_INITDB_SCRIPT: /docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "32768:5432"
+    volumes:
+      - ./postgres-data:/docker-entrypoint-initdb.d
+    restart: "no"

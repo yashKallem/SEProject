@@ -27,9 +27,9 @@ And the response should contain an error message indicating that the user alread
 
 Example output:
 request
-include::{snippets}/authentication-controller-test/test-already-added-user/http-request.adoc [ ]
+include::{snippets}/authentication-controller-test/test-already-added-user/http-request.adoc
 response
-include::{snippets}/authentication-controller-test/test-already-added-user/http-response.adoc [ ]
+include::{snippets}/authentication-controller-test/test-already-added-user/http-response.adoc
 
 
 Explanation:
