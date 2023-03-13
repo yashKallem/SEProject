@@ -8,7 +8,8 @@ class SignIn extends Component {
     this.state = {
       email: '',
       password: '',
-      isSignedIn: false
+      status: '',
+      token: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,13 +32,13 @@ class SignIn extends Component {
         password: this.state.password
       })
     })
-      .then(response => {
-        if (!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         // console.log(data);
-        this.setState({ isSignedIn: true });
+        this.setState({
+          status: data.httpStatus,
+          token: data.token
+        });
       })
       .catch(error => {
         console.error(error);
@@ -58,8 +59,8 @@ class SignIn extends Component {
             <input type="submit" value="Sign in" />
             {/* Forgot password? */}
           </form>
-          {this.state.isSignedIn && (
-            <Navigate to="/profile" replace={true} />
+          {this.state.status === "OK" && (
+            <Navigate to="/profile" state={{ token: this.state.token, email: this.state.email }} replace={true} />
           )}
         </div>
       </div>

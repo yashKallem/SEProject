@@ -14,7 +14,8 @@ class SignUp extends Component {
       educationLevel: '',
       courseOfStudy: '',
       phone: '',
-      hasCreated: false
+      status: '',
+      token: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,13 +44,13 @@ class SignUp extends Component {
         phone: this.state.phone
       })
     })
-      .then(response => {
-        if (!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         // console.log(data);
-        this.setState({ hasCreated: true });
+        this.setState({
+          status: data.httpStatus,
+          token: data.token
+        });
       })
       .catch(error => {
         console.error(error);
@@ -66,7 +67,7 @@ class SignUp extends Component {
             <div className="form-fields">
               <input type="text" placeholder="First name" required name="firstName" value={this.state.firstName} onChange={this.handleChange} />
               <input type="text" placeholder="Last name" required name="lastName" value={this.state.lastName} onChange={this.handleChange} />
-              <input type="text" placeholder="Date of birth" required name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} />
+              <input type="date" placeholder="Date of birth" required name="dateOfBirth" value={this.state.dateOfBirth} onChange={this.handleChange} />
               <input type="text" placeholder="Phone" name="phone" value={this.state.phone} onChange={this.handleChange} />
               <input type="text" placeholder="Education level" required name="educationLevel" value={this.state.educationLevel} onChange={this.handleChange} />
               <input type="text" placeholder="Course of study" required name="courseOfStudy" value={this.state.courseOfStudy} onChange={this.handleChange} />
@@ -75,8 +76,8 @@ class SignUp extends Component {
             </div>
             <input type="submit" value="Sign up" />
           </form>
-          {this.state.hasCreated && (
-            <Navigate to="/profile" replace={true} />
+          {this.state.status === "OK" && (
+            <Navigate to="/profile" state={{ token: this.state.token, email: this.state.email }} replace={true} />
           )}
         </div>
       </div>
