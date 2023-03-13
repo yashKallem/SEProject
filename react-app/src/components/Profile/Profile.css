@@ -1,0 +1,37 @@
+.profile-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile-page .sidebar-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-page .sidebar {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.profile-page #summary {
+  flex: 1 1 0;
+  overflow-y: auto;
+}
+
+.profile-page #experience {
+  display: flex;
+  flex: 2 1 0;
+  min-height: 0;
+}
+
+.profile-page #education {
+  overflow-y: auto;
+}
+
+.profile-page #work {
+  overflow-y: auto;
+  margin: 20px;
+}

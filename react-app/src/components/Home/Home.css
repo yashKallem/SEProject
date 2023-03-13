@@ -5,7 +5,7 @@
   justify-content: center;
 }
 
-div.home-page header {
+.home-page header {
   height: 40%;
   white-space: pre-line;
   font-size: 12vh;
@@ -21,7 +21,7 @@ div.home-page header {
   justify-content: center;
 }
 
-div.home-page button {
+.home-page button {
   padding: 10px 20px;
   margin: 20px 15px;
   border-radius: 12px;

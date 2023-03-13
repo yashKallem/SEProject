@@ -5,37 +5,37 @@
   justify-content: center;
 }
 
-div.sign-in-page div#border {
+.sign-in-page #border {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   border: 10px solid #0055cd;
-  margin: 30px 25vw;
-  padding: 25px;
+  margin: 5vh 25vw;
+  padding: 5vh;
 }
 
-div.sign-in-page div#header {
+.sign-in-page #header {
   white-space: pre-line;
   font-size: 10vh;
   font-weight: bold;
   color: #0055cd;
 }
 
-div.sign-in-page form {
+.sign-in-page form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-div.sign-in-page div.form-fields {
+.sign-in-page .form-fields {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-div.sign-in-page input {
+.sign-in-page input {
   padding: 10px 20px;
   margin: 5px;
   border-radius: 12px;
@@ -45,7 +45,7 @@ div.sign-in-page input {
   color: #0055cd;
 }
 
-div.sign-in-page input[type=submit] {
+.sign-in-page input[type=submit] {
   background-color: #0055cd;
   color: white;
   cursor: pointer;
