@@ -1,5 +1,6 @@
 package com.campuscollaborate.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
     private Long userId;
     private String givenName;
@@ -20,6 +22,11 @@ public class UserDto {
     private String phone;
     private String role;
     private List<ProjectDto> projects;
+    private List<EducationDto> educationHistory;
+    private List<WorkExperienceDto> workHistory;
+    private List<SkillDto> skills;
+    private List<NetworkDto> network;
+    private SummaryDto summary;
     private String username;
     private  String educationLevel;
     private  String courseOfStudy;

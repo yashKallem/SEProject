@@ -1,8 +1,0 @@
-[source,json,options="nowrap"]
-----
-{
-  "email" : "shamsi@Wiu.edu",
-  "password" : "password123",
-  "newPassword" : null
-}
-----

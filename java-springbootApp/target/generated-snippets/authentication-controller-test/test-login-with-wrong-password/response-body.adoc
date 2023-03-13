@@ -1,7 +1,0 @@
-[source,json,options="nowrap"]
-----
-{
-  "token" : "Failed to Authenticate user: Bad credentials",
-  "httpStatus" : "UNAUTHORIZED"
-}
-----

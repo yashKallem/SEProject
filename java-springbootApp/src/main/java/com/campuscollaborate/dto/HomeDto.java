@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class HomeDto {
 
-    private List<UserEntity> users;
-
+    private List<UserDto> users;
+    private List<ProjectDto> projects;
 }

@@ -1,9 +1,0 @@
-[source,bash]
-----
-$ echo '{
-  "email" : "shamsi@wiu.edu",
-  "password" : "password",
-  "newPassword" : null
-}' | http POST 'http://localhost:8080/api/v1/auth/authenticate' \
-    'Content-Type:application/json'
-----
