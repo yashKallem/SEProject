@@ -30,6 +30,15 @@ public class UserService {
         return usersDto;
     }
 
+    public  List<UserDto> getOnlyUsers(){
+        List<UserEntity> users = userRepository.findAll();
+        List<UserDto> usersDto = new ArrayList<>();
+        for (UserEntity user : users ) {
+            usersDto.add(Mapper.getOnlyUserDTO(user));
+        }
+        return usersDto;
+    }
+
     public UserDto getUserById(Long userId) {
         Optional<UserEntity> user=  userRepository.findByUserId(userId);
         UserDto userDTO = null;
@@ -38,6 +47,17 @@ public class UserService {
         }
         return userDTO;
         
+
+    }
+
+    public UserDto getUserAndHisProjectsById(Long userId) {
+        Optional<UserEntity> user=  userRepository.findByUserId(userId);
+        UserDto userDTO = null;
+        if(user!=null && user.isPresent()){
+            userDTO =Mapper.getUserEntityToUserDTOOOptionalForProjects(user);
+        }
+        return userDTO;
+
 
     }
 
@@ -50,28 +70,28 @@ public class UserService {
         return userDTO;
     }
 
-    public List<ProjectDto> getProjectsByUserId(int userId) {
-        List<ProjectEntity> projectEntities = projectRepository.findByUserUserId(userId);
-        List<ProjectDto> projects = new ArrayList<>();
-        for (ProjectEntity project : projectEntities ) {
-            projects.add(Mapper.ProjectEntityToProjectDto(project));
-        }
-        return projects;
-    }
+//    public List<ProjectDto> getProjectsByUserId(Long userId) {
+//        List<ProjectEntity> projectEntities = projectRepository.findByUserUserId(userId);
+//        List<ProjectDto> projects = new ArrayList<>();
+//        for (ProjectEntity project : projectEntities ) {
+//            projects.add(Mapper.projectEntityToProjectDto(project));
+//        }
+//        return projects;
+//    }
 
-    public List<ProjectDto> getProjectsByUserEmail(String email) {
-
-        Optional<UserEntity> user = userRepository.findByEmail(email);
-        List<ProjectDto> projects = new ArrayList<>();
-        if(user.isPresent()){
-            List<ProjectEntity> projectEntities = projectRepository.findByUserUserId(Math.toIntExact(user.get().getUserId()));
-            for (ProjectEntity project : projectEntities ) {
-                projects.add(Mapper.ProjectEntityToProjectDto(project));
-            }
-            return projects;
-        }
-        return  projects;
-    }
+//    public List<ProjectDto> getProjectsByUserEmail(String email) {
+//
+//        Optional<UserEntity> user = userRepository.findByEmail(email);
+//        List<ProjectDto> projects = new ArrayList<>();
+//        if(user.isPresent()){
+//            List<ProjectEntity> projectEntities = projectRepository.findByUserUserId(user.get().getUserId());
+//            for (ProjectEntity project : projectEntities ) {
+//                projects.add(Mapper.projectEntityToProjectDto(project));
+//            }
+//            return projects;
+//        }
+//        return  projects;
+//    }
     public UserEntity addUser(UserEntity user) {
       return  userRepository.save(user);
     }
