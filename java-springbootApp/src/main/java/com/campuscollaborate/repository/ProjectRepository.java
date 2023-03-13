@@ -1,9 +1,7 @@
 package com.campuscollaborate.repository;
 
 import com.campuscollaborate.entity.ProjectEntity;
-import jakarta.persistence.Tuple;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,15 +9,16 @@ import java.util.Optional;
 
 
 @Repository
-public interface ProjectRepository extends JpaRepository<ProjectEntity, Integer> {
+public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
 
-    Optional<ProjectEntity> findByProjectName(String projectName);
+    Optional<ProjectEntity> findById(Long id);
 
-    List<ProjectEntity> findAllByProjectName(String projectName);
+    ProjectEntity findByProjectName(String projectName);
 
-    List<ProjectEntity> findByUserUserId(Integer userId);
+    List<ProjectEntity> findByLocation(String location);
+
+    List<ProjectEntity> findByPublishedByUserIdOrPublishedByEmail(Long userId, String email);
 
 
-    @Query("SELECT p, u FROM ProjectEntity p JOIN p.user u WHERE p.projectName = ?1")
-    Optional<Tuple> findByProjectNameWithUser(String projectName);
+
 }

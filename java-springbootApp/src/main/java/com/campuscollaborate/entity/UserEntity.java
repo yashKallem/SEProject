@@ -46,13 +46,33 @@ public class UserEntity implements UserDetails {
     private  String  password;
   //  @Column(name = "project_ids", columnDefinition = "bigint[]")
    // private Long[] projectIds;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publishedBy", cascade = CascadeType.ALL)
     private List<ProjectEntity> projects;
 
     @ElementCollection
     @CollectionTable(name = "user_projects", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "project_id")
     private List<Long> projectIds;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<EducationEntity> educationEntities;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private SummaryEntity summary;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<WorkExperienceEntity> workExperienceEntities;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<SkillEntity> skillEntities;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<NetworkEntity> networkEntityList;
+
+//    @ElementCollection
+//    @CollectionTable(name = "education", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "id")
+//    private List<Long> educationEntityIds;
 
 
 

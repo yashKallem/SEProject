@@ -7,10 +7,10 @@ import com.campuscollaborate.repository.ProjectRepository;
 import com.campuscollaborate.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,13 +22,17 @@ public class ProjectController {
     // private ProjectRepository projectRepository;
     @Autowired
     private ProjectService projectService;
-    @Autowired
-    private ProjectRepository projectRepository;
+
 
     @GetMapping("/all")
     public ResponseEntity<List<ProjectDto>> getAllProjects() {
         List<ProjectDto> projects = projectService.getAllProjects();
-        return ResponseEntity.ok().body(projects);
+        if (projects.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok().body(projects);
+        }
+
     }
 
     @GetMapping("/{id}")
@@ -45,36 +49,41 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public ProjectEntity createProject(@RequestBody ProjectEntity project) {
-        return projectService.createProject(project);
+    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectEntity project) {
 
+        ProjectDto projectDto = projectService.createProject(project);
+        if (projectDto == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } else {
+            return ResponseEntity.ok().body(projectDto);
+        }
     }
 
     @GetMapping("/user")
     public ResponseEntity<ProjectDto> findByProjectNameWithUser(@Param("project_name") String project_name) {
-
-        Optional<ProjectEntity> project = projectRepository.findByProjectName(project_name);
-        ProjectDto projectDto = new ProjectDto();
-        if (project.isPresent()) {
-            projectDto = Mapper.ProjectEntityToProjectDtoOptional(project);
+        ProjectDto project = projectService.findByProjectName(project_name);
+        if (project == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(project);
         }
-        return ResponseEntity.ok().body(projectDto);
+
     }
 
     @GetMapping("/projects/{projectName}")
-    public ResponseEntity<List<ProjectDto>> getProjectsByProjectName(@PathVariable String projectName) {
-        List<ProjectEntity> projectEntities = projectRepository.findAllByProjectName(projectName);
-        List<ProjectDto> projects = new ArrayList<>();
-        for (ProjectEntity project : projectEntities ) {
-            projects.add(Mapper.ProjectEntityToProjectDto(project));
+    public ResponseEntity<ProjectDto> getProjectsByProjectName(@PathVariable String projectName) {
+        ProjectDto project = projectService.findByProjectName(projectName);
+        if (project == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(project);
         }
-        return ResponseEntity.ok(projects);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectEntity> updateProject(@PathVariable(value = "id") int projectId,
-                                                       @RequestBody ProjectEntity projectDetails) {
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable(value = "id") int projectId,
+                                                    @RequestBody ProjectEntity projectDetails) {
         return projectService.updateProject(projectId, projectDetails);
     }
 
