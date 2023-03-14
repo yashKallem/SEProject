@@ -3,17 +3,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import NavigationBar from './components/NavBar/NavBar';
+import Feed from './components/Feed/Feed';
+import Profile from './components/Profile/Profile';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <NavigationBar />
         <Routes>
         <Route exact path='/' element={<Home />} />
           <Route exact path='/signin' element={<SignIn />} />
           <Route exact path='/signup' element={<SignUp />} />
+          <Route exact path='/feed' element={<Feed />} />
           <Route exact path='/profile' element={<Profile />} />
         </Routes>
       </Router>

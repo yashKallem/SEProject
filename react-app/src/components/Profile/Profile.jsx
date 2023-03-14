@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from '../NavBar/NavBar';
 import './Profile.css';
 
 class Profile extends Component {
@@ -11,9 +12,9 @@ class Profile extends Component {
       educationLevel: 'Master\'s',
       email: 'first.last@email.edu',
       phone: '123-456-7890',
-      skills: ['skill1', 'skill2', 'skill1'],
-      colleges: ['College1', 'College2', 'College1', 'College1', 'College2', 'College1', 'College2'],
-      jobs: ['Job1', 'Job2', 'College1', 'College2', 'College1', 'College2', 'College1', 'College2']
+      skills: ['Skill', 'Skill', 'Skill'],
+      colleges: [['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year']],
+      jobs: [['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year']]
     };
   }
 
@@ -40,7 +41,7 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile-page">
-        {/* NAVBAR */}
+        <Navbar />
         <div className="sidebar-container">
           <div className="sidebar" id="summary">
             <div id="biography">
@@ -64,15 +65,25 @@ class Profile extends Component {
           <div className="sidebar" id="experience">
             <div id="education">
               <h2>Education</h2>
-              {this.state.colleges.map(college => (
-                <div>{college}</div>
-              ))}
+              <div className="table">
+                {this.state.colleges.map(college => (
+                  <div className="row">
+                    <div className="col">{college[0]}</div>
+                    <div className="col">{college[1]}</div>
+                  </div>
+                ))}
+              </div>
             </div>
             <div id="work">
               <h2>Work Experience</h2>
-              {this.state.jobs.map(job => (
-                <div>{job}</div>
-              ))}
+              <div className="table">
+                {this.state.jobs.map(job => (
+                  <div className="row">
+                    <div className="col">{job[0]}</div>
+                    <div className="col">{job[1]}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

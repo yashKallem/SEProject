@@ -21,40 +21,56 @@ public class ProjectService {
         List<ProjectEntity> projectEntities=  projectRepository.findAll();
         List<ProjectDto> projects = new ArrayList<>();
         for (ProjectEntity project : projectEntities ) {
-            projects.add(Mapper.ProjectEntityToProjectDto(project));
+            projects.add(Mapper.projectEntityToProjectDto(project));
         }
         return projects;
     }
 
-    public Optional<ProjectDto> getProjectById(int projectId) {
+    public List<ProjectDto> getOnlyProjects() {
+        List<ProjectEntity> projectEntities=  projectRepository.findAll();
+        List<ProjectDto> projects = new ArrayList<>();
+        for (ProjectEntity project : projectEntities ) {
+            projects.add(Mapper.getOnlyProjectDto(project));
+        }
+        return projects;
+    }
+
+    public Optional<ProjectDto> getProjectById(long projectId) {
         Optional<ProjectEntity> project = projectRepository.findById(projectId);
-        if (((Optional<?>) project).isPresent()) {
-            return Optional.ofNullable(Mapper.ProjectEntityToProjectDtoOptional(project));
+        if (project.isPresent()) {
+            return Optional.ofNullable(Mapper.projectEntityToProjectDtoOptional(project));
         } else {
            return Optional.empty();
         }
     }
 
-    public ProjectEntity createProject(ProjectEntity project) {
-        project=   projectRepository.save(project);
-        return project;
+    public ProjectDto createProject(ProjectEntity project) {
+       ProjectEntity proj=   projectRepository.save(project);
+        return  Mapper.projectEntityToProjectDtoWithoutUserDTO(proj);
     }
 
-    public ResponseEntity<ProjectEntity> updateProject(int projectId, ProjectEntity projectDetails) {
+    public ResponseEntity<ProjectDto> updateProject(long projectId, ProjectEntity projectDetails) {
         Optional<ProjectEntity> project = projectRepository.findById(projectId);
         if (project.isPresent()) {
             ProjectEntity updatedProject = project.get();
             updatedProject.setProjectName(projectDetails.getProjectName());
             updatedProject.setProjectDescription(projectDetails.getProjectDescription());
+            updatedProject.setProjectRole(projectDetails.getProjectRole());
+            updatedProject.setId(projectId);
+            updatedProject.setDeadline(projectDetails.getDeadline());
+            updatedProject.setLocation(projectDetails.getLocation());
+            updatedProject.setPublishedBy(projectDetails.getPublishedBy());
+            updatedProject.setJobDescription(projectDetails.getJobDescription());
             // updatedProject.setUser(projectDetails.getUserId());
-            projectRepository.save(updatedProject);
-            return ResponseEntity.ok().body(updatedProject);
+            updatedProject =projectRepository.save(updatedProject);
+
+            return ResponseEntity.ok().body(Mapper.projectEntityToProjectDto(updatedProject));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    public ResponseEntity<?> deleteProject(int projectId) {
+    public ResponseEntity<?> deleteProject(long projectId) {
         Optional<ProjectEntity> project = projectRepository.findById(projectId);
         if (project.isPresent()) {
             projectRepository.delete(project.get());
@@ -62,5 +78,14 @@ public class ProjectService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ProjectDto findByProjectName(String projectName) {
+        ProjectEntity project=  projectRepository.findByProjectName(projectName);
+        ProjectDto projectDto = new ProjectDto();
+        if (project != null) {
+            projectDto = Mapper.projectEntityToProjectDtoOptional(Optional.of(project));
+        }
+        return projectDto;
     }
 }
