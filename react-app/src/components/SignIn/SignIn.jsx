@@ -60,7 +60,7 @@ class SignIn extends Component {
             {/* Forgot password? */}
           </form>
           {this.state.status === "OK" && (
-            <Navigate to="/profile" state={{ token: this.state.token, email: this.state.email }} replace={true} />
+            <Navigate to="/feed" state={{ token: this.state.token, email: this.state.email }} replace={true} />
           )}
         </div>
       </div>

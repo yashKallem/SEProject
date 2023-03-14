@@ -9,12 +9,10 @@ const NavigationBar=()=>{
     <>
       <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
-          <Navbar.Brand href="#feed">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#feed">Campus Collaborate</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="signin">signin</Nav.Link>
-            <Nav.Link href="signup">signup</Nav.Link>
-            <Nav.Link href="#feed">Feed</Nav.Link>
-            <Nav.Link href="#profile">Profile</Nav.Link>
+            <Nav.Link href="/feed">Feed</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
            </Nav>
         </Container>
       </Navbar>
