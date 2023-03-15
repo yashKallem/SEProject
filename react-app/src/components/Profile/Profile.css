@@ -1,0 +1,39 @@
+.profile-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile-page .sidebar-container {
+  display: flex;
+  flex-direction: row;
+  margin: 2vw 2vh;
+}
+
+.profile-page .sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.profile-page #summary {
+  flex: 1 1 0;
+}
+
+.profile-page #experience {
+  flex: 2 1 0;
+}
+
+.profile-page .table {
+  display: flex;
+  flex-direction: column;
+  max-height: 35vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.profile-page .row {
+  display: flex;
+  flex-direction: row;
+}

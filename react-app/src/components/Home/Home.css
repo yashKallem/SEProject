@@ -1,0 +1,47 @@
+.home-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home-page header {
+  height: 40%;
+  white-space: pre-line;
+  font-size: 12vh;
+  font-weight: bold;
+  color: #0055cd;
+}
+
+.button-container {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page button {
+  padding: 10px 20px;
+  margin: 20px 15px;
+  border-radius: 12px;
+  font-size: x-large;
+  border: 5px solid #0055cd;
+  cursor: pointer;
+}
+
+#sign-in {
+  background-color: #0055cd;
+  color: white;
+}
+
+#sign-up {
+  background-color: white;
+  color: #0055cd;
+}
+
+.img-container {
+  height: 40%;
+  display: flex;
+  justify-content: center;
+}
