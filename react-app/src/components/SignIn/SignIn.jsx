@@ -36,13 +36,13 @@ class SignIn extends Component {
       .then(data => {
         // console.log(data);
         this.setState({
-          status: data.httpStatus,
-          token: data.token
+          // email: '',
+          password: '',
+          token: data.token,
+          status: data.httpStatus
         });
       })
-      .catch(error => {
-        console.error(error);
-      });
+      .catch(error => console.error(error));
   }
 
   render() {
@@ -52,16 +52,31 @@ class SignIn extends Component {
         <div id="border">
           <div id="header">{title}</div>
           <form onSubmit={this.handleSubmit}>
+            {(() => {
+              if (this.state.status === "OK") {
+                return (
+                  <Navigate to="/feed" state={{ token: this.state.token, email: this.state.email }} replace={true} />
+                )
+              } else if (this.state.status === "UNAUTHORIZED") {
+                return (
+                  <div className="error-message">Incorrect username or password</div>
+                )
+              } else if (this.state.status === "INTERNAL_SERVER_ERROR") {
+                return (
+                  <div className="error-message">Something went wrong. Please try again later</div>
+                )
+              } else {
+                return (
+                  <div>&nbsp;</div>
+                )
+              }
+            })()}
             <div className="form-fields">
               <input type="text" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
               <input type="password" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
             </div>
             <input type="submit" value="Sign in" />
-            {/* Forgot password? */}
           </form>
-          {this.state.status === "OK" && (
-            <Navigate to="/feed" state={{ token: this.state.token, email: this.state.email }} replace={true} />
-          )}
         </div>
       </div>
     );
