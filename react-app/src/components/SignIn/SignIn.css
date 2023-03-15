@@ -29,6 +29,10 @@
   justify-content: center;
 }
 
+.sign-in-page .error-message {
+  color: red;
+}
+
 .sign-in-page .form-fields {
   display: flex;
   flex-direction: column;
