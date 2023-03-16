@@ -16,9 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+<<<<<<< Updated upstream
 @RequestMapping("/api/v1/projects")
 @CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
+=======
+@RequestMapping("/api/projects")
+>>>>>>> Stashed changes
 public class ProjectController {
 
     // @Autowired
