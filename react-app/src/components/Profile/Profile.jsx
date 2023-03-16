@@ -19,7 +19,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token');
+   // const token = localStorage.getItem('token');
     const email = "shamsi@wiu.edu";
     const url = `http://localhost:8080/api/v1/users/profile?email=${email}`;
 
@@ -27,7 +27,7 @@ class Profile extends Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk1MDk3OSwiZXhwIjoxNjc4OTUyNDE5fQ.Q1s088Zk4dL18VqspojFF6EmY8k3W8GuCPx4QjQ8lu4`
       }
     })
     .then(response => {
