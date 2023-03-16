@@ -15,7 +15,7 @@
 .profile-page .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .profile-page #summary {
@@ -24,6 +24,10 @@
 
 .profile-page #experience {
   flex: 2 1 0;
+}
+
+.profile-page .sidebar-content {
+  margin-bottom: auto;
 }
 
 .profile-page .table {
