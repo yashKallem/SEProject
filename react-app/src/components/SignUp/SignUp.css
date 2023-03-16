@@ -29,6 +29,10 @@
   justify-content: center;
 }
 
+.sign-up-page .error-message {
+  color: red;
+}
+
 .sign-up-page .form-fields {
   display: flex;
   flex-flow: row wrap;
@@ -43,6 +47,10 @@
   border: 5px solid #0055cd;
   background-color: white;
   color: #0055cd;
+}
+
+.sign-up-page input:not([type=submit]) {
+  width: 45%;
 }
 
 .sign-up-page input[type=submit] {
