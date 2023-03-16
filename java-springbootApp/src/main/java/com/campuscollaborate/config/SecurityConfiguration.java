@@ -26,6 +26,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                // Permit access to index.html
                 .requestMatchers(HttpMethod.GET,"/api/**").permitAll()
+                .requestMatchers("/api/v1/**").permitAll()
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .anyRequest().authenticated()

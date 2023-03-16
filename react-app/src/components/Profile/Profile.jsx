@@ -13,24 +13,32 @@ class Profile extends Component {
       email: 'first.last@email.edu',
       phone: '123-456-7890',
       skills: ['Skill', 'Skill', 'Skill'],
-      colleges: [['College', 'Year'], ['College', 'Year'], ['College', 'Year']],
-      jobs: [['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year']]
+      colleges: [['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year']],
+      jobs: [['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year']]
     };
   }
 
   componentDidMount() {
-    const email = "alice@test.edu"
-    const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkd…Dg0fQ.ABAVBtssY-GvHcpHEQvw4VnI5ZAQ53VZJ1oTN20LFuM";
+    const token = localStorage.getItem('token');
+    const email = "shamsi@wiu.edu";
+    const url = `http://localhost:8080/api/v1/users/profile?email=${email}`;
 
-    fetch(`http://localhost:8080/users/profile/${email}`, {
+    fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': encodeURIComponent(`Bearer ${token}`)
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      // handle the error
+    });
   }
 
   render() {
@@ -46,9 +54,7 @@ class Profile extends Component {
               <div>{this.state.educationLevel}</div>
             </div>
             <div id="contact">
-              <div className="header">
-                <h2>Contact Information</h2>
-              </div>
+              <h2>Contact Information</h2>
               <div>{this.state.email}</div>
               <div>{this.state.phone}</div>
             </div>
@@ -89,4 +95,5 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+export default Profile;
+
