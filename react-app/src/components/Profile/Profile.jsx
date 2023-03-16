@@ -18,6 +18,7 @@ class Profile extends Component {
     };
   }
 
+<<<<<<< Updated upstream
   // componentDidMount() {
   //   const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkd…Dg0fQ.ABAVBtssY-GvHcpHEQvw4VnI5ZAQ53VZJ1oTN20LFuM";
   //   fetch("http://localhost:8080/users/profile/alice@test.edu", {
@@ -37,6 +38,30 @@ class Profile extends Component {
   //       console.error(error);
   //     });
   // }
+=======
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    const email = "shamsi@wiu.edu";
+    const url = `http://localhost:8080/api/v1/users/profile?email=${email}`;
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      // handle the error
+    });
+  }
+>>>>>>> Stashed changes
 
   render() {
     return (
@@ -92,4 +117,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+export default Profile;

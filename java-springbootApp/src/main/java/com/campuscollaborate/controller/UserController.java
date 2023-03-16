@@ -5,6 +5,7 @@ import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.entity.UserEntity;
 import com.campuscollaborate.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,9 @@ import java.util.List;
  * user controller
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
+@CrossOrigin("http://localhost:3000")
+@RequiredArgsConstructor
 public class UserController {
 
     @Autowired
@@ -42,8 +45,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/profile/{email}")
-    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
+    @GetMapping("/profile")
+    public ResponseEntity<UserDto> getUserByEmail(@RequestParam("email") String email) {
         UserDto userDto = (userService.getUserByEmail(email));
         if (userDto != null) {
             return ResponseEntity.ok().body(userDto);
@@ -51,6 +54,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 
     @GetMapping("/{userId}/projects")
     public ResponseEntity<UserDto> getProjectsByUserId(@PathVariable Long userId) {

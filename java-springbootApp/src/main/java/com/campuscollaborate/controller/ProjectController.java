@@ -5,6 +5,7 @@ import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.helper.Mapper;
 import com.campuscollaborate.repository.ProjectRepository;
 import com.campuscollaborate.service.ProjectService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/v1/projects")
+@CrossOrigin("http://localhost:3000")
+@RequiredArgsConstructor
 public class ProjectController {
 
     // @Autowired
