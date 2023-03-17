@@ -1,6 +1,7 @@
 package com.campuscollaborate.repository;
 
 import com.campuscollaborate.entity.ProjectEntity;
+import com.campuscollaborate.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,8 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
     Optional<ProjectEntity> findById(Long id);
 
     ProjectEntity findByProjectName(String projectName);
+    List<ProjectEntity> findByPublishedBy(Optional<UserEntity> user);
+
 
     List<ProjectEntity> findByLocation(String location);
 

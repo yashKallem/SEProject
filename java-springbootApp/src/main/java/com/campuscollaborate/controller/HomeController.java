@@ -16,12 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-<<<<<<< Updated upstream
 @RequestMapping("/api/v1/feed")
 @CrossOrigin("http://localhost:3000")
-=======
-@RequestMapping("/api/feed")
->>>>>>> Stashed changes
 @RequiredArgsConstructor
 public class HomeController {
     @Autowired

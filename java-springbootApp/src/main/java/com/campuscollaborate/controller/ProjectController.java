@@ -1,10 +1,12 @@
 package com.campuscollaborate.controller;
 
 import com.campuscollaborate.dto.ProjectDto;
+import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.helper.Mapper;
 import com.campuscollaborate.repository.ProjectRepository;
 import com.campuscollaborate.service.ProjectService;
+import com.campuscollaborate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -15,21 +17,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
-<<<<<<< Updated upstream
 @RequestMapping("/api/v1/projects")
 @CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
-=======
-@RequestMapping("/api/projects")
->>>>>>> Stashed changes
 public class ProjectController {
 
     // @Autowired
     // private ProjectRepository projectRepository;
     @Autowired
     private ProjectService projectService;
-
+    @Autowired
+    public UserService userService;
 
     @GetMapping("/all")
     public ResponseEntity<List<ProjectDto>> getAllProjects() {
@@ -41,6 +41,8 @@ public class ProjectController {
         }
 
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ProjectDto>> getProjectById(@PathVariable(value = "id") int projectId) {
@@ -56,7 +58,7 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectEntity project) {
+    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto project) {
 
         ProjectDto projectDto = projectService.createProject(project);
         if (projectDto == null) {
@@ -99,4 +101,13 @@ public class ProjectController {
         return projectService.deleteProject(projectId);
 
     }
+
+
+
+//    @GetMapping("")
+//    public ResponseEntity<List<ProjectDto>> getUserByEmail(@RequestParam("email") String email) {
+//
+//        return ResponseEntity.ok().body(projectService.findByPublishedBy(email));
+//
+//    }
 }
