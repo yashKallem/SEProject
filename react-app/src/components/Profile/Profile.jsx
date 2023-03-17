@@ -1,98 +1,100 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../NavBar/NavBar';
 import './Profile.css';
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: 'First',
-      lastName: 'Last',
-      courseOfStudy: 'Computer Science',
-      educationLevel: 'Master\'s',
-      email: 'first.last@email.edu',
-      phone: '123-456-7890',
-      skills: ['Skill', 'Skill', 'Skill'],
-      colleges: [['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year'], ['College', 'Year']],
-      jobs: [['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year'], ['Job', 'Year']]
-    };
-  }
+const Profile = () => {
+  const [params, setParams] = useState({
+    firstName: '',
+    lastName: '',
+    courseOfStudy: '',
+    educationLevel: '',
+    email: '',
+    phone: '',
+    skills: [],
+    colleges: [],
+    jobs: []
+  });
 
-  componentDidMount() {
-   // const token = localStorage.getItem('token');
-    const email = "shamsi@wiu.edu";
-    const url = `http://localhost:8080/api/v1/users/profile?email=${email}`;
-
-    fetch(url, {
+  const location = useLocation();
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/v1/users/profile?email=${location.state.email}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTAyOTIzOSwiZXhwIjoxNjc5MDMwNjc5fQ._vty5dHd2mza75moKDA4upwKdDqdL09kMuZqchwXp-Q`
+        'Authorization': `Bearer ${location.state.token}`
       }
     })
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      // handle the error
-    });
-  }
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        // console.log(data);
+        setParams({
+          firstName: data.givenName,
+          lastName: data.lastName,
+          courseOfStudy: data.courseOfStudy,
+          educationLevel: data.educationLevel,
+          email: data.email,
+          phone: data.phone,
+          skills: data.skills,
+          colleges: data.educationHistory,
+          jobs: data.workHistory
+        });
+      })
+      .catch(error => console.log(error));
+  }, [location]);
 
-  render() {
-    return (
-      <div className="profile-page">
-        <Navbar />
-        <div className="sidebar-container">
-          <div className="sidebar" id="summary">
-            <div id="biography">
-              <h2>About</h2>
-              <div>{this.state.firstName} {this.state.lastName}</div>
-              <div>{this.state.courseOfStudy}</div>
-              <div>{this.state.educationLevel}</div>
-            </div>
-            <div id="contact">
-              <h2>Contact Information</h2>
-              <div>{this.state.email}</div>
-              <div>{this.state.phone}</div>
-            </div>
-            <div id="skills">
-              <h2>Skills</h2>
-              <div>
-                {this.state.skills.join(', ')}
-              </div>
+  return (
+    <div className="profile-page">
+      <Navbar />
+      <div className="sidebar-container">
+        <div className="sidebar" id="summary">
+          <div className="sidebar-content" id="biography">
+            <h2>About</h2>
+            <div>{params.firstName} {params.lastName}</div>
+            <div>{params.courseOfStudy}</div>
+            <div>{params.educationLevel}</div>
+          </div>
+          <div className="sidebar-content" id="contact">
+            <h2>Contact Information</h2>
+            <div>{params.email}</div>
+            <div>{params.phone}</div>
+          </div>
+          <div className="sidebar-content" id="skills">
+            <h2>Skills</h2>
+            <div>
+              {params.skills.join(', ')}
             </div>
           </div>
-          <div className="sidebar" id="experience">
-            <div id="education">
-              <h2>Education</h2>
-              <div className="table">
-                {this.state.colleges.map(college => (
-                  <div className="row">
-                    <div className="col">{college[0]}</div>
-                    <div className="col">{college[1]}</div>
-                  </div>
-                ))}
-              </div>
+        </div>
+        <div className="sidebar" id="experience">
+          <div className="sidebar-content" id="education">
+            <h2>Education</h2>
+            <div className="table">
+              {params.colleges.map(college => (
+                <div className="row">
+                  <div className="col">{college[0]}</div>
+                  <div className="col">{college[1]}</div>
+                </div>
+              ))}
             </div>
-            <div id="work">
-              <h2>Work Experience</h2>
-              <div className="table">
-                {this.state.jobs.map(job => (
-                  <div className="row">
-                    <div className="col">{job[0]}</div>
-                    <div className="col">{job[1]}</div>
-                  </div>
-                ))}
-              </div>
+          </div>
+          <div className="sidebar-content" id="work">
+            <h2>Work Experience</h2>
+            <div className="table">
+              {params.jobs.map(job => (
+                <div className="row">
+                  <div className="col">{job[0]}</div>
+                  <div className="col">{job[1]}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Profile;
