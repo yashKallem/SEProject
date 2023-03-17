@@ -29,5 +29,6 @@ public class ProjectDto {
     private UserDto publishedBy;
 
     private Date deadline;
+    private String email;
 
 }

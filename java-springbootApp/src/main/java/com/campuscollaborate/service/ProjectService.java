@@ -1,20 +1,23 @@
 package com.campuscollaborate.service;
 
 import com.campuscollaborate.dto.ProjectDto;
+import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.ProjectEntity;
+import com.campuscollaborate.entity.UserEntity;
 import com.campuscollaborate.helper.Mapper;
 import com.campuscollaborate.repository.ProjectRepository;
+import com.campuscollaborate.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class ProjectService {
-
+    @Autowired
+    private UserRepository userRepository;
      @Autowired
      private ProjectRepository projectRepository;
     public List<ProjectDto> getAllProjects() {
@@ -44,9 +47,24 @@ public class ProjectService {
         }
     }
 
-    public ProjectDto createProject(ProjectEntity project) {
-       ProjectEntity proj=   projectRepository.save(project);
-        return  Mapper.projectEntityToProjectDtoWithoutUserDTO(proj);
+    public ProjectDto createProject(ProjectDto project) {
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setProjectName(project.getProjectName());
+        projectEntity.setProjectDescription(project.getProjectDescription());
+        projectEntity.setProjectRole(project.getProjectRole());
+        projectEntity.setLocation(project.getLocation());
+        projectEntity.setPublishedAt(project.getPublishedAt());
+        projectEntity.setJobDescription(project.getJobDescription());
+        projectEntity.setDeadline(project.getDeadline());
+
+        // Get the user ID from the database using the email
+        Optional<UserEntity> publishedBy = userRepository.findByEmail(project.getEmail());
+        if (publishedBy.isEmpty()) {
+            return null;
+        }
+        projectEntity.setPublishedBy(publishedBy.get());
+        ProjectEntity createdProject = projectRepository.save(projectEntity);
+        return Mapper.projectEntityToProjectDto(createdProject);
     }
 
     public ResponseEntity<ProjectDto> updateProject(long projectId, ProjectEntity projectDetails) {
@@ -87,5 +105,18 @@ public class ProjectService {
             projectDto = Mapper.projectEntityToProjectDtoOptional(Optional.of(project));
         }
         return projectDto;
+    }
+
+    public List<ProjectDto> findByPublishedBy(String email) {
+        Optional<UserEntity> user= userRepository.findByEmail(email);
+        if(user!=null){
+            List<ProjectEntity> projectEntities= projectRepository.findByPublishedBy(user);
+            List<ProjectDto> projects = new ArrayList<>();
+            for (ProjectEntity project : projectEntities ) {
+                projects.add(Mapper.projectEntityToProjectDto(project));
+            }
+            return projects;
+        }
+        return  null;
     }
 }

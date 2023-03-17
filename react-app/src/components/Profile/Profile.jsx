@@ -27,7 +27,7 @@ class Profile extends Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk1MDk3OSwiZXhwIjoxNjc4OTUyNDE5fQ.Q1s088Zk4dL18VqspojFF6EmY8k3W8GuCPx4QjQ8lu4`
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTAyOTIzOSwiZXhwIjoxNjc5MDMwNjc5fQ._vty5dHd2mza75moKDA4upwKdDqdL09kMuZqchwXp-Q`
       }
     })
     .then(response => {

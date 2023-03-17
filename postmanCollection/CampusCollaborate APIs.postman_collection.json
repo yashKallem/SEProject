@@ -308,6 +308,47 @@
 			"name": "projects",
 			"item": [
 				{
+					"name": "/api/v1/projects/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTAzNjU1MSwiZXhwIjoxNjc5MDM3OTkxfQ.IYCiAnD5584Wm5RoRAKYB7BqdJ8-b-HZEwrzChNs69k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"projectName\": \"Project z\",\r\n    \"projectDescription\": \"This project is about developing a new mobile application\",\r\n    \"projectRole\": \"Mobile Developer\",\r\n    \"location\": \"New York\",\r\n    \"publishedAt\": \"2023-03-17T10:00:00.000Z\",\r\n    \"jobDescription\": \"We are looking for an experienced mobile developer who can work on both iOS and Android platforms\",\r\n    \"deadline\": \"2023-04-17T10:00:00.000Z\",\r\n    \"email\":\"shamsi@wiu.edu\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/projects/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/projects/all",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true

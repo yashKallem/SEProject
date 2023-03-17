@@ -17,13 +17,10 @@ import java.util.List;
  * user controller
  */
 @RestController
-<<<<<<< Updated upstream
 @RequestMapping("/api/v1/users")
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
-=======
-@RequestMapping("/api/users")
->>>>>>> Stashed changes
 public class UserController {
 
     @Autowired
