@@ -56,7 +56,6 @@ public class ProjectService {
         projectEntity.setPublishedAt(project.getPublishedAt());
         projectEntity.setJobDescription(project.getJobDescription());
         projectEntity.setDeadline(project.getDeadline());
-
         // Get the user ID from the database using the email
         Optional<UserEntity> publishedBy = userRepository.findByEmail(project.getEmail());
         if (publishedBy.isEmpty()) {
@@ -67,25 +66,53 @@ public class ProjectService {
         return Mapper.projectEntityToProjectDto(createdProject);
     }
 
-    public ResponseEntity<ProjectDto> updateProject(long projectId, ProjectEntity projectDetails) {
-        Optional<ProjectEntity> project = projectRepository.findById(projectId);
-        if (project.isPresent()) {
-            ProjectEntity updatedProject = project.get();
-            updatedProject.setProjectName(projectDetails.getProjectName());
-            updatedProject.setProjectDescription(projectDetails.getProjectDescription());
-            updatedProject.setProjectRole(projectDetails.getProjectRole());
-            updatedProject.setId(projectId);
-            updatedProject.setDeadline(projectDetails.getDeadline());
-            updatedProject.setLocation(projectDetails.getLocation());
-            updatedProject.setPublishedBy(projectDetails.getPublishedBy());
-            updatedProject.setJobDescription(projectDetails.getJobDescription());
-            // updatedProject.setUser(projectDetails.getUserId());
-            updatedProject =projectRepository.save(updatedProject);
+    public ProjectDto updateProject( ProjectDto project) {
 
-            return ResponseEntity.ok().body(Mapper.projectEntityToProjectDto(updatedProject));
-        } else {
-            return ResponseEntity.notFound().build();
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setProjectName(project.getProjectName());
+        projectEntity.setProjectDescription(project.getProjectDescription());
+        projectEntity.setProjectRole(project.getProjectRole());
+        projectEntity.setLocation(project.getLocation());
+        projectEntity.setPublishedAt(project.getPublishedAt());
+        projectEntity.setJobDescription(project.getJobDescription());
+        projectEntity.setDeadline(project.getDeadline());
+        projectEntity.setId(project.getProjectId());
+        Optional<UserEntity> publishedBy = userRepository.findByEmail(project.getEmail());
+
+        List<ProjectEntity> projectEntities= projectRepository.findByPublishedBy(publishedBy);
+
+        boolean doesProjectBelongsToUser = projectEntities.stream().anyMatch(proj -> proj.getId() == project.getProjectId());
+        if(!doesProjectBelongsToUser){
+            return null;
         }
+        projectEntity.setPublishedBy(publishedBy.get());
+        ProjectEntity updatedProject = projectRepository.save(projectEntity);
+        return Mapper.projectEntityToProjectDto(updatedProject);
+    }
+
+    public ProjectDto deleteProject( ProjectDto project) {
+
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setId(project.getProjectId());
+        Optional<UserEntity> publishedBy = userRepository.findByEmail(project.getEmail());
+
+        List<ProjectEntity> projectEntities= projectRepository.findByPublishedBy(publishedBy);
+
+        boolean doesProjectBelongsToUser = projectEntities.stream().anyMatch(proj -> proj.getId() == project.getProjectId());
+        if(!doesProjectBelongsToUser){
+            return null;
+        }
+        projectRepository.deleteById(projectEntity.getId());
+        Optional<ProjectEntity> isProjectDeleted = projectRepository.findById(project.getProjectId());
+        ProjectDto projectDto = new ProjectDto();
+        if(isProjectDeleted.isEmpty()){
+            projectDto.setMessage(project.getProjectName() +"is deleted");
+        }
+        else {
+            projectDto.setMessage(project.getProjectName() +"is Deletion Failed");
+        }
+        return projectDto;
+
     }
 
     public ResponseEntity<?> deleteProject(long projectId) {

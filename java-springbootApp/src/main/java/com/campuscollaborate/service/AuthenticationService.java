@@ -23,6 +23,17 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    public boolean checkIfTheUserIsAccessingHisOwnAccount(String bearerToken, String email){
+        String userName = jwtService.extractUsername(bearerToken.substring(7));
+        if(userName.equals(email)){
+            System.out.println("username matched !!");
+            return  true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public AuthenticationResponse register(RegisterRequest request) {
         try {
         var user = UserEntity.builder()
