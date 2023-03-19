@@ -30,24 +30,24 @@ const ProjectScreen = () => {
                 'Authorization': `Bearer ${location.state.token}`
             },
             body: JSON.stringify({
-                "projectName": params.projectName,
-                "projectDescription": "This project is about developing a new mobile application",
-                "projectRole": "Mobile Developer",
-                "location": "New York yash",
-                "publishedAt": "2023-03-17T10:00:00.000Z",
-                "jobDescription": "We are looking for an experienced mobile developer who can work on both iOS and Android platforms",
-                "deadline": "2023-04-17T10:00:00.000Z",
-                "email": "shamsi@wiu.edu"
+                // "projectName": params.projectName,
+                // "projectDescription": "This project is about developing a new mobile application",
+                // "projectRole": "Mobile Developer",
+                // "location": "New York yash",
+                // "publishedAt": "2023-03-17T10:00:00.000Z",
+                // "jobDescription": "We are looking for an experienced mobile developer who can work on both iOS and Android platforms",
+                // "deadline": "2023-04-17T10:00:00.000Z",
+                // "email": "shamsi@wiu.edu"
 
 
-                // projectName: "d",
-                // projectDescription: "d",
-                // projectRole: "d",
-                // location: "d",
-                // publishedAt: new Date(),
-                // jobDescription: "d",
-                // deadline: new Date(),
-                // email: "shamsi@wiu.edu"
+                projectName: "d",
+                projectDescription: "d",
+                projectRole: "d",
+                location: "d",
+                publishedAt: new Date(),
+                jobDescription: "d",
+                deadline: new Date(),
+                email: "shamsi@wiu.edu"
             }
             )
         })
