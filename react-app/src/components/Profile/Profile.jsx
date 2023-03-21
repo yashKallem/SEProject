@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../NavBar/NavBar';
+import Biography from './Biography/Biography';
+import Contact from './Contact/Contact';
+import History from './History/History';
 import './Profile.css';
 
 const Profile = () => {
@@ -51,15 +54,18 @@ const Profile = () => {
       <div className="sidebar-container">
         <div className="sidebar" id="summary">
           <div className="sidebar-content" id="biography">
-            <h2>About</h2>
-            <div>{params.firstName} {params.lastName}</div>
-            <div>{params.courseOfStudy}</div>
-            <div>{params.educationLevel}</div>
+            <Biography 
+              firstName={params.firstName} 
+              lastName={params.lastName} 
+              courseOfStudy={params.courseOfStudy} 
+              educationLevel={params.educationLevel} 
+            />
           </div>
           <div className="sidebar-content" id="contact">
-            <h2>Contact Information</h2>
-            <div>{params.email}</div>
-            <div>{params.phone}</div>
+            <Contact 
+              email={params.email}
+              phone={params.phone}
+            />
           </div>
           <div className="sidebar-content" id="skills">
             <h2>Skills</h2>
@@ -70,26 +76,16 @@ const Profile = () => {
         </div>
         <div className="sidebar" id="experience">
           <div className="sidebar-content" id="education">
-            <h2>Education</h2>
-            <div className="table">
-              {params.colleges.map(college => (
-                <div className="row">
-                  <div className="col">{college[0]}</div>
-                  <div className="col">{college[1]}</div>
-                </div>
-              ))}
-            </div>
+            <History 
+              title={"Education"} 
+              array={params.colleges} 
+            />
           </div>
           <div className="sidebar-content" id="work">
-            <h2>Work Experience</h2>
-            <div className="table">
-              {params.jobs.map(job => (
-                <div className="row">
-                  <div className="col">{job[0]}</div>
-                  <div className="col">{job[1]}</div>
-                </div>
-              ))}
-            </div>
+            <History 
+              title={"Experience"} 
+              array={params.jobs} 
+            />
           </div>
         </div>
       </div>
