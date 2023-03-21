@@ -1,0 +1,29 @@
+.history-component {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-component .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  row-gap: 5vw;
+}
+
+.history-component .edit-icons > * {
+  font-size: large;
+  cursor: pointer;
+}
+
+.history-component .table {
+  display: flex;
+  flex-direction: column;
+  max-height: 35vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.history-component .row {
+  display: flex;
+  flex-direction: row;
+}
