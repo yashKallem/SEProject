@@ -1,0 +1,26 @@
+.skills-component {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.skills-component .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  row-gap: 5vw;
+}
+ 
+.skills-component .edit-icons > * {
+  font-size: large;
+  cursor: pointer;
+}
+
+.skills-component .badges {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+}
+
+.skills-component .badge-content RxCross1 {
+  cursor: pointer;
+}

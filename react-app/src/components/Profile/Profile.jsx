@@ -4,6 +4,7 @@ import Navbar from '../NavBar/NavBar';
 import Biography from './Biography/Biography';
 import Contact from './Contact/Contact';
 import History from './History/History';
+import Skills from './Skills/Skills';
 import './Profile.css';
 
 const Profile = () => {
@@ -68,10 +69,10 @@ const Profile = () => {
             />
           </div>
           <div className="sidebar-content" id="skills">
-            <h2>Skills</h2>
-            <div>
-              {params.skills.join(', ')}
-            </div>
+            <Skills 
+              // skills={params.skills}
+              skills={['skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3']}
+            />
           </div>
         </div>
         <div className="sidebar" id="experience">
