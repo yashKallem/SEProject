@@ -28,11 +28,21 @@ const History = ({ title, array }) => {
 
   const closeModal = () => {
     setShowModal(false);
+    setParams({
+      name: '',
+      startYear: '',
+      endYear: ''
+    });
   }
 
   const addHistory = () => {
     setShowModal(false);
     // Add to table
+    setParams({
+      name: '',
+      startYear: '',
+      endYear: ''
+    });
   }
 
   const deleteHistory = () => {
@@ -61,6 +71,7 @@ const History = ({ title, array }) => {
         </div>
       </div>
       <div className="table">
+        {/* {array.map(item => ( */}
         {array2.map(item => (
           <div className="row">
             <div className="col">{item[0]}</div>
@@ -78,10 +89,10 @@ const History = ({ title, array }) => {
         <Modal.Body>
           <Form>
             <FloatingLabel label="Name">
-              <Form.Control type="text" placeholder="Name" name="name" value={params.name} onChange={handleChange}/>
+              <Form.Control type="text" placeholder="Name" name="name" value={params.name} onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel label="Start year">
-              <Form.Control type="number" maxLength="4" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange}/>
+              <Form.Control type="number" maxLength="4" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel label="End year">
               <Form.Control type="number" maxLength="4" placeholder="End year" name="endYear" value={params.endYear} onChange={handleChange} />
