@@ -1,9 +1,7 @@
 package com.campuscollaborate.service;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +17,8 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final String SECRET_KEY = "7A25432A462D4A614E645266556A586E3272357538782F413F4428472B4B6250";
+
+    private static final long JWT_EXPIRATION_TIME = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
@@ -37,6 +37,24 @@ public class JwtService {
         final String userName = extractUsername(token);
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+    public boolean validateJwtToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            return true;
+        } catch (SignatureException e) {
+            System.out.println("Invalid JWT signature: " + e.getMessage());
+        } catch (MalformedJwtException e) {
+            System.out.println("Invalid JWT token: " + e.getMessage());
+        } catch (ExpiredJwtException e) {
+            System.out.println("JWT token has expired: " + e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            System.out.println("JWT token is unsupported: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("JWT claims string is empty: " + e.getMessage());
+        }
+
+        return false;
+    }
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
@@ -53,7 +71,8 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))  // one hour
+                .setExpiration(new Date((new Date()).getTime() + JWT_EXPIRATION_TIME)) // one day
+                //.setExpiration(new Date(System.currentTimeMillis()+1000*60*24))  // one hour
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
 

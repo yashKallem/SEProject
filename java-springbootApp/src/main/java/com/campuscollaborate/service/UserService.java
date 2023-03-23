@@ -7,7 +7,9 @@ import com.campuscollaborate.entity.UserEntity;
 import com.campuscollaborate.helper.Mapper;
 import com.campuscollaborate.repository.ProjectRepository;
 import com.campuscollaborate.repository.UserRepository;
+import com.campuscollaborate.responseEntity.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,40 +23,41 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private ProjectRepository projectRepository;
+
     public List<UserDto> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
         List<UserDto> usersDto = new ArrayList<>();
-        for (UserEntity user : users ) {
+        for (UserEntity user : users) {
             usersDto.add(Mapper.userEntityToUserDTO(user));
         }
         return usersDto;
     }
 
-    public  List<UserDto> getOnlyUsers(){
+    public List<UserDto> getOnlyUsers() {
         List<UserEntity> users = userRepository.findAll();
         List<UserDto> usersDto = new ArrayList<>();
-        for (UserEntity user : users ) {
+        for (UserEntity user : users) {
             usersDto.add(Mapper.getOnlyUserDTO(user));
         }
         return usersDto;
     }
 
     public UserDto getUserById(Long userId) {
-        Optional<UserEntity> user=  userRepository.findByUserId(userId);
+        Optional<UserEntity> user = userRepository.findByUserId(userId);
         UserDto userDTO = null;
-        if(user!=null && user.isPresent()){
-            userDTO =Mapper.userEntityToUserDTOOOptional(user);
+        if (user != null && user.isPresent()) {
+            userDTO = Mapper.userEntityToUserDTOOOptional(user);
         }
         return userDTO;
-        
+
 
     }
 
     public UserDto getUserAndHisProjectsById(Long userId) {
-        Optional<UserEntity> user=  userRepository.findByUserId(userId);
+        Optional<UserEntity> user = userRepository.findByUserId(userId);
         UserDto userDTO = null;
-        if(user!=null && user.isPresent()){
-            userDTO =Mapper.getUserEntityToUserDTOOOptionalForProjects(user);
+        if (user != null && user.isPresent()) {
+            userDTO = Mapper.getUserEntityToUserDTOOOptionalForProjects(user);
         }
         return userDTO;
 
@@ -62,38 +65,16 @@ public class UserService {
     }
 
     public UserDto getUserByEmail(String email) {
-        Optional<UserEntity> user= userRepository.findByEmail(email);
+        Optional<UserEntity> user = userRepository.findByEmail(email);
         UserDto userDTO = null;
-        if(user!=null && user.isPresent()){
-            userDTO =Mapper.userEntityToUserDTOOOptional(user);
+        if (user != null && user.isPresent()) {
+            userDTO = Mapper.userEntityToUserDTOOOptional(user);
         }
         return userDTO;
     }
 
-//    public List<ProjectDto> getProjectsByUserId(Long userId) {
-//        List<ProjectEntity> projectEntities = projectRepository.findByUserUserId(userId);
-//        List<ProjectDto> projects = new ArrayList<>();
-//        for (ProjectEntity project : projectEntities ) {
-//            projects.add(Mapper.projectEntityToProjectDto(project));
-//        }
-//        return projects;
-//    }
-
-//    public List<ProjectDto> getProjectsByUserEmail(String email) {
-//
-//        Optional<UserEntity> user = userRepository.findByEmail(email);
-//        List<ProjectDto> projects = new ArrayList<>();
-//        if(user.isPresent()){
-//            List<ProjectEntity> projectEntities = projectRepository.findByUserUserId(user.get().getUserId());
-//            for (ProjectEntity project : projectEntities ) {
-//                projects.add(Mapper.projectEntityToProjectDto(project));
-//            }
-//            return projects;
-//        }
-//        return  projects;
-//    }
     public UserEntity addUser(UserEntity user) {
-      return  userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public UserEntity updateUser(UserEntity userEntity) {
@@ -108,21 +89,58 @@ public class UserService {
             user.setLastName(userEntity.getLastName());
             user.setGivenName(userEntity.getGivenName());
             return userRepository.save(user);
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     public Boolean deleteUser(String userEmail) {
         Optional<UserEntity> userEntity = userRepository.findByEmail(userEmail);
-        if(userEntity.isPresent()){
-           return userRepository.deleteByEmail(userEmail);
-
-        }
-        else {
+        if (userEntity.isPresent()) {
+            return userRepository.deleteByEmail(userEmail);
+        } else {
             return false;
         }
+    }
+    public AuthenticationResponse updateUserAboutSection(UserDto userDto) {
+        Optional<UserEntity> userEntity = userRepository.findByEmail(userDto.getEmail());
+        if (userEntity.isPresent()) {
+            UserEntity user = userEntity.get();
+            user.setGivenName(userDto.getGivenName());
+            user.setLastName(userDto.getLastName());
+            user.setCourseOfStudy(userDto.getCourseOfStudy());
+            user.setEducationLevel(userDto.getEducationLevel());
+            userEntity = Optional.of(userRepository.save(user));
+            if(userEntity.isPresent()){
+               if(userEntity.get().getGivenName().equals(userDto.getGivenName())
+                   && userEntity.get().getLastName().equals(userDto.getLastName()) && userEntity.get().getEducationLevel().equals(userDto.getEducationLevel())
+                       && userEntity.get().getCourseOfStudy().equals(userDto.getCourseOfStudy()))
+               {
+                 return   AuthenticationResponse.builder().httpStatus(HttpStatus.OK).build();
+               }
+               else {
+                 return   AuthenticationResponse.builder().httpStatus(HttpStatus.EXPECTATION_FAILED).build();
+               }
+            }
+        }
+        return  AuthenticationResponse.builder().httpStatus(HttpStatus.NOT_FOUND).build();
+    }
 
+    public AuthenticationResponse updateContactSection(UserDto userDto) {
+        Optional<UserEntity> userEntity = userRepository.findByEmail(userDto.getEmail());
+        if (userEntity.isPresent()) {
+            UserEntity user = userEntity.get();
+           user.setPhone(userDto.getPhone());
+            if(userEntity.isPresent()){
+               if(userEntity.get().getPhone().equals(userDto.getPhone())) {
+                   return   AuthenticationResponse.builder().httpStatus(HttpStatus.OK).build();
+               }
+               else {
+                   return   AuthenticationResponse.builder().httpStatus(HttpStatus.EXPECTATION_FAILED).build();
+               }
+            }
+
+        }
+        return  AuthenticationResponse.builder().httpStatus(HttpStatus.NOT_FOUND).build();
     }
 }

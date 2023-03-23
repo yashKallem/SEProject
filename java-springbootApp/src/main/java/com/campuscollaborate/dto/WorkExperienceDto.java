@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkExperienceDto {
+public class WorkExperienceDto extends ResponseDto{
 
     private Long id;
 

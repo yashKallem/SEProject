@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NetworkDto {
+public class NetworkDto extends ResponseDto{
     private Long id;
     private List<NetworkBasicUserDto> networklist;
 }

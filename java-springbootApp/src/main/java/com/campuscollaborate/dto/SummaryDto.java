@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SummaryDto {
+public class SummaryDto  extends ResponseDto{
     private Long id;
     private String summary;
 }

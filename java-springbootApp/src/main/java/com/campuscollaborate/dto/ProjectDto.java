@@ -1,14 +1,10 @@
 package com.campuscollaborate.dto;
 
-import com.campuscollaborate.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Date;
 @Data
@@ -16,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProjectDto extends ErrorResponseDto{
+public class ProjectDto extends ResponseDto {
     private Long projectId;
     private String projectName;
     private String projectDescription;
