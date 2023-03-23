@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EducationDto {
+public class EducationDto extends ResponseDto {
 
     private Long id;
     private String instituteName;

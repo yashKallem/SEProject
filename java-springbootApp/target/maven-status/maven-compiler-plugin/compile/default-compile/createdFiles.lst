@@ -6,6 +6,7 @@ com\campuscollaborate\responseEntity\AuthenticationResponse$AuthenticationRespon
 com\campuscollaborate\entity\UserEntity$UserEntityBuilder.class
 com\campuscollaborate\config\CorsConfig.class
 com\campuscollaborate\requestEntity\AuthenticationRequest$AuthenticationRequestBuilder.class
+com\campuscollaborate\service\SkillService.class
 com\campuscollaborate\dto\SummaryDto$SummaryDtoBuilder.class
 com\campuscollaborate\controller\UserController.class
 com\campuscollaborate\dto\ProjectDto$ProjectDtoBuilder.class
@@ -15,6 +16,7 @@ com\campuscollaborate\LoggingConfig\InterceptLog.class
 com\campuscollaborate\dto\SkillDto.class
 com\campuscollaborate\requestEntity\RegisterRequest$RegisterRequestBuilder.class
 com\campuscollaborate\config\ApplicationConfig.class
+com\campuscollaborate\controller\SkillController.class
 com\campuscollaborate\helper\Mapper.class
 com\campuscollaborate\LoggingConfig\CustomWebConfigurer.class
 com\campuscollaborate\entity\SummaryEntity.class
@@ -36,11 +38,13 @@ com\campuscollaborate\responseEntity\AuthenticationResponse.class
 com\campuscollaborate\service\ProjectService.class
 com\campuscollaborate\dto\UserDto.class
 com\campuscollaborate\controller\RestAPIController.class
+com\campuscollaborate\dto\ResponseDto.class
 com\campuscollaborate\entity\NetworkEntity$NetworkEntityBuilder.class
 com\campuscollaborate\dto\NetworkBasicUserDto$NetworkBasicUserDtoBuilder.class
 com\campuscollaborate\repository\ProjectRepository.class
 com\campuscollaborate\entity\WorkExperienceEntity$WorkExperienceEntityBuilder.class
 com\campuscollaborate\entity\ProjectEntity$ProjectEntityBuilder.class
+com\campuscollaborate\repository\SkillRepository.class
 com\campuscollaborate\requestEntity\RegisterRequest.class
 com\campuscollaborate\LoggingConfig\LoggingService.class
 com\campuscollaborate\dto\ProjectDto.class
@@ -54,6 +58,7 @@ com\campuscollaborate\dto\ErrorResponseDto.class
 com\campuscollaborate\entity\WorkExperienceEntity.class
 com\campuscollaborate\dto\ForgotPasswordRequestDto.class
 com\campuscollaborate\dto\UserDto$UserDtoBuilder.class
+com\campuscollaborate\helper\UserMessage.class
 com\campuscollaborate\repository\UserRepository.class
 com\campuscollaborate\dto\EducationDto$EducationDtoBuilder.class
 com\campuscollaborate\entity\ProjectEntity.class

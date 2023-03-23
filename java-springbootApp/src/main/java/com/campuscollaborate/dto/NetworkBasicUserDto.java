@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NetworkBasicUserDto {
+public class NetworkBasicUserDto extends ResponseDto {
     private Long id;
     private Long userId;
     private String givenName;

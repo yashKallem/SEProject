@@ -4,6 +4,8 @@ import com.campuscollaborate.dto.ProjectDto;
 import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.entity.UserEntity;
+import com.campuscollaborate.requestEntity.AuthenticationRequest;
+import com.campuscollaborate.responseEntity.AuthenticationResponse;
 import com.campuscollaborate.service.AuthenticationService;
 import com.campuscollaborate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +65,17 @@ public class UserController {
 
     }
 
+    @PutMapping("/about")
+    public ResponseEntity<AuthenticationResponse> updateAboutSection(@RequestBody UserDto userDto) {
+        AuthenticationResponse authenticationResponse= userService.updateUserAboutSection(userDto);
+        return ResponseEntity.ok().body(authenticationResponse);
+    }
 
+    @PutMapping("/contact")
+    public ResponseEntity<AuthenticationResponse> updateContactSection(@RequestBody UserDto userDto) {
+        AuthenticationResponse authenticationResponse= userService.updateContactSection(userDto);
+        return ResponseEntity.ok().body(authenticationResponse);
+    }
 
     @GetMapping("/{userId}/projects")
     public ResponseEntity<UserDto> getProjectsByUserId(@PathVariable Long userId) {
