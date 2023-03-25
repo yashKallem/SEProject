@@ -1,16 +1,11 @@
 package com.campuscollaborate.controller;
 
-import com.campuscollaborate.dto.ProjectDto;
 import com.campuscollaborate.dto.UserDto;
-import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.entity.UserEntity;
-import com.campuscollaborate.requestEntity.AuthenticationRequest;
 import com.campuscollaborate.responseEntity.AuthenticationResponse;
-import com.campuscollaborate.service.AuthenticationService;
 import com.campuscollaborate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +17,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/users")
-//@CrossOrigin("http://localhost:3000")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class UserController {

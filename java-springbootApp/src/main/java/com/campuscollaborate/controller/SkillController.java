@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/skills")
-//@CrossOrigin("http://localhost:3000")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class SkillController {
@@ -23,7 +22,7 @@ public class SkillController {
     public SkillService skillService;
 
     @PostMapping("/add")
-    public ResponseEntity<SkillDto> addUserSkill(@RequestHeader("Authorization") String bearerToken,@RequestBody SkillDto skillDto)
+    public ResponseEntity<SkillDto> add(@RequestHeader("Authorization") String bearerToken,@RequestBody SkillDto skillDto)
     {
 
         try{
@@ -32,8 +31,9 @@ public class SkillController {
                 skillDto.setErrorMessage(UserMessage.TOKEN_MISMATCH);
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(skillDto);
             }
-            SkillDto dto = skillService.addSkill(skillDto);
+            SkillDto dto = skillService.add(skillDto);
             if(dto==null){
+                skillDto.setErrorMessage(UserMessage.SKILL_ADDED_FAILED);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(skillDto);
             }
             else{
@@ -42,12 +42,12 @@ public class SkillController {
             }
         }
         catch (Exception ex){
-            skillDto.setErrorMessage(ex.getMessage());
+            skillDto.setErrorMessage(UserMessage.SKILL_ADDED_FAILED+" REASON "+ ex.getMessage());
             return ResponseEntity.status(HttpStatus.OK).body(skillDto);
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<SkillDto> deleteUserSkill(@RequestHeader("Authorization") String bearerToken, @RequestBody SkillDto skillDto) {
+    public ResponseEntity<SkillDto> delete(@RequestHeader("Authorization") String bearerToken, @RequestBody SkillDto skillDto) {
         SkillDto dto = new SkillDto();
         dto.setId(skillDto.getId());
         try {
@@ -56,17 +56,17 @@ public class SkillController {
                 skillDto.setErrorMessage(UserMessage.TOKEN_MISMATCH);
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(dto);
             }
-            boolean isDeleted = skillService.deleteUserSkill(skillDto);
+            boolean isDeleted = skillService.delete(skillDto);
             if(isDeleted){
                 dto.setMessage(UserMessage.SKILL_DELETED);
             }
             else {
-                dto.setMessage(UserMessage.SKILL_DELETED);
+                dto.setMessage(UserMessage.SKILL_DELETE_FAILED);
             }
             return ResponseEntity.status(HttpStatus.OK).body(dto);
         } catch (Exception ex) {
 
-            dto.setErrorMessage(ex.getMessage());
+            dto.setErrorMessage(UserMessage.SKILL_DELETE_FAILED +" REASON: "+ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(dto);
         }
     }

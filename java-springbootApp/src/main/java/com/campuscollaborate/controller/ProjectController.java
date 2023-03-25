@@ -1,10 +1,8 @@
 package com.campuscollaborate.controller;
 
 import com.campuscollaborate.dto.ProjectDto;
-import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.helper.UserMessage;
 import com.campuscollaborate.service.AuthenticationService;
-import com.campuscollaborate.service.JwtService;
 import com.campuscollaborate.service.ProjectService;
 import com.campuscollaborate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +22,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    // @Autowired
-    // private ProjectRepository projectRepository;
     @Autowired
     private ProjectService projectService;
     @Autowired

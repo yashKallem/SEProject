@@ -1,3 +1,7 @@
 /java-springbootApp/target/classes/com/*.class
 *.class
 java-springbootApp/target/classes/com/campuscollaborate/service/*.class
+*.class
+*.class
+*.lst
+*.class

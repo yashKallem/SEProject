@@ -23,7 +23,7 @@ public class UserDto extends ResponseDto{
     private String role;
     private List<ProjectDto> projects;
     private List<EducationDto> educationHistory;
-    private List<WorkExperienceDto> workHistory;
+    private List<WorkDto> workHistory;
     private List<SkillDto> skills;
     private List<NetworkDto> network;
     private SummaryDto summary;
