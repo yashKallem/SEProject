@@ -59,7 +59,7 @@ public class Mapper {
             userDTO.getNetwork().add(networkEntityToNetworkDto(networkEntity));
         }
         userDTO.getEducationHistory().sort(Comparator.comparing(EducationDto::getStartYear));
-        userDTO.getWorkHistory().sort(Comparator.comparing(WorkExperienceDto::getFromDate));
+        userDTO.getWorkHistory().sort(Comparator.comparing(WorkDto::getFromDate));
 
 
         userDTO.setUsername(userEntity.get().getUsername());
@@ -119,7 +119,7 @@ public class Mapper {
             userDTO.getNetwork().add(networkEntityToNetworkDto(networkEntity));
         }
         userDTO.getEducationHistory().sort(Comparator.comparing(EducationDto::getStartYear));
-        userDTO.getWorkHistory().sort(Comparator.comparing(WorkExperienceDto::getFromDate));
+        userDTO.getWorkHistory().sort(Comparator.comparing(WorkDto::getFromDate));
 
 
         userDTO.setUsername(userEntity.getUsername());
@@ -230,14 +230,14 @@ public class Mapper {
 
     }
 
-    public static WorkExperienceDto workExperienceEntityToWorkExperienceDto(WorkExperienceEntity workExperience){
+    public static WorkDto workExperienceEntityToWorkExperienceDto(WorkExperienceEntity workExperience){
 
         if(workExperience ==null){
             return null;
         }
-        return WorkExperienceDto.builder()
+        return WorkDto.builder()
                 .id(workExperience.getId())
-                .achievements(workExperience.getAchievements())
+                .description(workExperience.getDescription())
                 .companyName(workExperience.getCompanyName())
                 .workIndustry(workExperience.getWorkIndustry())
                 .fromDate(workExperience.getFromDate())

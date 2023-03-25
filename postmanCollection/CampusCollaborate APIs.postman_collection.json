@@ -378,7 +378,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTExODk2OCwiZXhwIjoxNjc5MTIwNDA4fQ.jVd8a5MKCp5rtuxKNaN-Hm7YyblUTMMPJ3a1Exyt9iA",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTI2NTkwMiwiZXhwIjoxNjc5MjY3MzQyfQ.CAnR5G_fBr_HpsjafQxhc1YGcV3hWU-IFhRXE802VaU",
 									"type": "string"
 								}
 							]
@@ -428,7 +428,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"projectId\" :\"63\",\r\n    \"projectName\": \"Project sas shams\",\r\n    \"projectDescription\": \"This project is about developing a new mobile application\",\r\n    \"projectRole\": \"Android Developer\",\r\n    \"location\": \"New York\",\r\n    \"publishedAt\": \"2023-03-17T10:00:00.000Z\",\r\n    \"jobDescription\": \"We are looking for an experienced mobile developer who can work on both iOS and Android platforms\",\r\n    \"deadline\": \"2023-04-17T10:00:00.000Z\",\r\n     \"email\":\"shamsi@wiu.edu\"\r\n  \r\n}\r\n",
+							"raw": "{\r\n    \"projectId\" :63,\r\n    \"projectName\": \"Project sas shams\",\r\n    \"projectDescription\": \"This project is about developing a new mobile application\",\r\n    \"projectRole\": \"Android Developer\",\r\n    \"location\": \"New York\",\r\n    \"publishedAt\": \"2023-03-17T10:00:00.000Z\",\r\n    \"jobDescription\": \"We are looking for an experienced mobile developer who can work on both iOS and Android platforms\",\r\n    \"deadline\": \"2023-04-17T10:00:00.000Z\",\r\n     \"email\":\"shamsi@wiu.edu\"\r\n  \r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -460,7 +460,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTExNjM0MiwiZXhwIjoxNjc5MTE3NzgyfQ.LvxD6mqQDNFlrLN3WcO7BGkekDTKXf9VioyfuTVdNYs",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTI2NzE5NywiZXhwIjoxNjc5MjY4NjM3fQ.Vki-VOZ9DIosl45C1gVTfjzA1aI-VJWMBnDGcTv879A",
 									"type": "string"
 								}
 							]
@@ -469,7 +469,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"projectId\" :\"1\",\r\n    \"projectName\": \"Project xyz\",\r\n    \"projectDescription\": \"This project is about developing a new mobile application\",\r\n    \"projectRole\": \"Android Developer\",\r\n    \"location\": \"New York\",\r\n    \"publishedAt\": \"2023-03-17T10:00:00.000Z\",\r\n    \"jobDescription\": \"We are looking for an experienced mobile developer who can work on both iOS and Android platforms\",\r\n    \"deadline\": \"2023-04-17T10:00:00.000Z\",\r\n     \"email\":\"shamsi@wiu.edu\"\r\n  \r\n}\r\n",
+							"raw": "{\r\n    \"projectId\" :\"64\",\r\n     \"email\":\"shamsi@wiu.edu\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,7 +504,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3NzY1Nzc1NywiZXhwIjoxNjc3NjU5MTk3fQ.7MgKeggWM1IqqvxyRyvI42Wy37ksQZ9RVRhixfCLNkU",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTQ1NzEyOSwiZXhwIjoxNjc5NDU4NTY5fQ.4mMKoLnfhaRwt3xdwt0qtDCa7KbCLkPitNoh41ryGqM",
 									"type": "string"
 								}
 							]
@@ -513,7 +513,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -521,13 +521,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/projects/all",
+							"raw": "http://localhost:8080/api/v1/projects/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"v1",
 								"projects",
 								"all"
 							]
@@ -558,7 +560,7 @@
 			]
 		},
 		{
-			"name": "/api/v1/skills",
+			"name": "skills",
 			"item": [
 				{
 					"name": "/api/v1/skills/add",
@@ -637,6 +639,262 @@
 								"v1",
 								"skills",
 								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "education",
+			"item": [
+				{
+					"name": "/api/v1/education/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTc3OTQzOCwiZXhwIjoxNjc5ODY1ODM4fQ.IQ3KIUbAZWdqvzMdxtExBtSQL1LhPzQQicIai4xfXh4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"instituteName\": \"Example University\",\r\n    \"startYear\": 2010,\r\n    \"endYear\": 2014,\r\n    \"degree\": \"Bachelor of Science\",\r\n    \"department\": \"Computer Science\",\r\n    \"email\": \"shamsi@wiu.edu\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/education/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"education",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/education/delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTc3OTQzOCwiZXhwIjoxNjc5ODY1ODM4fQ.IQ3KIUbAZWdqvzMdxtExBtSQL1LhPzQQicIai4xfXh4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":6,\r\n    \"email\": \"shamsi@wiu.edu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/education/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"education",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/education/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTc3OTQzOCwiZXhwIjoxNjc5ODY1ODM4fQ.IQ3KIUbAZWdqvzMdxtExBtSQL1LhPzQQicIai4xfXh4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"id\": 6,\r\n    \"instituteName\": \"updated University\",\r\n    \"startYear\": 2010,\r\n    \"endYear\": 2011,\r\n    \"degree\": \"Bachelor of Science\",\r\n    \"department\": \"Computer Science\",\r\n    \"email\": \"shamsi@wiu.edu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/education/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"education",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "work",
+			"item": [
+				{
+					"name": "/api/v1/work/add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTc3OTQzOCwiZXhwIjoxNjc5ODY1ODM4fQ.IQ3KIUbAZWdqvzMdxtExBtSQL1LhPzQQicIai4xfXh4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workTitle\": \"software developer\",\r\n    \"companyName\": \"Acme Inc.\",\r\n    \"workIndustry\": \"Technology\",\r\n    \"fromDate\": \"2022-01-01\",\r\n    \"tillDate\": \"2022-12-31\",\r\n    \"description\": \"Developed and maintained software applications for the company's clients\",\r\n    \"email\": \"shamsi@wiu.edu\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/work/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"work",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/education/delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTc3OTQzOCwiZXhwIjoxNjc5ODY1ODM4fQ.IQ3KIUbAZWdqvzMdxtExBtSQL1LhPzQQicIai4xfXh4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":6,\r\n    \"email\": \"shamsi@wiu.edu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/work/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"work",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/education/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTc3OTQzOCwiZXhwIjoxNjc5ODY1ODM4fQ.IQ3KIUbAZWdqvzMdxtExBtSQL1LhPzQQicIai4xfXh4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"id\": 6,\r\n    \"instituteName\": \"updated University\",\r\n    \"startYear\": 2010,\r\n    \"endYear\": 2011,\r\n    \"degree\": \"Bachelor of Science\",\r\n    \"department\": \"Computer Science\",\r\n    \"email\": \"shamsi@wiu.edu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/work/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"work",
+								"update"
 							]
 						}
 					},

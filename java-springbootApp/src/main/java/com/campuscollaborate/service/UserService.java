@@ -1,8 +1,6 @@
 package com.campuscollaborate.service;
 
-import com.campuscollaborate.dto.ProjectDto;
 import com.campuscollaborate.dto.UserDto;
-import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.entity.UserEntity;
 import com.campuscollaborate.helper.Mapper;
 import com.campuscollaborate.repository.ProjectRepository;
