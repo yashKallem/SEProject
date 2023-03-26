@@ -22,22 +22,21 @@ const Biography = (props) => {
 
   useEffect(() => {
     if (props) {
-        setParams({
-            firstName: props.firstName,
-            lastName: props.lastName,
-            courseOfStudy: props.courseOfStudy,
-            educationLevel: props.educationLevel,
-        
-            newFirstName: props.firstName,
-            newLastName: props.lastName,
-            newCourseOfStudy: props.courseOfStudy,
-            newEducationLevel: props.educationLevel
-        })
+      setParams({
+        firstName: props.firstName,
+        lastName: props.lastName,
+        courseOfStudy: props.courseOfStudy,
+        educationLevel: props.educationLevel,
+
+        newFirstName: props.firstName,
+        newLastName: props.lastName,
+        newCourseOfStudy: props.courseOfStudy,
+        newEducationLevel: props.educationLevel
+      })
     }
   }, [props]);
 
   const openModal = () => {
-    console.log(params);
     setShowModal(true);
   }
 
@@ -60,15 +59,37 @@ const Biography = (props) => {
   }
 
   const updateBiography = () => {
-    setShowModal(false);
-    setParams({
-      ...params,
-      firstName: params.newFirstName,
-      lastName: params.newLastName,
-      courseOfStudy: params.newCourseOfStudy,
-      educationLevel: params.newEducationLevel,
-    });
-    // Update table
+    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
+    fetch('http://localhost:8080/api/v1/users/about', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        givenName: params.newFirstName,
+        lastName: params.newLastName,
+        courseOfStudy: params.newCourseOfStudy,
+        educationLevel: params.newEducationLevel,
+        email: "alice@test.edu" // TODO
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.httpStatus === 'OK') {
+          setShowModal(false);
+          setParams({
+            ...params,
+            firstName: params.newFirstName,
+            lastName: params.newLastName,
+            courseOfStudy: params.newCourseOfStudy,
+            educationLevel: params.newEducationLevel,
+          });
+        } else {
+          console.log(data.httpStatus);
+        }
+      })
+      .catch(error => console.error(error));
   }
 
   return (

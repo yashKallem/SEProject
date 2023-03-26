@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaPlus, FaEdit, FaCheck, FaMinus } from "react-icons/fa";
-import Button from 'react-bootstrap/Button';
+import { MdEdit } from "react-icons/md";import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -8,15 +8,16 @@ import './History.css';
 
 const History = ({ title, array }) => {
   const [canEdit, setCanEdit] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [params, setParams] = useState({
     name: '',
-    startYear: '',
-    endYear: ''
+    startDate: '',
+    endDate: ''
   });
 
-  const openModal = () => {
-    setShowModal(true);
+  const openAddModal = () => {
+    setShowAddModal(true);
   }
 
   const handleChange = (e) => {
@@ -26,23 +27,35 @@ const History = ({ title, array }) => {
     });
   }
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeAddModal = () => {
+    setShowAddModal(false);
     setParams({
       name: '',
-      startYear: '',
-      endYear: ''
+      startDate: '',
+      endDate: ''
     });
   }
 
   const addHistory = () => {
-    setShowModal(false);
     // Add to table
+    setShowAddModal(false);
     setParams({
       name: '',
-      startYear: '',
-      endYear: ''
+      startDate: '',
+      endDate: ''
     });
+  }
+
+  const openUpdateModal = () => {
+    setShowUpdateModal(true);
+  }
+
+  const closeUpdateModal = () => {
+    setShowUpdateModal(false);
+  }
+
+  const updateHistory = () => {
+    // Update table
   }
 
   const deleteHistory = () => {
@@ -63,7 +76,7 @@ const History = ({ title, array }) => {
       <div className="header">
         <h2>{title}</h2>
         <div className="edit-icons">
-          <FaPlus onClick={openModal} />
+          <FaPlus onClick={openAddModal} />
           {canEdit
             ? <FaCheck onClick={saveHistory} />
             : <FaEdit onClick={editHistory} />
@@ -77,12 +90,15 @@ const History = ({ title, array }) => {
             <div className="col">{item[0]}</div>
             <div className="col">{item[1]}</div>
             {canEdit &&
-              <FaMinus className="col" onClick={deleteHistory} />
+              <div className="col">
+                <MdEdit onClick={openUpdateModal} />
+                <FaMinus onClick={deleteHistory} />
+              </div>
             }
           </div>
         ))}
       </div>
-      <Modal show={showModal} onHide={closeModal}>
+      <Modal show={showAddModal} onHide={closeAddModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add {title} History</Modal.Title>
         </Modal.Header>
@@ -91,19 +107,45 @@ const History = ({ title, array }) => {
             <FloatingLabel label="Name">
               <Form.Control type="text" placeholder="Name" name="name" value={params.name} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="Start year">
-              <Form.Control type="number" maxLength="4" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange} />
+            <FloatingLabel label="Start date">
+              <Form.Control type="date" placeholder="Start date" name="startDate" value={params.startDate} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="End year">
-              <Form.Control type="number" maxLength="4" placeholder="End year" name="endYear" value={params.endYear} onChange={handleChange} />
+            <FloatingLabel label="End date">
+              <Form.Control type="date" placeholder="End date" name="endDate" value={params.endDate} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
+          <Button variant="secondary" onClick={closeAddModal}>
             Close
           </Button>
           <Button variant="primary" onClick={addHistory}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showUpdateModal} onHide={closeUpdateModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add {title} History</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <FloatingLabel label="Name">
+              <Form.Control type="text" placeholder="Name" name="name" value={params.name} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel label="Start date">
+              <Form.Control type="date" placeholder="Start date" name="startDate" value={params.startDate} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel label="End date">
+              <Form.Control type="date" placeholder="End date" name="endDate" value={params.endDate} onChange={handleChange} />
+            </FloatingLabel>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeUpdateModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={updateHistory}>
             Save
           </Button>
         </Modal.Footer>

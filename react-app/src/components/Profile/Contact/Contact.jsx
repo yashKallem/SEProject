@@ -12,24 +12,21 @@ const Contact = (props) => {
     email: '',
     phone: '',
 
-    newEmail: '',
     newPhone: '',
   });
 
   useEffect(() => {
     if (props) {
-        setParams({
-            email: props.email,
-            phone: props.phone,
-        
-            newEmail: props.email,
-            newPhone: props.phone,
-        })
+      setParams({
+        email: props.email,
+        phone: props.phone,
+
+        newPhone: props.phone,
+      })
     }
   }, [props]);
 
   const openModal = () => {
-    console.log(params);
     setShowModal(true);
   }
 
@@ -43,20 +40,37 @@ const Contact = (props) => {
   const closeModal = () => {
     setShowModal(false);
     setParams({
-        ...params,
-        newEmail: params.email,
-        newPhone: params.phone
-      })
+      ...params,
+      newPhone: params.phone
+    })
   }
 
   const updateContact = () => {
-    setShowModal(false);
-    setParams({
-      ...params,
-      email: params.newEmail,
-      phone: params.newPhone
-    });
-    // Update table
+    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
+    fetch('http://localhost:8080/api/v1/users/contact', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        phone: params.newPhone,
+        email: "alice@test.edu" // TODO
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.httpStatus === 'OK') {
+          setShowModal(false);
+          setParams({
+            ...params,
+            phone: params.newPhone
+          });
+        } else {
+          console.log(data.httpStatus);
+        }
+      })
+      .catch(error => console.error(error));
   }
 
   return (
@@ -76,9 +90,6 @@ const Contact = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <FloatingLabel label="Email">
-              <Form.Control type="text" placeholder="Email" name="newEmail" value={params.newEmail} onChange={handleChange} />
-            </FloatingLabel>
             <FloatingLabel label="Phone">
               <Form.Control type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
             </FloatingLabel>

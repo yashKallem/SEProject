@@ -10,12 +10,12 @@ import './Skills.css';
 
 const Skills = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [skill, setSkill] = useState('');
+  const [newSkill, setNewSkill] = useState('');
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
     if (props) {
-        setSkills(props.skills);
+      setSkills(props.skills);
     }
   }, [props]);
 
@@ -24,23 +24,56 @@ const Skills = (props) => {
   }
 
   const handleChange = (e) => {
-    setSkill(e.target.value);
+    setNewSkill(e.target.value);
   }
 
   const closeModal = () => {
     setShowModal(false);
-    setSkill('');
+    setNewSkill('');
   }
 
   const addSkill = () => {
-    setShowModal(false);
-    setSkills([...skills, skill]);
-    setSkill('');
-    // Add to table
+    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
+    fetch('http://localhost:8080/api/v1/skills/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        skill: newSkill,
+        email: "alice@test.edu" // TODO
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.httpStatus === '200') {
+          setShowModal(false);
+          setSkills([...skills, newSkill]);
+          setNewSkill('');
+        } else {
+          console.log(data.httpStatus);
+        }
+      })
+      .catch(error => console.error(error));
   }
 
   const deleteSkill = () => {
-    // Remove from table
+    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
+    fetch('http://localhost:8080/api/v1/skills/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        id: "",
+        email: "" // TODO
+      })
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
   }
 
   return (
@@ -68,7 +101,7 @@ const Skills = (props) => {
         <Modal.Body>
           <Form>
             <FloatingLabel label="Skill">
-              <Form.Control type="text" placeholder="Skill" name="skill" value={skill} onChange={handleChange} />
+              <Form.Control type="text" placeholder="Skill" name="newSkill" value={newSkill} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
