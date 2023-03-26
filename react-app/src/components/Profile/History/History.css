@@ -11,7 +11,7 @@
 }
 
 .history-component .edit-icons > * {
-  font-size: large;
+  size: large;
   cursor: pointer;
 }
 

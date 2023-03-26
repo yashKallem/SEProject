@@ -55,7 +55,7 @@ const Contact = (props) => {
       },
       body: JSON.stringify({
         phone: params.newPhone,
-        email: "alice@test.edu" // TODO
+        email: params.email
       })
     })
       .then(response => response.json())

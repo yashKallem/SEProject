@@ -11,10 +11,12 @@ import './Skills.css';
 const Skills = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [newSkill, setNewSkill] = useState('');
+  const [email, setEmail] = useState('');
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
     if (props) {
+      setEmail(props.email);
       setSkills(props.skills);
     }
   }, [props]);
@@ -42,12 +44,12 @@ const Skills = (props) => {
       },
       body: JSON.stringify({
         skill: newSkill,
-        email: "alice@test.edu" // TODO
+        email: email
       })
     })
       .then(response => response.json())
       .then(data => {
-        if (data.httpStatus === '200') {
+        if (data.httpStatus === 'OK') {
           setShowModal(false);
           setSkills([...skills, newSkill]);
           setNewSkill('');
@@ -58,6 +60,16 @@ const Skills = (props) => {
       .catch(error => console.error(error));
   }
 
+  const removeById = (arr, id) => {
+    const requiredIndex = arr.findIndex(el => {
+      return el.id === String(id);
+    });
+    if (requiredIndex === -1) {
+      return false;
+    };
+    return !!arr.splice(requiredIndex, 1);
+  };
+
   const deleteSkill = () => {
     let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
     fetch('http://localhost:8080/api/v1/skills/delete', {
@@ -67,12 +79,14 @@ const Skills = (props) => {
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-        id: "",
-        email: "" // TODO
+        id: "", // TODO
+        email: email
       })
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        setSkills(removeById(skills, 0));
+      })
       .catch(error => console.error(error));
   }
 

@@ -60,6 +60,7 @@ const Profile = () => {
               lastName={params.lastName} 
               courseOfStudy={params.courseOfStudy} 
               educationLevel={params.educationLevel} 
+              email={params.email}
             />
           </div>
           <div className="sidebar-content" id="contact">
@@ -70,6 +71,7 @@ const Profile = () => {
           </div>
           <div className="sidebar-content" id="skills">
             <Skills 
+              email={params.email}
               // skills={params.skills}
               skills={['skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3']}
             />

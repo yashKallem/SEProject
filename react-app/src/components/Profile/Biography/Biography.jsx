@@ -13,6 +13,7 @@ const Biography = (props) => {
     lastName: '',
     courseOfStudy: '',
     educationLevel: '',
+    email: '',
 
     newFirstName: '',
     newLastName: '',
@@ -27,6 +28,7 @@ const Biography = (props) => {
         lastName: props.lastName,
         courseOfStudy: props.courseOfStudy,
         educationLevel: props.educationLevel,
+        email: props.email,
 
         newFirstName: props.firstName,
         newLastName: props.lastName,
@@ -71,7 +73,7 @@ const Biography = (props) => {
         lastName: params.newLastName,
         courseOfStudy: params.newCourseOfStudy,
         educationLevel: params.newEducationLevel,
-        email: "alice@test.edu" // TODO
+        email: params.email
       })
     })
       .then(response => response.json())
