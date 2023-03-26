@@ -50,6 +50,7 @@ com\campuscollaborate\utility\Role.class
 com\campuscollaborate\dto\NetworkDto.class
 com\campuscollaborate\entity\EducationEntity$EducationEntityBuilder.class
 com\campuscollaborate\controller\AuthenticationController.class
+com\campuscollaborate\dto\ErrorResponseDto.class
 com\campuscollaborate\entity\WorkExperienceEntity.class
 com\campuscollaborate\dto\ForgotPasswordRequestDto.class
 com\campuscollaborate\dto\UserDto$UserDtoBuilder.class

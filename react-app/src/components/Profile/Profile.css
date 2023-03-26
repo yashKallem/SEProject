@@ -8,6 +8,7 @@
 .profile-page .sidebar-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   margin: 2vw 2vh;
   height: 100%;
 }
@@ -28,17 +29,4 @@
 
 .profile-page .sidebar-content {
   margin-bottom: auto;
-}
-
-.profile-page .table {
-  display: flex;
-  flex-direction: column;
-  max-height: 35vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.profile-page .row {
-  display: flex;
-  flex-direction: row;
 }

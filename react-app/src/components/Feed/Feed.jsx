@@ -1,6 +1,6 @@
-import './Feed.css';
-import React from 'react';
-import Navbar from '../NavBar/NavBar';
+import "./Feed.css";
+import React from "react";
+import Navbar from "../NavBar/NavBar";
 
 const Feed = () => {
   return (
@@ -9,6 +9,6 @@ const Feed = () => {
       FEED
     </div>
   );
-}
+};
 
 export default Feed;

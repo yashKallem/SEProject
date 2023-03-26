@@ -17,7 +17,7 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
     ProjectEntity findByProjectName(String projectName);
     List<ProjectEntity> findByPublishedBy(Optional<UserEntity> user);
 
-
+    void deleteById(Long id);
     List<ProjectEntity> findByLocation(String location);
 
     List<ProjectEntity> findByPublishedByUserIdOrPublishedByEmail(Long userId, String email);

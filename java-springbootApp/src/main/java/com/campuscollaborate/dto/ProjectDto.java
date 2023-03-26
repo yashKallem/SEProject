@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Date;
 @Data
@@ -14,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProjectDto {
+public class ProjectDto extends ErrorResponseDto{
     private Long projectId;
     private String projectName;
     private String projectDescription;
@@ -30,5 +32,6 @@ public class ProjectDto {
 
     private Date deadline;
     private String email;
+
 
 }

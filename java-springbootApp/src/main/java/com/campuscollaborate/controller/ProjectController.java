@@ -1,10 +1,9 @@
 package com.campuscollaborate.controller;
 
 import com.campuscollaborate.dto.ProjectDto;
-import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.ProjectEntity;
-import com.campuscollaborate.helper.Mapper;
-import com.campuscollaborate.repository.ProjectRepository;
+import com.campuscollaborate.service.AuthenticationService;
+import com.campuscollaborate.service.JwtService;
 import com.campuscollaborate.service.ProjectService;
 import com.campuscollaborate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +30,9 @@ public class ProjectController {
     @Autowired
     public UserService userService;
 
+    @Autowired
+    public AuthenticationService authenticationService;
+
     @GetMapping("/all")
     public ResponseEntity<List<ProjectDto>> getAllProjects() {
         List<ProjectDto> projects = projectService.getAllProjects();
@@ -41,8 +43,6 @@ public class ProjectController {
         }
 
     }
-
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ProjectDto>> getProjectById(@PathVariable(value = "id") int projectId) {
@@ -58,13 +58,78 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto project) {
+    public ResponseEntity<ProjectDto> createProject(@RequestHeader("Authorization") String bearerToken,@RequestBody ProjectDto project) {
 
-        ProjectDto projectDto = projectService.createProject(project);
-        if (projectDto == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        } else {
-            return ResponseEntity.ok().body(projectDto);
+        try{
+            if (project.getEmail().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+            else{
+                boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, project.getEmail());
+                if (!isValid) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                }
+                ProjectDto projectDto = projectService.createProject(project);
+                if (projectDto == null) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                } else {
+                    return ResponseEntity.ok().body(projectDto);
+                }
+            }
+        }
+        catch (Exception ex) {
+            ProjectDto projectDto = new ProjectDto();
+            projectDto.setErrorMessage(ex.getMessage());
+            return ResponseEntity.internalServerError().body(projectDto);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ProjectDto> updateProject(@RequestHeader("Authorization") String bearerToken, @RequestBody ProjectDto project) {
+        try {
+            if (project.getProjectId() == null || project.getEmail().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, project.getEmail());
+                if (!isValid) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                }
+                ProjectDto projectDto = projectService.updateProject(project);
+                if (projectDto == null) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                } else {
+                    return ResponseEntity.ok().body(projectDto);
+                }
+            }
+        } catch (Exception ex) {
+            ProjectDto projectDto = new ProjectDto();
+            projectDto.setErrorMessage(ex.getMessage());
+            return ResponseEntity.internalServerError().body(projectDto);
+        }
+
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ProjectDto> deleteProject(@RequestHeader("Authorization") String bearerToken, @RequestBody ProjectDto project) {
+        try {
+            if (project.getProjectId() == null || project.getEmail().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, project.getEmail());
+                if (!isValid) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                }
+                ProjectDto projectDto = projectService.deleteProject(project);
+                if (projectDto == null) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                } else {
+                    return ResponseEntity.ok().body(projectDto);
+                }
+            }
+        } catch (Exception ex) {
+            ProjectDto projectDto = new ProjectDto();
+            projectDto.setErrorMessage(ex.getMessage());
+            return ResponseEntity.internalServerError().body(projectDto);
         }
     }
 
@@ -79,35 +144,4 @@ public class ProjectController {
 
     }
 
-    @GetMapping("/projects/{projectName}")
-    public ResponseEntity<ProjectDto> getProjectsByProjectName(@PathVariable String projectName) {
-        ProjectDto project = projectService.findByProjectName(projectName);
-        if (project == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(project);
-        }
-    }
-
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable(value = "id") int projectId,
-                                                    @RequestBody ProjectEntity projectDetails) {
-        return projectService.updateProject(projectId, projectDetails);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProject(@PathVariable(value = "id") int projectId) {
-        return projectService.deleteProject(projectId);
-
-    }
-
-
-
-//    @GetMapping("")
-//    public ResponseEntity<List<ProjectDto>> getUserByEmail(@RequestParam("email") String email) {
-//
-//        return ResponseEntity.ok().body(projectService.findByPublishedBy(email));
-//
-//    }
 }
