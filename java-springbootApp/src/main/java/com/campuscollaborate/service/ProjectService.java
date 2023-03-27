@@ -1,7 +1,6 @@
 package com.campuscollaborate.service;
 
 import com.campuscollaborate.dto.ProjectDto;
-import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.ProjectEntity;
 import com.campuscollaborate.entity.UserEntity;
 import com.campuscollaborate.helper.Mapper;
@@ -11,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -81,13 +81,19 @@ public class ProjectService {
 
         List<ProjectEntity> projectEntities= projectRepository.findByPublishedBy(publishedBy);
 
-        boolean doesProjectBelongsToUser = projectEntities.stream().anyMatch(proj -> proj.getId() == project.getProjectId());
+        boolean doesProjectBelongsToUser = projectEntities.stream().anyMatch(proj -> proj.getId().equals(project.getProjectId()));
         if(!doesProjectBelongsToUser){
             return null;
         }
-        projectEntity.setPublishedBy(publishedBy.get());
-        ProjectEntity updatedProject = projectRepository.save(projectEntity);
-        return Mapper.projectEntityToProjectDto(updatedProject);
+        if(publishedBy.isPresent()){
+            projectEntity.setPublishedBy(publishedBy.get());
+            ProjectEntity updatedProject = projectRepository.save(projectEntity);
+            return Mapper.projectEntityToProjectDto(updatedProject);
+        }
+        else {
+            return  null;
+        }
+
     }
 
     public ProjectDto deleteProject( ProjectDto project) {
@@ -98,7 +104,7 @@ public class ProjectService {
 
         List<ProjectEntity> projectEntities= projectRepository.findByPublishedBy(publishedBy);
 
-        boolean doesProjectBelongsToUser = projectEntities.stream().anyMatch(proj -> proj.getId() == project.getProjectId());
+        boolean doesProjectBelongsToUser = projectEntities.stream().anyMatch(proj -> proj.getId().equals(project.getProjectId()));
         if(!doesProjectBelongsToUser){
             return null;
         }
@@ -116,7 +122,7 @@ public class ProjectService {
     }
 
     public ResponseEntity<?> deleteProject(long projectId) {
-        Optional<ProjectEntity> project = projectRepository.findById(projectId);
+        var project = projectRepository.findById(projectId);
         if (project.isPresent()) {
             projectRepository.delete(project.get());
             return ResponseEntity.ok().build();
@@ -135,8 +141,8 @@ public class ProjectService {
     }
 
     public List<ProjectDto> findByPublishedBy(String email) {
-        Optional<UserEntity> user= userRepository.findByEmail(email);
-        if(user!=null){
+        var user= userRepository.findByEmail(email);
+        if(user.isPresent()){
             List<ProjectEntity> projectEntities= projectRepository.findByPublishedBy(user);
             List<ProjectDto> projects = new ArrayList<>();
             for (ProjectEntity project : projectEntities ) {

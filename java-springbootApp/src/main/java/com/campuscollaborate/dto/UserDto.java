@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto {
+public class UserDto extends ResponseDto{
     private Long userId;
     private String givenName;
     private String lastName;
@@ -23,7 +23,7 @@ public class UserDto {
     private String role;
     private List<ProjectDto> projects;
     private List<EducationDto> educationHistory;
-    private List<WorkExperienceDto> workHistory;
+    private List<WorkDto> workHistory;
     private List<SkillDto> skills;
     private List<NetworkDto> network;
     private SummaryDto summary;

@@ -1,9 +1,8 @@
 package com.campuscollaborate.controller;
 
 import com.campuscollaborate.dto.ProjectDto;
-import com.campuscollaborate.entity.ProjectEntity;
+import com.campuscollaborate.helper.UserMessage;
 import com.campuscollaborate.service.AuthenticationService;
-import com.campuscollaborate.service.JwtService;
 import com.campuscollaborate.service.ProjectService;
 import com.campuscollaborate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +22,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    // @Autowired
-    // private ProjectRepository projectRepository;
     @Autowired
     private ProjectService projectService;
     @Autowired
@@ -86,15 +83,18 @@ public class ProjectController {
 
     @PutMapping("/update")
     public ResponseEntity<ProjectDto> updateProject(@RequestHeader("Authorization") String bearerToken, @RequestBody ProjectDto project) {
+        ProjectDto projectDto = new ProjectDto();
         try {
             if (project.getProjectId() == null || project.getEmail().isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                project.setErrorMessage(UserMessage.TOKEN_MISMATCH);
+                return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(project);
             } else {
                 boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, project.getEmail());
                 if (!isValid) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                    project.setErrorMessage(UserMessage.TOKEN_MISMATCH);
+                    return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(project);
                 }
-                ProjectDto projectDto = projectService.updateProject(project);
+                projectDto = projectService.updateProject(project);
                 if (projectDto == null) {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
                 } else {
@@ -102,7 +102,7 @@ public class ProjectController {
                 }
             }
         } catch (Exception ex) {
-            ProjectDto projectDto = new ProjectDto();
+
             projectDto.setErrorMessage(ex.getMessage());
             return ResponseEntity.internalServerError().body(projectDto);
         }
@@ -117,7 +117,8 @@ public class ProjectController {
             } else {
                 boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, project.getEmail());
                 if (!isValid) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                    project.setErrorMessage(UserMessage.TOKEN_MISMATCH);
+                    return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(project);
                 }
                 ProjectDto projectDto = projectService.deleteProject(project);
                 if (projectDto == null) {

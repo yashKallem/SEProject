@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../NavBar/NavBar";
@@ -5,6 +6,16 @@ import Biography from "./Biography/Biography";
 import Contact from "./Contact/Contact";
 import History from "./History/History";
 import "./Profile.css";
+=======
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Navbar from '../NavBar/NavBar';
+import Biography from './Biography/Biography';
+import Contact from './Contact/Contact';
+import History from './History/History';
+import Skills from './Skills/Skills';
+import './Profile.css';
+>>>>>>> 32e903fc3fda946df73887bc54e27b148bcf7d12
 
 const Profile = () => {
   const [params, setParams] = useState({
@@ -70,8 +81,15 @@ const Profile = () => {
             <div>{params.phone}</div>
           </div>
           <div className="sidebar-content" id="skills">
+<<<<<<< HEAD
             <h2>Skills</h2>
             <div>{params.skills.join(", ")}</div>
+=======
+            <Skills 
+              // skills={params.skills}
+              skills={['skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3']}
+            />
+>>>>>>> 32e903fc3fda946df73887bc54e27b148bcf7d12
           </div>
         </div>
         <div className="sidebar" id="experience">

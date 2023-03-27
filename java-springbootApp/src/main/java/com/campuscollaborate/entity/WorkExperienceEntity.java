@@ -39,8 +39,8 @@ public class WorkExperienceEntity {
     @Column(name = "till_date")
     private Date tillDate;
 
-    @Column(name = "achievements")
-    private String achievements;
+    @Column(name = "description")
+    private String description;
 
     // getters and setters
 }

@@ -1,6 +1,5 @@
 package com.campuscollaborate.dto;
 
-import com.campuscollaborate.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HomeDto {
+public class HomeDto extends ResponseDto {
 
     private List<UserDto> users;
     private List<ProjectDto> projects;
