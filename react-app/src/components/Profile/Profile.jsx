@@ -1,37 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import Navbar from '../NavBar/NavBar';
-import Biography from './Biography/Biography';
-import Contact from './Contact/Contact';
-import History from './History/History';
-import './Profile.css';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Navbar from "../NavBar/NavBar";
+import Biography from "./Biography/Biography";
+import Contact from "./Contact/Contact";
+import History from "./History/History";
+import "./Profile.css";
 
 const Profile = () => {
   const [params, setParams] = useState({
-    firstName: '',
-    lastName: '',
-    courseOfStudy: '',
-    educationLevel: '',
-    email: '',
-    phone: '',
+    firstName: "",
+    lastName: "",
+    courseOfStudy: "",
+    educationLevel: "",
+    email: "",
+    phone: "",
     skills: [],
     colleges: [],
-    jobs: []
+    jobs: [],
   });
 
   const location = useLocation();
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/profile?email=${location.state.email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${location.state.token}`
+    fetch(
+      `http://localhost:8080/api/v1/users/profile?email=${location.state.email}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${location.state.token}`,
+        },
       }
-    })
-      .then(response => {
+    )
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         // console.log(data);
         setParams({
           firstName: data.givenName,
@@ -42,10 +45,10 @@ const Profile = () => {
           phone: data.phone,
           skills: data.skills,
           colleges: data.educationHistory,
-          jobs: data.workHistory
+          jobs: data.workHistory,
         });
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }, [location]);
 
   return (
@@ -54,44 +57,50 @@ const Profile = () => {
       <div className="sidebar-container">
         <div className="sidebar" id="summary">
           <div className="sidebar-content" id="biography">
-            <Biography 
-              firstName={params.firstName} 
-              lastName={params.lastName} 
-              courseOfStudy={params.courseOfStudy} 
-              educationLevel={params.educationLevel} 
-            />
+            <h2>About</h2>
+            <div>
+              {params.firstName} {params.lastName}
+            </div>
+            <div>{params.courseOfStudy}</div>
+            <div>{params.educationLevel}</div>
           </div>
           <div className="sidebar-content" id="contact">
-            <Contact 
-              email={params.email}
-              phone={params.phone}
-            />
+            <h2>Contact Information</h2>
+            <div>{params.email}</div>
+            <div>{params.phone}</div>
           </div>
           <div className="sidebar-content" id="skills">
             <h2>Skills</h2>
-            <div>
-              {params.skills.join(', ')}
-            </div>
+            <div>{params.skills.join(", ")}</div>
           </div>
         </div>
         <div className="sidebar" id="experience">
           <div className="sidebar-content" id="education">
-            <History 
-              title={"Education"} 
-              array={params.colleges} 
-            />
+            <h2>Education</h2>
+            <div className="table">
+              {params.colleges.map((college) => (
+                <div className="row">
+                  <div className="col">{college[0]}</div>
+                  <div className="col">{college[1]}</div>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="sidebar-content" id="work">
-            <History 
-              title={"Experience"} 
-              array={params.jobs} 
-            />
+            <h2>Work Experience</h2>
+            <div className="table">
+              {params.jobs.map((job) => (
+                <div className="row">
+                  <div className="col">{job[0]}</div>
+                  <div className="col">{job[1]}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Profile;
-

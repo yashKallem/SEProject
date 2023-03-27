@@ -2,51 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../NavBar/NavBar";
 //import './Profile.css';
-import Button from "react-bootstrap/Button";
 import "../SignUp/SignUp.css";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
-// {
-//     "projectId": 1,
-//     "projectName": "Project z",
-//     "projectDescription": "This project is about developing a new mobile application",
-//     "publishedAt": "2023-03-17T10:00:00.000+00:00",
-//     "projectRole": "Mobile Developer",
-//     "location": "New York",
-//     "jobDescription": "We are looking for an experienced mobile developer who can work on both iOS and Android platforms",
-//     "publishedBy": {
-//         "userId": 1,
-//         "givenName": "shamsi",
-//         "lastName": "shamsi",
-//         "email": "shamsi@wiu.edu",
-//         "phone": "1234567890"
-//     },
-//     "deadline": "2023-04-17T10:00:00.000+00:00"
-// }
-const data = (data) => {
-  console.log("inside project all and my projects", data);
-
-  return (
-    <div
-      style={{
-        padding: "20px",
-        backgroundColor: "white",
-      }}
-    >
-      {data.map((ob, index) => (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <p> </p>
-          <p> jsgfnsfjgnksfjnksjfsjvnfsnv</p>
-          <p> jsgfnv{index}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
 const ProjectScreen = () => {
   const [postProject, setPostProject] = useState(false);
   const [addProject, setAddProject] = useState(false);
@@ -59,7 +19,6 @@ const ProjectScreen = () => {
     location: "",
     jobDescription: "",
     deadline: "",
-    deadlinedate: "",
   });
   const location = useLocation();
   // const p = () => {
@@ -67,16 +26,22 @@ const ProjectScreen = () => {
   // }
 
   const handleChange = (e) => {
+    //    console.log(params);
     setParams({
       ...params,
       [e.target.name]: e.target.value,
     });
+
+
+    //    console.log(params);
   };
+
 
   useEffect(() => {
     console.log(postProject);
-    console.log(params);
+    console.log(params, "useEffect");
     if (postProject) {
+      console.log(params, "useeffect post");
       fetch("http://localhost:8080/api/v1/projects/add", {
         method: "POST",
         headers: {
@@ -98,7 +63,7 @@ const ProjectScreen = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          console.log(data, "after updation");
           setPostProject(false);
           setAddProject(false);
         })
@@ -130,10 +95,44 @@ const ProjectScreen = () => {
     setPostProject(true);
   };
 
+  const data = (data) => {
+    //    console.log("inside project all and my projects", data, params);
+
+    return (
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "white",
+        }}
+      >
+        {data.map((ob, index) => (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <p> </p>
+            <p> jsgfnsfjgnksfjnksjfsjvnfsnv</p>
+            <p> jsgfnv{index}</p>
+            <p>
+              <Example data={data[index]} index={index} handleChange={handleChange} params={params} submitForm={submitForm} />
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const update = (index, dat) => {
+    console.log('hfbgfh');
+    console.log("update data modal", index, dat)
+  };
   // }
   return (
     <>
       <Navbar />
+      {/* <Example /> */}
       <div
         style={{
           display: "flex",
@@ -181,75 +180,161 @@ const ProjectScreen = () => {
               <p> no data available</p>
             )}
             {addProject ? (
-              <form>
-                <div
-                  className="form-fields"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="project name"
-                    required
-                    name="projectName"
-                    value={params.projectName}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  <input
-                    type="textarea"
-                    placeholder="project description"
-                    required
-                    name="projectDescription"
-                    value={params.projectDescription}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  <input
-                    type="text"
-                    placeholder="location"
-                    required
-                    name="location"
-                    value={params.location}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  <input
-                    type="text"
-                    placeholder="job description"
-                    required
-                    name="jobDescription"
-                    value={params.jobDescription}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  <input
-                    type="text"
-                    placeholder="project role"
-                    required
-                    name="projectRole"
-                    value={params.projectRole}
-                    onChange={handleChange}
-                  />
-                  <br />
-                  {/* <input type="date" required name="Deadline" value={params.deadline} onChange={handleChange} /> */}
-                  <input
-                    type="date"
-                    onChange={(event) =>
-                      setParams({ ...params, deadline: event.target.value })
-                    }
-                  />
-                  <br />
-                  <input
-                    type="button"
-                    value="Add Project"
-                    onClick={submitForm}
-                  />
-                </div>
-              </form>
+              <>
+                <Form>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="project name"
+                      required
+                      name="projectName"
+                      value={params.projectName}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Example textarea</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="textarea"
+                      placeholder="project description"
+                      required
+                      name="projectDescription"
+                      value={params.projectDescription}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="location"
+                      required
+                      name="location"
+                      value={params.location}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="job description"
+                      required
+                      name="jobDescription"
+                      value={params.jobDescription}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="project role"
+                      required
+                      name="projectRole"
+                      value={params.projectRole}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="deadline"
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Button variant="secondary" onClick={submitForm}>
+                    "Add Project"
+                  </Button>
+                </Form>
+                {/* <form>
+                  <div
+                    className="form-fields"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <input
+                      type="text"
+                      placeholder="project name"
+                      required
+                      name="projectName"
+                      value={params.projectName}
+                      onChange={handleChange}
+                    />
+                    <br />
+                    <input
+                      type="textarea"
+                      placeholder="project description"
+                      required
+                      name="projectDescription"
+                      value={params.projectDescription}
+                      onChange={handleChange}
+                    />
+                    <br />
+                    <input
+                      type="text"
+                      placeholder="location"
+                      required
+                      name="location"
+                      value={params.location}
+                      onChange={handleChange}
+                    />
+                    <br />
+                    <input
+                      type="text"
+                      placeholder="job description"
+                      required
+                      name="jobDescription"
+                      value={params.jobDescription}
+                      onChange={handleChange}
+                    />
+                    <br />
+                    <input
+                      type="text"
+                      placeholder="project role"
+                      required
+                      name="projectRole"
+                      value={params.projectRole}
+                      onChange={handleChange}
+                    />
+                    <br />
+
+                    <input
+                      type="date"
+                      onChange={(event) =>
+                        setParams({ ...params, deadline: event.target.value })
+                      }
+                    />
+                    <br />
+                    <input
+                      type="button"
+                      value="Add Project"
+                      onClick={submitForm}
+                    />
+                  </div>
+                </form> */}
+              </>
             ) : null}
           </div>
         </div>
@@ -278,4 +363,129 @@ const styles = {
     flex: 1,
     flexDirection: "row",
   },
+};
+
+const Example = ({ data, index, params, handleChange, submitForm }) => {
+
+  //  console.log("exaple,", params)
+  const map = () => {
+
+  }
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleModalAndForm = () => {
+    submitForm()
+    alert("Successfully added project")
+    handleClose()
+
+  }
+  //  console.log("inside after on click show modal this one", data, index)
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Project Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="project name"
+                required
+                name="projectName"
+                value={params.projectName}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>project description</Form.Label>
+              <Form.Control
+                type="textarea"
+                placeholder="project description"
+                required
+                name="projectDescription"
+                value={params.projectDescription}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="location"
+                required
+                name="location"
+                value={params.location}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Job Description</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="job description"
+                required
+                name="jobDescription"
+                value={params.jobDescription}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Project Role</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="project role"
+                required
+                name="projectRole"
+                value={params.projectRole}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="date"
+                name="deadline"
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+          </Form>
+
+        </Modal.Body>
+        <Modal.Footer
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+
+          <Button variant="primary" onClick={handleModalAndForm}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 };
