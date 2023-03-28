@@ -1,0 +1,16 @@
+.biography-component {
+  display: flex;
+  flex-direction: column;
+}
+  
+.biography-component .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  row-gap: 5vw;
+}
+  
+.biography-component .edit-icons > * {
+  font-size: large;
+  cursor: pointer;
+}
