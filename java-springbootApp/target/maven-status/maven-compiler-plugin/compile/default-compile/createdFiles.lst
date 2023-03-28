@@ -1,5 +1,6 @@
 com\campuscollaborate\dto\HomeDto$HomeDtoBuilder.class
 com\campuscollaborate\config\SecurityConfiguration.class
+com\campuscollaborate\dto\WorkExperienceDto$WorkExperienceDtoBuilder.class
 com\campuscollaborate\service\JwtService.class
 com\campuscollaborate\responseEntity\AuthenticationResponse$AuthenticationResponseBuilder.class
 com\campuscollaborate\entity\UserEntity$UserEntityBuilder.class
@@ -36,6 +37,7 @@ com\campuscollaborate\controller\DemoController.class
 com\campuscollaborate\LoggingConfig\ResponseBodyInterceptor.class
 com\campuscollaborate\service\AuthenticationService.class
 com\campuscollaborate\responseEntity\CustomResponse.class
+com\campuscollaborate\dto\WorkExperienceDto.class
 com\campuscollaborate\LoggingConfig\RequestBodyInterceptor.class
 com\campuscollaborate\responseEntity\AuthenticationResponse.class
 com\campuscollaborate\service\ProjectService.class

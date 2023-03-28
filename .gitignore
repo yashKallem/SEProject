@@ -5,3 +5,4 @@ java-springbootApp/target/classes/com/campuscollaborate/service/*.class
 *.class
 *.lst
 *.class
+*.class

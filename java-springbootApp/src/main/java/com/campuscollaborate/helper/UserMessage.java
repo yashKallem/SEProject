@@ -25,4 +25,12 @@ public class UserMessage {
 
     public  static String WORK_UPDATED =" WORK_UPDATED !";
     public  static String WORK_UPDATE_FAILED =" WORK_UPDATE_FAILED !";
+
+    public  static String CONTACT_UPDATED =" CONTACT_UPDATED !";
+    public  static String CONTACT_UPDATE_FAILED =" CONTACT_UPDATE_FAILED !";
+
+    public  static String USER_NOT_FOUND =" USER_NOT_FOUND !";
+
+    public  static String ABOUT_UPDATED =" ABOUT_UPDATED !";
+    public  static String ABOUT_UPDATED_FAILED =" ABOUT_UPDATED_FAILED !";
 }

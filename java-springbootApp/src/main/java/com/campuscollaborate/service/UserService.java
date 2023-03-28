@@ -3,11 +3,10 @@ package com.campuscollaborate.service;
 import com.campuscollaborate.dto.UserDto;
 import com.campuscollaborate.entity.UserEntity;
 import com.campuscollaborate.helper.Mapper;
+import com.campuscollaborate.helper.UserMessage;
 import com.campuscollaborate.repository.ProjectRepository;
 import com.campuscollaborate.repository.UserRepository;
-import com.campuscollaborate.responseEntity.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -100,45 +99,50 @@ public class UserService {
             return false;
         }
     }
-    public AuthenticationResponse updateUserAboutSection(UserDto userDto) {
+
+    public UserDto updateUserAboutSection(UserDto userDto) {
         Optional<UserEntity> userEntity = userRepository.findByEmail(userDto.getEmail());
         if (userEntity.isPresent()) {
-            UserEntity user = userEntity.get();
-            user.setGivenName(userDto.getGivenName());
-            user.setLastName(userDto.getLastName());
-            user.setCourseOfStudy(userDto.getCourseOfStudy());
-            user.setEducationLevel(userDto.getEducationLevel());
-            userEntity = Optional.of(userRepository.save(user));
-            if(userEntity.isPresent()){
-               if(userEntity.get().getGivenName().equals(userDto.getGivenName())
-                   && userEntity.get().getLastName().equals(userDto.getLastName()) && userEntity.get().getEducationLevel().equals(userDto.getEducationLevel())
-                       && userEntity.get().getCourseOfStudy().equals(userDto.getCourseOfStudy()))
-               {
-                 return   AuthenticationResponse.builder().httpStatus(HttpStatus.OK).build();
-               }
-               else {
-                 return   AuthenticationResponse.builder().httpStatus(HttpStatus.EXPECTATION_FAILED).build();
-               }
+            userEntity.get().setGivenName(userDto.getGivenName());
+            userEntity.get().setLastName(userDto.getLastName());
+            userEntity.get().setCourseOfStudy(userDto.getCourseOfStudy());
+            userEntity.get().setEducationLevel(userDto.getEducationLevel());
+            var user = userRepository.save(userEntity.get());
+                if (userEntity.get().getGivenName().equals(userDto.getGivenName())
+                        && userEntity.get().getLastName().equals(userDto.getLastName()) && userEntity.get().getEducationLevel().equals(userDto.getEducationLevel())
+                        && userEntity.get().getCourseOfStudy().equals(userDto.getCourseOfStudy())) {
+                    userDto.setMessage(UserMessage.ABOUT_UPDATED);
+                    return userDto;
+                } else {
+                    userDto.setErrorMessage(UserMessage.ABOUT_UPDATED_FAILED);
+                    return userDto;
+                }
             }
+        else{
+            userDto.setErrorMessage(UserMessage.USER_NOT_FOUND);
+            return userDto;
         }
-        return  AuthenticationResponse.builder().httpStatus(HttpStatus.NOT_FOUND).build();
+
     }
 
-    public AuthenticationResponse updateContactSection(UserDto userDto) {
+    public UserDto updateContactSection(UserDto userDto) {
         Optional<UserEntity> userEntity = userRepository.findByEmail(userDto.getEmail());
         if (userEntity.isPresent()) {
-            UserEntity user = userEntity.get();
-           user.setPhone(userDto.getPhone());
-            if(userEntity.isPresent()){
-               if(userEntity.get().getPhone().equals(userDto.getPhone())) {
-                   return   AuthenticationResponse.builder().httpStatus(HttpStatus.OK).build();
-               }
-               else {
-                   return   AuthenticationResponse.builder().httpStatus(HttpStatus.EXPECTATION_FAILED).build();
-               }
+            userEntity.get().setPhone(userDto.getPhone());
+            var user = userRepository.save(userEntity.get());
+            if (user.getPhone().equals(userDto.getPhone())) {
+                userDto.setMessage(UserMessage.CONTACT_UPDATED);
+                return userDto;
+            } else {
+                userDto.setErrorMessage(UserMessage.CONTACT_UPDATE_FAILED);
+                return userDto;
             }
 
         }
-        return  AuthenticationResponse.builder().httpStatus(HttpStatus.NOT_FOUND).build();
+        else{
+            userDto.setErrorMessage(UserMessage.USER_NOT_FOUND);
+            return userDto;
+        }
     }
+
 }

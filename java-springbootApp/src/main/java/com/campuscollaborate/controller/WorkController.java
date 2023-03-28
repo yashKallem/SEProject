@@ -42,7 +42,7 @@ public class WorkController {
         }
         catch (Exception ex){
             workDto.setErrorMessage(UserMessage.WORK_ADD_FAILED +" REASON: "+ ex.getMessage());
-            return ResponseEntity.status(HttpStatus.OK).body(workDto);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(workDto);
         }
     }
 
@@ -93,7 +93,7 @@ public class WorkController {
 
         } catch (Exception ex) {
             workDto.setErrorMessage(UserMessage.WORK_UPDATE_FAILED + " REASON: " + ex.getMessage());
-            return ResponseEntity.status(HttpStatus.OK).body(workDto);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(workDto);
         }
     }
 }
