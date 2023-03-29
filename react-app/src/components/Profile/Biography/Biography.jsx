@@ -8,6 +8,7 @@ import './Biography.css';
 
 const Biography = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
     firstName: '',
     lastName: '',
@@ -61,7 +62,7 @@ const Biography = (props) => {
   }
 
   const updateBiography = () => {
-    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
+    let token = '';
     fetch('http://localhost:8080/api/v1/users/about', {
       method: 'PUT',
       headers: {
@@ -80,6 +81,7 @@ const Biography = (props) => {
       .then(data => {
         if (data.httpStatus === 'OK') {
           setShowModal(false);
+          setValidated(false);
           setParams({
             ...params,
             firstName: params.newFirstName,
@@ -93,6 +95,17 @@ const Biography = (props) => {
       })
       .catch(error => console.error(error));
   }
+
+  const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (!!params.newFirstName && !!params.newLastName && !!params.newCourseOfStudy && !!params.newEducationLevel) {
+      updateBiography();
+    }
+    setValidated(true);
+  };
 
   return (
     <div className="biography-component">
@@ -111,18 +124,18 @@ const Biography = (props) => {
           <Modal.Title>Update Biography</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated}>
             <FloatingLabel label="First name">
-              <Form.Control type="text" placeholder="First name" name="newFirstName" value={params.newFirstName} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="First name" name="newFirstName" value={params.newFirstName} onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel label="Last name">
-              <Form.Control type="text" placeholder="Last name" name="newLastName" value={params.newLastName} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Last name" name="newLastName" value={params.newLastName} onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel label="Course of study">
-              <Form.Control type="text" placeholder="Course of study" name="newCourseOfStudy" value={params.newCourseOfStudy} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Course of study" name="newCourseOfStudy" value={params.newCourseOfStudy} onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel label="Education level">
-              <Form.Control type="text" placeholder="Education level" name="newEducationLevel" value={params.newEducationLevel} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Education level" name="newEducationLevel" value={params.newEducationLevel} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -130,7 +143,7 @@ const Biography = (props) => {
           <Button variant="secondary" onClick={closeModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={updateBiography}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>

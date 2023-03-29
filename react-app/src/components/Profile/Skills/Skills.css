@@ -6,7 +6,7 @@
 .skills-component .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   row-gap: 5vw;
 }
  
@@ -21,6 +21,6 @@
   gap: 5px;
 }
 
-.skills-component .badge-content RxCross1 {
+.skills-component .badge-content .delete-icon {
   cursor: pointer;
 }

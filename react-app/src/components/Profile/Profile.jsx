@@ -73,20 +73,29 @@ const Profile = () => {
             <Skills 
               email={params.email}
               // skills={params.skills}
-              skills={['skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3', 'skill1', 'skill2', 'skill3']}
+              skills={[{
+                "skill": "Java",
+                "id": 1
+              },
+              {
+                "skill": "C++",
+                "id": 3
+              },
+              {
+                "skill": "Python",
+                "id": 2
+              }]}
             />
           </div>
         </div>
         <div className="sidebar" id="experience">
           <div className="sidebar-content" id="education">
             <History 
-              title={"Education"} 
               array={params.colleges} 
             />
           </div>
           <div className="sidebar-content" id="work">
             <History 
-              title={"Experience"} 
               array={params.jobs} 
             />
           </div>

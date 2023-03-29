@@ -8,6 +8,7 @@ import './Contact.css';
 
 const Contact = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
     email: '',
     phone: '',
@@ -46,7 +47,7 @@ const Contact = (props) => {
   }
 
   const updateContact = () => {
-    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZUB0ZXN0LmVkdSIsImlhdCI6MTY3OTgwNTI2OSwiZXhwIjoxNjc5ODkxNjY5fQ.a0ejdeHuf9nMpyrUqpRT7n_o6vbHd63gnSey0yQlyMM';
+    let token = '';
     fetch('http://localhost:8080/api/v1/users/contact', {
       method: 'PUT',
       headers: {
@@ -62,6 +63,7 @@ const Contact = (props) => {
       .then(data => {
         if (data.httpStatus === 'OK') {
           setShowModal(false);
+          setValidated(false);
           setParams({
             ...params,
             phone: params.newPhone
@@ -71,6 +73,17 @@ const Contact = (props) => {
         }
       })
       .catch(error => console.error(error));
+  };
+
+  const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (!!params.newPhone) {
+      updateContact();
+    }
+    setValidated(true);
   }
 
   return (
@@ -89,9 +102,9 @@ const Contact = (props) => {
           <Modal.Title>Update Contact</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated}>
             <FloatingLabel label="Phone">
-              <Form.Control type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -99,7 +112,7 @@ const Contact = (props) => {
           <Button variant="secondary" onClick={closeModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={updateContact}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>
