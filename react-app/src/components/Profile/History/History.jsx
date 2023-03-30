@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
-import { FaPlus, FaEdit, FaCheck, FaMinus } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import {filterById, removeById} from '../Utils';
+import { FaPlus, FaEdit } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import './History.css';
 
-const History = ({ title, array }) => {
-  const [canEdit, setCanEdit] = useState(false);
+const History = (props) => {
+  const [array, setArray] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [canUpdate, setCanUpdate] = useState(false);
   const [params, setParams] = useState({
-    name: '',
-    startYear: '',
-    endYear: ''
+    id: -1,
+    instituteName: '',
+    startDate: '',
+    endDate: '',
+    degree: '',
+    department: '',
   });
 
-  const openModal = () => {
+  useEffect(() => {
+    if (props) {
+      setArray(props.array);
+    }
+  }, [props]);
+
+  const openAddModal = () => {
+    setShowModal(true);
+  }
+
+  const openUpdateModal = (elemId) => {
+    setParams({
+      id: elemId,
+      instituteName: 'Some School',
+      startDate: 'Fake',
+      endDate: 'Data',
+      degree: 'Some Degree',
+      department: 'Some Department',
+    });
+    setCanUpdate(true);
     setShowModal(true);
   }
 
@@ -28,85 +52,107 @@ const History = ({ title, array }) => {
 
   const closeModal = () => {
     setShowModal(false);
+    setCanUpdate(false);
     setParams({
-      name: '',
-      startYear: '',
-      endYear: ''
+      id: -1,
+      instituteName: '',
+      startDate: '',
+      endDate: '',
+      degree: '',
+      department: '',
     });
   }
 
   const addHistory = () => {
-    setShowModal(false);
     // Add to table
-    setParams({
-      name: '',
-      startYear: '',
-      endYear: ''
-    });
+    closeModal();
+    // setShowAddModal(false);
+    // setParams({
+    //   name: '',
+    //   startDate: '',
+    //   endDate: ''
+    // });
+  }
+
+  const updateHistory = () => {
+    // Update table
+    closeModal();
   }
 
   const deleteHistory = () => {
     // Remove from table
-  }
-
-  const editHistory = () => {
-    setCanEdit(true);
-  }
-
-  const saveHistory = () => {
-    setCanEdit(false);
+    closeModal();
+    setArray(removeById(array, params.id));
   }
 
   const array2 = [['Job1', '2000'], ['Job2', '2005']];
   return (
     <div className="history-component">
       <div className="header">
-        <h2>{title}</h2>
-        <div className="edit-icons">
-          <FaPlus onClick={openModal} />
-          {canEdit
-            ? <FaCheck onClick={saveHistory} />
-            : <FaEdit onClick={editHistory} />
-          }
+        <h2>Education</h2>
+        <div>
+          <FaPlus className="edit-icons" onClick={openAddModal} />
         </div>
       </div>
       <div className="table">
-        {/* {array.map(item => ( */}
-        {array2.map(item => (
+        {/* {params.array.map(elem => ( */}
+        {array2.map(elem => (
           <div className="row">
-            <div className="col">{item[0]}</div>
-            <div className="col">{item[1]}</div>
-            {canEdit &&
-              <FaMinus className="col" onClick={deleteHistory} />
-            }
+            <div className="col">{elem[0]}</div>
+            <div className="col">{elem[1]}</div>
+            <div className="col">
+              <FaEdit className="edit-icons" size={30} onClick={() => openUpdateModal(elem.id)} />
+            </div>
           </div>
         ))}
       </div>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add {title} History</Modal.Title>
+          {canUpdate
+            ? <Modal.Title>Update Education</Modal.Title>
+            : <Modal.Title>Add Education</Modal.Title>
+          }
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <FloatingLabel label="Name">
-              <Form.Control type="text" placeholder="Name" name="name" value={params.name} onChange={handleChange} />
+            <FloatingLabel label="Institute Name">
+              <Form.Control required type="text" placeholder="Name" name="instituteName" value={params.instituteName} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="Start year">
-              <Form.Control type="number" maxLength="4" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange} />
+            <FloatingLabel label="Start date">
+              <Form.Control required type="date" placeholder="Start date" name="startDate" value={params.startDate} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="End year">
-              <Form.Control type="number" maxLength="4" placeholder="End year" name="endYear" value={params.endYear} onChange={handleChange} />
+            <FloatingLabel label="End date">
+              <Form.Control required type="date" placeholder="End date" name="endDate" value={params.endDate} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel label="Degree">
+              <Form.Control required type="text" placeholder="Degree" name="degree" value={params.degree} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel label="Department">
+              <Form.Control required type="text" placeholder="Department" name="department" value={params.department} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={addHistory}>
-            Save
-          </Button>
-        </Modal.Footer>
+        {canUpdate
+          ? <Modal.Footer>
+            <Button variant="secondary" onClick={closeModal}>
+              Close
+            </Button>
+            <Button variant="danger" onClick={deleteHistory}>
+              Delete
+            </Button>
+            <Button variant="primary" onClick={updateHistory}>
+              Save
+            </Button>
+          </Modal.Footer>
+          : <Modal.Footer>
+            <Button variant="secondary" onClick={closeModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={addHistory}>
+              Add
+            </Button>
+          </Modal.Footer>
+        }
       </Modal>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { filterById, removeById } from '../Utils';
 import { FaPlus } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 import Button from 'react-bootstrap/Button';
@@ -10,12 +11,15 @@ import './Skills.css';
 
 const Skills = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [skill, setSkill] = useState('');
+  const [validated, setValidated] = useState(false);
+  const [newSkill, setNewSkill] = useState('');
+  const [email, setEmail] = useState('');
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
     if (props) {
-        setSkills(props.skills);
+      setEmail(props.email);
+      setSkills(props.skills);
     }
   }, [props]);
 
@@ -24,23 +28,69 @@ const Skills = (props) => {
   }
 
   const handleChange = (e) => {
-    setSkill(e.target.value);
+    setNewSkill(e.target.value);
   }
 
   const closeModal = () => {
     setShowModal(false);
-    setSkill('');
+    setNewSkill('');
   }
 
-  const addSkill = () => {
-    setShowModal(false);
-    setSkills([...skills, skill]);
-    setSkill('');
-    // Add to table
+  const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (!!newSkill) {
+      addSkill();
+    }
+    setValidated(true);
+  };
+
+  const addSkill = (e) => {
+    let token = '';
+    fetch('http://localhost:8080/api/v1/skills/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        skill: newSkill,
+        email: email
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.httpStatus === 'OK') {
+          setShowModal(false);
+          setSkills([...skills, newSkill]); // TODO
+          setNewSkill('');
+        } else {
+          console.log(data.httpStatus);
+        }
+      })
+      .catch(error => console.error(error));
   }
 
-  const deleteSkill = () => {
-    // Remove from table
+  const deleteSkill = (skillId) => {
+    let token = '';
+    fetch('http://localhost:8080/api/v1/skills/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        id: skillId,
+        email: email
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        setSkills(removeById(skills, skillId));
+      })
+      .catch(error => console.error(error));
   }
 
   return (
@@ -52,11 +102,11 @@ const Skills = (props) => {
         </div>
       </div>
       <div className="badges">
-        {skills.map(skill => (
-          <Badge bg="secondary">
-            <div className="badge-content">
-              {skill}
-              <RxCross1 onClick={deleteSkill} />
+        {skills.map(elem => (
+          <Badge bg="secondary" key={elem.id}>
+            <div className="badge-content" >
+              {elem.skill}
+              <RxCross1 className="delete-icon" onClick={() => deleteSkill(elem.id)} />
             </div>
           </Badge>
         ))}
@@ -66,9 +116,9 @@ const Skills = (props) => {
           <Modal.Title>Add Skill</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated}>
             <FloatingLabel label="Skill">
-              <Form.Control type="text" placeholder="Skill" name="skill" value={skill} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Skill" name="newSkill" value={newSkill} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -76,7 +126,7 @@ const Skills = (props) => {
           <Button variant="secondary" onClick={closeModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={addSkill}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>

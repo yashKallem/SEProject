@@ -8,28 +8,26 @@ import './Contact.css';
 
 const Contact = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
     email: '',
     phone: '',
 
-    newEmail: '',
     newPhone: '',
   });
 
   useEffect(() => {
     if (props) {
-        setParams({
-            email: props.email,
-            phone: props.phone,
-        
-            newEmail: props.email,
-            newPhone: props.phone,
-        })
+      setParams({
+        email: props.email,
+        phone: props.phone,
+
+        newPhone: props.phone,
+      })
     }
   }, [props]);
 
   const openModal = () => {
-    console.log(params);
     setShowModal(true);
   }
 
@@ -43,20 +41,49 @@ const Contact = (props) => {
   const closeModal = () => {
     setShowModal(false);
     setParams({
-        ...params,
-        newEmail: params.email,
-        newPhone: params.phone
-      })
+      ...params,
+      newPhone: params.phone
+    })
   }
 
   const updateContact = () => {
-    setShowModal(false);
-    setParams({
-      ...params,
-      email: params.newEmail,
-      phone: params.newPhone
-    });
-    // Update table
+    let token = '';
+    fetch('http://localhost:8080/api/v1/users/contact', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        phone: params.newPhone,
+        email: params.email
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.httpStatus === 'OK') {
+          setShowModal(false);
+          setValidated(false);
+          setParams({
+            ...params,
+            phone: params.newPhone
+          });
+        } else {
+          console.log(data.httpStatus);
+        }
+      })
+      .catch(error => console.error(error));
+  };
+
+  const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (!!params.newPhone) {
+      updateContact();
+    }
+    setValidated(true);
   }
 
   return (
@@ -75,12 +102,9 @@ const Contact = (props) => {
           <Modal.Title>Update Contact</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <FloatingLabel label="Email">
-              <Form.Control type="text" placeholder="Email" name="newEmail" value={params.newEmail} onChange={handleChange} />
-            </FloatingLabel>
+          <Form noValidate validated={validated}>
             <FloatingLabel label="Phone">
-              <Form.Control type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -88,7 +112,7 @@ const Contact = (props) => {
           <Button variant="secondary" onClick={closeModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={updateContact}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>
