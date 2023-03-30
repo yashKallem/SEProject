@@ -6,7 +6,7 @@
 .biography-component .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   row-gap: 5vw;
 }
   

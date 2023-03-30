@@ -6,30 +6,28 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import './Contact.css';
 
-const Contact = (props) => {
+const Biography = (props) => {
+  const token = window.localStorage.getItem("token");
+  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
-    email: '',
+    // email: '',
     phone: '',
-
-    newEmail: '',
-    newPhone: '',
+    newPhone: ''
   });
 
   useEffect(() => {
     if (props) {
-        setParams({
-            email: props.email,
-            phone: props.phone,
-        
-            newEmail: props.email,
-            newPhone: props.phone,
-        })
+      setParams({
+        phone: props.phone,
+        // email: props.email,
+        newPhone: props.phone
+      })
     }
   }, [props]);
 
   const openModal = () => {
-    console.log(params);
     setShowModal(true);
   }
 
@@ -43,20 +41,48 @@ const Contact = (props) => {
   const closeModal = () => {
     setShowModal(false);
     setParams({
-        ...params,
-        newEmail: params.email,
-        newPhone: params.phone
-      })
+      ...params,
+      newPhone: params.phone
+    });
   }
 
   const updateContact = () => {
-    setShowModal(false);
-    setParams({
-      ...params,
-      email: params.newEmail,
-      phone: params.newPhone
-    });
-    // Update table
+    fetch('http://localhost:8080/api/v1/users/contact', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        phone: params.newPhone,
+        email: email
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === ' CONTACT_UPDATED !') {
+          setShowModal(false);
+          setValidated(false);
+          setParams({
+            ...params,
+            phone: params.newPhone
+          });
+        } else {
+          console.log(data.message);
+        }
+      })
+      .catch(error => console.error(error));
+  }
+
+  const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    } else if (!!params.newPhone) {
+      updateContact();
+    }
+    setValidated(true);
   }
 
   return (
@@ -67,7 +93,7 @@ const Contact = (props) => {
           <FaEdit onClick={openModal} />
         </div>
       </div>
-      <div>{params.email}</div>
+      <div>{email}</div>
       <div>{params.phone}</div>
 
       <Modal show={showModal} onHide={closeModal}>
@@ -75,12 +101,12 @@ const Contact = (props) => {
           <Modal.Title>Update Contact</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated}>
             <FloatingLabel label="Email">
-              <Form.Control type="text" placeholder="Email" name="newEmail" value={params.newEmail} onChange={handleChange} />
+              <Form.Control disabled defaultValue={email} />
             </FloatingLabel>
             <FloatingLabel label="Phone">
-              <Form.Control type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -88,7 +114,7 @@ const Contact = (props) => {
           <Button variant="secondary" onClick={closeModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={updateContact}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>
@@ -97,4 +123,4 @@ const Contact = (props) => {
   );
 }
 
-export default Contact;
+export default Biography;
