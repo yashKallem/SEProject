@@ -8,15 +8,14 @@ import './Biography.css';
 
 const Biography = (props) => {
   const token = window.localStorage.getItem("token");
-  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
     firstName: '',
     lastName: '',
+    email: '',
     courseOfStudy: '',
     educationLevel: '',
-    // email: '',
 
     newFirstName: '',
     newLastName: '',
@@ -29,9 +28,9 @@ const Biography = (props) => {
       setParams({
         firstName: props.firstName,
         lastName: props.lastName,
+        email: props.email,
         courseOfStudy: props.courseOfStudy,
         educationLevel: props.educationLevel,
-        // email: props.email,
 
         newFirstName: props.firstName,
         newLastName: props.lastName,
@@ -75,7 +74,7 @@ const Biography = (props) => {
         lastName: params.newLastName,
         courseOfStudy: params.newCourseOfStudy,
         educationLevel: params.newEducationLevel,
-        email: email
+        email: params.email
       })
     })
       .then(response => response.json())

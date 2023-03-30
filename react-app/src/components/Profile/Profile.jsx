@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../NavBar/NavBar';
 import Biography from './Biography/Biography';
 import Contact from './Contact/Contact';
@@ -9,22 +9,21 @@ import './Profile.css';
 
 const Profile = () => {
   const token = window.localStorage.getItem("token");
-  const email = window.localStorage.getItem("email");
   const [params, setParams] = useState({
     firstName: '',
     lastName: '',
+    email: '',
     courseOfStudy: '',
     educationLevel: '',
-    // email: '',
     phone: '',
     skills: [],
     colleges: [],
     jobs: []
   });
 
-  // const location = useLocation();
+  const location = useLocation();
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/profile?email=${email}`, {
+    fetch(`http://localhost:8080/api/v1/users/profile?email=${location.state.email}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -39,9 +38,9 @@ const Profile = () => {
         setParams({
           firstName: data.givenName,
           lastName: data.lastName,
+          email: data.email,
           courseOfStudy: data.courseOfStudy,
           educationLevel: data.educationLevel,
-          // email: data.email,
           phone: data.phone,
           skills: data.skills,
           colleges: data.educationHistory,
@@ -49,7 +48,7 @@ const Profile = () => {
         });
       })
       .catch(error => console.log(error));
-  }, [token, email]);
+  }, [location, token]);
 
   return (
     <div className="profile-page">
@@ -57,48 +56,50 @@ const Profile = () => {
       <div className="sidebar-container">
         <div className="sidebar" id="summary">
           <div className="sidebar-content" id="biography">
-            <Biography 
-              firstName={params.firstName} 
-              lastName={params.lastName} 
-              courseOfStudy={params.courseOfStudy} 
-              educationLevel={params.educationLevel} 
-              // email={params.email}
+            <Biography
+              firstName={params.firstName}
+              lastName={params.lastName}
+              email={params.email}
+              courseOfStudy={params.courseOfStudy}
+              educationLevel={params.educationLevel}
             />
           </div>
           <div className="sidebar-content" id="contact">
-            <Contact 
-              // email={params.email}
+            <Contact
+              email={params.email}
               phone={params.phone}
             />
           </div>
           <div className="sidebar-content" id="skills">
-            <Skills 
-              // email={params.email}
-              // skills={params.skills}
-              skills={[{
-                "skill": "Java",
-                "id": 1
-              },
-              {
-                "skill": "C++",
-                "id": 3
-              },
-              {
-                "skill": "Python",
-                "id": 2
-              }]}
+            <Skills
+              email={params.email}
+              skills={params.skills}
+            // skills={[{
+            //   "skill": "Java",
+            //   "id": 1
+            // },
+            // {
+            //   "skill": "C++",
+            //   "id": 3
+            // },
+            // {
+            //   "skill": "Python",
+            //   "id": 2
+            // }]}
             />
           </div>
         </div>
         <div className="sidebar" id="experience">
           <div className="sidebar-content" id="education">
-            <History 
-              array={params.colleges} 
+            <History
+              email={params.email}
+              array={params.colleges}
             />
           </div>
           <div className="sidebar-content" id="work">
-            <History 
-              array={params.jobs} 
+            <History
+              email={params.email}
+              array={params.jobs}
             />
           </div>
         </div>

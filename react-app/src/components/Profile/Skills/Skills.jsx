@@ -11,22 +11,27 @@ import './Skills.css';
 
 const Skills = (props) => {
   const token = window.localStorage.getItem("token");
-  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [newSkill, setNewSkill] = useState('');
-  // const [email, setEmail] = useState('');
   const [skills, setSkills] = useState([]);
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     if (props) {
-      // setEmail(props.email);
+      setEmail(props.email);
       setSkills(props.skills);
     }
   }, [props]);
 
   const openModal = () => {
     setShowModal(true);
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
   }
 
   const handleChange = (e) => {
@@ -65,7 +70,7 @@ const Skills = (props) => {
       .then(data => {
         if (data.httpStatus === 'OK') {
           setShowModal(false);
-          setSkills([...skills, newSkill]); // TODO
+          // setSkills([...skills, newSkill]); // TODO
           setNewSkill('');
         } else {
           console.log(data.httpStatus);
@@ -118,7 +123,7 @@ const Skills = (props) => {
         <Modal.Body>
           <Form noValidate validated={validated}>
             <FloatingLabel label="Skill">
-              <Form.Control required type="text" placeholder="Skill" name="newSkill" value={newSkill} onChange={handleChange} />
+              <Form.Control required type="text" placeholder="Skill" name="newSkill" value={newSkill} onKeyPress={handleKeyPress} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>

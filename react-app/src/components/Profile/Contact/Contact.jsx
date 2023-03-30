@@ -8,11 +8,10 @@ import './Contact.css';
 
 const Biography = (props) => {
   const token = window.localStorage.getItem("token");
-  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
-    // email: '',
+    email: '',
     phone: '',
     newPhone: ''
   });
@@ -20,8 +19,8 @@ const Biography = (props) => {
   useEffect(() => {
     if (props) {
       setParams({
+        email: props.email,
         phone: props.phone,
-        // email: props.email,
         newPhone: props.phone
       })
     }
@@ -54,8 +53,8 @@ const Biography = (props) => {
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-        phone: params.newPhone,
-        email: email
+        email: params.email,
+        phone: params.newPhone
       })
     })
       .then(response => response.json())
@@ -93,7 +92,7 @@ const Biography = (props) => {
           <FaEdit onClick={openModal} />
         </div>
       </div>
-      <div>{email}</div>
+      <div>{params.email}</div>
       <div>{params.phone}</div>
 
       <Modal show={showModal} onHide={closeModal}>
@@ -103,7 +102,7 @@ const Biography = (props) => {
         <Modal.Body>
           <Form noValidate validated={validated}>
             <FloatingLabel label="Email">
-              <Form.Control disabled defaultValue={email} />
+              <Form.Control disabled defaultValue={params.email} />
             </FloatingLabel>
             <FloatingLabel label="Phone">
               <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />

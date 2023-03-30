@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import './History.css';
 
 const History = (props) => {
+  // const [email, setEmail] = useState('');
   const [array, setArray] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [canUpdate, setCanUpdate] = useState(false);
@@ -22,6 +23,7 @@ const History = (props) => {
 
   useEffect(() => {
     if (props) {
+      // setEmail(props.email);
       setArray(props.array);
     }
   }, [props]);
