@@ -1,8 +1,8 @@
-export const filterById = (arr, target) => {
+export const updateById = (arr, target) => {
     let updatedArr = [...arr];
     for (var i = 0; i < updatedArr.length; i++) {
-        if (updatedArr[i].id === target) {
-            // Update
+        if (updatedArr[i].id === target.id) {
+            updatedArr[i] = target;
             return updatedArr;
         }
     }

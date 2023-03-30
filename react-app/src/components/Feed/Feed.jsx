@@ -6,7 +6,6 @@ const Feed = () => {
   return (
     <div className="feed-page">
       <Navbar />
-      FEED
     </div>
   );
 }

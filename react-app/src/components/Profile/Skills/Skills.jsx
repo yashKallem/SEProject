@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { filterById, removeById } from '../Utils';
+import { removeById } from '../Utils';
 import { FaPlus } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 import Button from 'react-bootstrap/Button';
@@ -10,15 +10,17 @@ import Modal from 'react-bootstrap/Modal';
 import './Skills.css';
 
 const Skills = (props) => {
+  const token = window.localStorage.getItem("token");
+  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [newSkill, setNewSkill] = useState('');
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
     if (props) {
-      setEmail(props.email);
+      // setEmail(props.email);
       setSkills(props.skills);
     }
   }, [props]);
@@ -45,10 +47,9 @@ const Skills = (props) => {
       addSkill();
     }
     setValidated(true);
-  };
+  }
 
   const addSkill = (e) => {
-    let token = '';
     fetch('http://localhost:8080/api/v1/skills/add', {
       method: 'POST',
       headers: {
@@ -74,7 +75,6 @@ const Skills = (props) => {
   }
 
   const deleteSkill = (skillId) => {
-    let token = '';
     fetch('http://localhost:8080/api/v1/skills/delete', {
       method: 'DELETE',
       headers: {

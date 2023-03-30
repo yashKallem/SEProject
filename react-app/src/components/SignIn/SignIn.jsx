@@ -7,7 +7,7 @@ const SignIn = () => {
     email: '',
     password: '',
     status: '',
-    token: ''
+    // token: ''
   });
 
   const handleChange = (e) => {
@@ -32,11 +32,14 @@ const SignIn = () => {
       .then(response => response.json())
       .then(data => {
         // console.log(data);
+        window.localStorage.setItem("token", data.token);
+        window.localStorage.setItem("email", params.email);
+
         setParams({
           // email: '',
           ...params,
           password: '',
-          token: data.token,
+          // token: data.token,
           status: data.httpStatus
         });
       })
@@ -52,7 +55,7 @@ const SignIn = () => {
           {(() => {
             if (params.status === "OK") {
               return (
-                <Navigate to="/feed" state={{ token: params.token, email: params.email }} replace={true} />
+                <Navigate to="/feed" /*state={{ token: params.token, email: params.email }}*/ replace={true} />
               )
             } else if (params.status === "UNAUTHORIZED") {
               return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {filterById, removeById} from '../Utils';
+import { removeById } from '../Utils';
 import { FaPlus, FaEdit } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';

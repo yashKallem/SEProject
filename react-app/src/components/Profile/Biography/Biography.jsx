@@ -7,6 +7,8 @@ import Modal from 'react-bootstrap/Modal';
 import './Biography.css';
 
 const Biography = (props) => {
+  const token = window.localStorage.getItem("token");
+  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
@@ -14,7 +16,7 @@ const Biography = (props) => {
     lastName: '',
     courseOfStudy: '',
     educationLevel: '',
-    email: '',
+    // email: '',
 
     newFirstName: '',
     newLastName: '',
@@ -29,7 +31,7 @@ const Biography = (props) => {
         lastName: props.lastName,
         courseOfStudy: props.courseOfStudy,
         educationLevel: props.educationLevel,
-        email: props.email,
+        // email: props.email,
 
         newFirstName: props.firstName,
         newLastName: props.lastName,
@@ -62,7 +64,6 @@ const Biography = (props) => {
   }
 
   const updateBiography = () => {
-    let token = '';
     fetch('http://localhost:8080/api/v1/users/about', {
       method: 'PUT',
       headers: {
@@ -74,12 +75,12 @@ const Biography = (props) => {
         lastName: params.newLastName,
         courseOfStudy: params.newCourseOfStudy,
         educationLevel: params.newEducationLevel,
-        email: params.email
+        email: email
       })
     })
       .then(response => response.json())
       .then(data => {
-        if (data.httpStatus === 'OK') {
+        if (data.message === ' ABOUT_UPDATED !') {
           setShowModal(false);
           setValidated(false);
           setParams({
@@ -90,7 +91,7 @@ const Biography = (props) => {
             educationLevel: params.newEducationLevel,
           });
         } else {
-          console.log(data.httpStatus);
+          console.log(data.message);
         }
       })
       .catch(error => console.error(error));
@@ -105,7 +106,7 @@ const Biography = (props) => {
       updateBiography();
     }
     setValidated(true);
-  };
+  }
 
   return (
     <div className="biography-component">

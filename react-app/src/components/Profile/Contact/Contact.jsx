@@ -6,23 +6,23 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import './Contact.css';
 
-const Contact = (props) => {
+const Biography = (props) => {
+  const token = window.localStorage.getItem("token");
+  const email = window.localStorage.getItem("email");
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
-    email: '',
+    // email: '',
     phone: '',
-
-    newPhone: '',
+    newPhone: ''
   });
 
   useEffect(() => {
     if (props) {
       setParams({
-        email: props.email,
         phone: props.phone,
-
-        newPhone: props.phone,
+        // email: props.email,
+        newPhone: props.phone
       })
     }
   }, [props]);
@@ -43,11 +43,10 @@ const Contact = (props) => {
     setParams({
       ...params,
       newPhone: params.phone
-    })
+    });
   }
 
   const updateContact = () => {
-    let token = '';
     fetch('http://localhost:8080/api/v1/users/contact', {
       method: 'PUT',
       headers: {
@@ -56,12 +55,12 @@ const Contact = (props) => {
       },
       body: JSON.stringify({
         phone: params.newPhone,
-        email: params.email
+        email: email
       })
     })
       .then(response => response.json())
       .then(data => {
-        if (data.httpStatus === 'OK') {
+        if (data.message === ' CONTACT_UPDATED !') {
           setShowModal(false);
           setValidated(false);
           setParams({
@@ -69,11 +68,11 @@ const Contact = (props) => {
             phone: params.newPhone
           });
         } else {
-          console.log(data.httpStatus);
+          console.log(data.message);
         }
       })
       .catch(error => console.error(error));
-  };
+  }
 
   const handleSubmit = (e) => {
     const form = e.currentTarget;
@@ -94,7 +93,7 @@ const Contact = (props) => {
           <FaEdit onClick={openModal} />
         </div>
       </div>
-      <div>{params.email}</div>
+      <div>{email}</div>
       <div>{params.phone}</div>
 
       <Modal show={showModal} onHide={closeModal}>
@@ -103,6 +102,9 @@ const Contact = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
+            <FloatingLabel label="Email">
+              <Form.Control disabled defaultValue={email} />
+            </FloatingLabel>
             <FloatingLabel label="Phone">
               <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
             </FloatingLabel>
@@ -121,4 +123,4 @@ const Contact = (props) => {
   );
 }
 
-export default Contact;
+export default Biography;

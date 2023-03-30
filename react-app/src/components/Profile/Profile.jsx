@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import Navbar from '../NavBar/NavBar';
 import Biography from './Biography/Biography';
 import Contact from './Contact/Contact';
@@ -8,25 +8,27 @@ import Skills from './Skills/Skills';
 import './Profile.css';
 
 const Profile = () => {
+  const token = window.localStorage.getItem("token");
+  const email = window.localStorage.getItem("email");
   const [params, setParams] = useState({
     firstName: '',
     lastName: '',
     courseOfStudy: '',
     educationLevel: '',
-    email: '',
+    // email: '',
     phone: '',
     skills: [],
     colleges: [],
     jobs: []
   });
 
-  const location = useLocation();
+  // const location = useLocation();
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/profile?email=${location.state.email}`, {
+    fetch(`http://localhost:8080/api/v1/users/profile?email=${email}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${location.state.token}`
+        'Authorization': `Bearer ${token}`
       }
     })
       .then(response => {
@@ -39,7 +41,7 @@ const Profile = () => {
           lastName: data.lastName,
           courseOfStudy: data.courseOfStudy,
           educationLevel: data.educationLevel,
-          email: data.email,
+          // email: data.email,
           phone: data.phone,
           skills: data.skills,
           colleges: data.educationHistory,
@@ -47,7 +49,7 @@ const Profile = () => {
         });
       })
       .catch(error => console.log(error));
-  }, [location]);
+  }, [token, email]);
 
   return (
     <div className="profile-page">
@@ -60,18 +62,18 @@ const Profile = () => {
               lastName={params.lastName} 
               courseOfStudy={params.courseOfStudy} 
               educationLevel={params.educationLevel} 
-              email={params.email}
+              // email={params.email}
             />
           </div>
           <div className="sidebar-content" id="contact">
             <Contact 
-              email={params.email}
+              // email={params.email}
               phone={params.phone}
             />
           </div>
           <div className="sidebar-content" id="skills">
             <Skills 
-              email={params.email}
+              // email={params.email}
               // skills={params.skills}
               skills={[{
                 "skill": "Java",
