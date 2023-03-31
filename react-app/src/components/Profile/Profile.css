@@ -21,11 +21,13 @@
 }
 
 .profile-page #summary {
+  min-width: 35vw;
   flex: 1 1 0;
 }
 
 .profile-page #experience {
-  flex: 2 1 0;
+  min-width: 50vw;
+  /* flex: 2 1 0; */
 }
 
 .profile-page .sidebar-content {

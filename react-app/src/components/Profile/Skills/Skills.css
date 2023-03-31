@@ -1,13 +1,11 @@
 .skills-component {
-  display: flex;
-  flex-direction: column;
+  text-align: left;
 }
  
 .skills-component .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  row-gap: 5vw;
 }
  
 .skills-component .edit-icons > * {
