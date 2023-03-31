@@ -116,8 +116,8 @@ const Biography = (props) => {
         </div>
       </div>
       <div>{params.firstName} {params.lastName}</div>
-      <div>{params.courseOfStudy}</div>
-      <div>{params.educationLevel}</div>
+      <div>{params.educationLevel}, {params.courseOfStudy}</div>
+      {/* <div>{params.educationLevel}</div> */}
 
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>

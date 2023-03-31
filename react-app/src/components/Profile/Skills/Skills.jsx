@@ -68,12 +68,13 @@ const Skills = (props) => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.httpStatus === 'OK') {
+        if (data.message === ' SKILL_ADDED !') {
           setShowModal(false);
-          // setSkills([...skills, newSkill]); // TODO
+          delete data.message;
+          setSkills([...skills, data]);
           setNewSkill('');
         } else {
-          console.log(data.httpStatus);
+          console.log(data.message);
         }
       })
       .catch(error => console.error(error));
@@ -93,7 +94,11 @@ const Skills = (props) => {
     })
       .then(response => response.json())
       .then(data => {
-        setSkills(removeById(skills, skillId));
+        if (data.message === ' SKILL_DELETED !') {
+          setSkills(removeById(skills, skillId));
+        } else {
+          console.log(data.message);
+        }
       })
       .catch(error => console.error(error));
   }

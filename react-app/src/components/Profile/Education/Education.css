@@ -1,0 +1,49 @@
+.education-component {
+  text-align: left;
+}
+
+.education-component .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.education-component .edit-icons>* {
+  size: large;
+  cursor: pointer;
+}
+
+.education-component .table {
+  max-height: 35vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.education-component .table > div:nth-child(odd) {
+  background-color: lightgray;
+}
+
+.education-component .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0px 0px;
+  grid-template-areas: 
+    "Title Title Title Icon"
+    "Subtitle Subtitle Subtitle Subtitle";
+  margin-bottom: 7px;
+}
+
+.education-component .grid .title {
+  grid-area: Title; 
+}
+
+.education-component .grid .edit-icons {
+  grid-area: Icon; 
+  justify-self: right;
+}
+
+.education-component .grid .subtitle {
+  grid-area: Subtitle; 
+  font-style: italic;
+}

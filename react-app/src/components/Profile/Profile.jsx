@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Navbar from '../NavBar/NavBar';
 import Biography from './Biography/Biography';
 import Contact from './Contact/Contact';
-import History from './History/History';
+import Education from './Education/Education';
 import Skills from './Skills/Skills';
 import './Profile.css';
 
@@ -74,30 +74,18 @@ const Profile = () => {
             <Skills
               email={params.email}
               skills={params.skills}
-            // skills={[{
-            //   "skill": "Java",
-            //   "id": 1
-            // },
-            // {
-            //   "skill": "C++",
-            //   "id": 3
-            // },
-            // {
-            //   "skill": "Python",
-            //   "id": 2
-            // }]}
             />
           </div>
         </div>
         <div className="sidebar" id="experience">
           <div className="sidebar-content" id="education">
-            <History
+            <Education
               email={params.email}
               array={params.colleges}
             />
           </div>
           <div className="sidebar-content" id="work">
-            <History
+            <Education
               email={params.email}
               array={params.jobs}
             />
