@@ -1,4 +1,4 @@
-# Project Name
+# Project Name - Campus Collaborate
 
 This is a brief introduction of the project and how to run it.
 
@@ -27,7 +27,7 @@ To run the project, please follow these steps:
    ```
    docker-compose up
    ```
-3. Once the project is running, you can access it by opening a web browser and navigating to `http://localhost:8000`.
+3. Once the project is running, you can access it by opening a web browser and navigating to `http://localhost:3000`.
 
 ## Conclusion
 
