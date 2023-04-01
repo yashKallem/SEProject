@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import './Education.css';
+import './Experience.css';
 
-const Education = (props) => {
+const Experience = (props) => {
   const token = window.localStorage.getItem("token");
   const [email, setEmail] = useState('');
   const [array, setArray] = useState([]);
@@ -17,11 +17,12 @@ const Education = (props) => {
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
     id: '',
-    instituteName: '',
-    startYear: '',
-    endYear: '',
-    degree: '',
-    department: '',
+    workTitle: '',
+    companyName: '',
+    workIndustry: '',
+    fromDate: '',
+    tillDate: '',
+    description: ''
   });
 
   useEffect(() => {
@@ -43,11 +44,12 @@ const Education = (props) => {
 
     setParams({
       id: elem.id,
-      instituteName: elem.instituteName,
-      startYear: elem.startYear,
-      endYear: elem.endYear,
-      degree: elem.degree,
-      department: elem.department
+      workTitle: elem.workTitle,
+      companyName: elem.companyName,
+      workIndustry: elem.workIndustry,
+      fromDate: elem.fromDate,
+      tillDate: elem.tillDate,
+      description: elem.description
     });
     setCanUpdate(true);
     setShowModal(true);
@@ -70,11 +72,12 @@ const Education = (props) => {
     setCanUpdate(false);
     setParams({
       id: '',
-      instituteName: '',
-      startYear: '',
-      endYear: '',
-      degree: '',
-      department: ''
+      workTitle: '',
+      companyName: '',
+      workIndustry: '',
+      fromDate: '',
+      tillDate: '',
+      description: ''
     });
   }
 
@@ -83,31 +86,32 @@ const Education = (props) => {
     setShowConfirmationModal(false);
   }
 
-  const addEducation = () => {
-    fetch('http://localhost:8080/api/v1/education/add', {
+  const addExperience = () => {
+    fetch('http://localhost:8080/api/v1/work/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-        instituteName: params.instituteName,
-        startYear: params.startYear,
-        endYear: params.endYear,
-        degree: params.degree,
-        department: params.department,
+        workTitle: params.workTitle,
+        companyName: params.companyName,
+        workIndustry: params.workIndustry,
+        fromDate: params.fromDate,
+        tillDate: params.tillDate,
+        description: params.description,
         email: email
       })
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === ' INSTITUTE_ADDED !') {
+        if (data.message === ' WORK_ADDED !') {
           closeModal();
           setValidated(false);
           delete data.message;
           setArray([...array, data].sort((a, b) => {
-            return a.startYear < b.startYear ? -1
-              : a.startYear > b.startYear ? 1
+            return a.fromDate < b.fromDate ? -1
+              : a.fromDate > b.fromDate ? 1
                 : 0;
           }));
         } else {
@@ -117,8 +121,8 @@ const Education = (props) => {
       .catch(error => console.error(error));
   }
 
-  const updateEducation = () => {
-    fetch('http://localhost:8080/api/v1/education/update', {
+  const updateExperience = () => {
+    fetch('http://localhost:8080/api/v1/work/update', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -126,23 +130,24 @@ const Education = (props) => {
       },
       body: JSON.stringify({
         id: params.id,
-        instituteName: params.instituteName,
-        startYear: params.startYear,
-        endYear: params.endYear,
-        degree: params.degree,
-        department: params.department,
+        workTitle: params.workTitle,
+        companyName: params.companyName,
+        workIndustry: params.workIndustry,
+        fromDate: params.fromDate,
+        tillDate: params.tillDate,
+        description: params.description,
         email: email
       })
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === ' INSTITUTE_UPDATED !') {
+        if (data.message === ' WORK_UPDATED !') {
           closeModal();
           setValidated(false);
           delete data.message;
           setArray(updateById(array, data).sort((a, b) => {
-            return a.startYear < b.startYear ? -1
-              : a.startYear > b.startYear ? 1
+            return a.fromDate < b.fromDate ? -1
+              : a.fromDate > b.fromDate ? 1
                 : 0;
           }));
         } else {
@@ -152,8 +157,8 @@ const Education = (props) => {
       .catch(error => console.error(error));
   }
 
-  const deleteEducation = () => {
-    fetch('http://localhost:8080/api/v1/education/delete', {
+  const deleteExperience = () => {
+    fetch('http://localhost:8080/api/v1/work/delete', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -166,7 +171,7 @@ const Education = (props) => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message === ' INSTITUTE_DELETED !') {
+        if (data.message === ' WORK_DELETED !') {
           setShowConfirmationModal(false);
           closeModal();
           setArray(removeById(array, params.id));
@@ -182,20 +187,20 @@ const Education = (props) => {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
-    } else if (!!params.instituteName && !!params.startYear && !!params.endYear && !!params.degree && !!params.department) {
+    } else if (!!params.workTitle && !!params.companyName && !!params.workIndustry && !!params.fromDate && !!params.tillDate && !!params.description) {
       if (action === 'Add') {
-        addEducation();
+        addExperience();
       } else if (action === 'Update') {
-        updateEducation();
+        updateExperience();
       }
     }
     setValidated(true);
   }
 
   return (
-    <div className="education-component">
+    <div className="experience-component">
       <div className="header">
-        <h2>Education</h2>
+        <h2>Experience</h2>
         <div>
           <FaPlus className="edit-icons" onClick={openAddModal} />
         </div>
@@ -203,35 +208,39 @@ const Education = (props) => {
       <div className="table">
         {array.map(elem => (
           <div className="grid" key={elem.id}>
-            <div className="title">{elem.instituteName} ({elem.startYear}-{elem.endYear})</div>
+            <div className="title">{elem.workTitle} ({new Date(elem.fromDate).getFullYear()}-{ new Date(elem.tillDate).getFullYear()})</div>
             <FaEdit className="edit-icons" onClick={() => openUpdateModal(elem.id)} />
-            <div className="subtitle">{elem.degree}, {elem.department}</div>
+            <div className="subtitle">{elem.companyName} | {elem.workIndustry}</div>
+            <div className="description">{elem.description}</div>
           </div>
         ))}
       </div>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           {canUpdate
-            ? <Modal.Title>Update Education</Modal.Title>
-            : <Modal.Title>Add Education</Modal.Title>
+            ? <Modal.Title>Update Experience</Modal.Title>
+            : <Modal.Title>Add Experience</Modal.Title>
           }
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
-            <FloatingLabel label="Institute name">
-              <Form.Control required type="text" placeholder="Institute name" name="instituteName" value={params.instituteName} onChange={handleChange} />
+            <FloatingLabel label="Work title">
+              <Form.Control required type="text" placeholder="Work title" name="workTitle" value={params.workTitle} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="Start year">
-              <Form.Control required type="number" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange} />
+            <FloatingLabel label="Company name">
+              <Form.Control required type="text" placeholder="Company name" name="companyName" value={params.companyName} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="End year">
-              <Form.Control required type="number" placeholder="End year" name="endYear" value={params.endYear} onChange={handleChange} />
+            <FloatingLabel label="Work industry">
+              <Form.Control required type="text" placeholder="Work industry" name="workIndustry" value={params.workIndustry} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="Degree">
-              <Form.Control required type="text" placeholder="Degree" name="degree" value={params.degree} onChange={handleChange} />
+            <FloatingLabel label="Start date">
+              <Form.Control required type="date" placeholder="Start date" name="fromDate" value={params.fromDate} onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel label="Department">
-              <Form.Control required type="text" placeholder="Department" name="department" value={params.department} onChange={handleChange} />
+            <FloatingLabel label="End date">
+              <Form.Control required type="date" placeholder="End date" name="tillDate" value={params.tillDate} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel label="Description">
+              <Form.Control required type="text" placeholder="Description" name="description" value={params.description} onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -260,16 +269,16 @@ const Education = (props) => {
 
       <Modal show={showConfirmationModal} onHide={closeConfirmationModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Education</Modal.Title>
+          <Modal.Title>Delete Experience</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this institute?
+          Are you sure you want to delete this experience?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeConfirmationModal}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={deleteEducation}>
+          <Button variant="danger" onClick={deleteExperience}>
             Delete
           </Button>
         </Modal.Footer>
@@ -278,4 +287,4 @@ const Education = (props) => {
   );
 }
 
-export default Education;
+export default Experience;
