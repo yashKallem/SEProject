@@ -1,0 +1,55 @@
+.experience-component {
+  text-align: left;
+}
+
+.experience-component .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.experience-component .edit-icons>* {
+  size: large;
+  cursor: pointer;
+}
+
+.experience-component .table {
+  max-height: 35vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.experience-component .table > div:nth-child(odd) {
+  background-color: lightgray;
+}
+
+.experience-component .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0px 0px;
+  grid-template-areas: 
+    "Title Title Title Icon"
+    "Subtitle Subtitle Subtitle Subtitle"
+    "Description Description Description Description";
+  margin-bottom: 7px;
+}
+
+.experience-component .grid .title {
+  grid-area: Title; 
+}
+
+.experience-component .grid .edit-icons {
+  grid-area: Icon; 
+  justify-self: right;
+}
+
+.experience-component .grid .subtitle {
+  grid-area: Subtitle; 
+  font-style: italic;
+  margin-bottom: 2px;
+}
+
+.experience-component .grid .description {
+  grid-area: Description;
+}

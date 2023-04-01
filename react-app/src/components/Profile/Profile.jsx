@@ -4,6 +4,7 @@ import Navbar from '../NavBar/NavBar';
 import Biography from './Biography/Biography';
 import Contact from './Contact/Contact';
 import Education from './Education/Education';
+import Experience from './Experience/Experience';
 import Skills from './Skills/Skills';
 import './Profile.css';
 
@@ -85,7 +86,7 @@ const Profile = () => {
             />
           </div>
           <div className="sidebar-content" id="work">
-            <Education
+            <Experience
               email={params.email}
               array={params.jobs}
             />
