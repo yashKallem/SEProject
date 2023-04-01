@@ -34,3 +34,5 @@ To run the project, please follow these steps:
 Congratulations! You have successfully installed and run the project on your local machine. If you have any issues or questions, please don't hesitate to contact us. 
 
 Thank you for using our software!
+
+Updated on 1st April 2023
