@@ -8,6 +8,7 @@ import './Biography.css';
 
 const Biography = (props) => {
   const token = window.localStorage.getItem("token");
+  const [canEdit, setCanEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
@@ -25,6 +26,7 @@ const Biography = (props) => {
 
   useEffect(() => {
     if (props) {
+      setCanEdit(props.canEdit);
       setParams({
         firstName: props.firstName,
         lastName: props.lastName,
@@ -111,13 +113,14 @@ const Biography = (props) => {
     <div className="biography-component">
       <div className="header">
         <h2>About</h2>
-        <div className="edit-icons">
-          <FaEdit onClick={openModal} />
-        </div>
+        {canEdit &&
+          <div className="edit-icons">
+            <FaEdit onClick={openModal} />
+          </div>
+        }
       </div>
       <div>{params.firstName} {params.lastName}</div>
       <div>{params.educationLevel}, {params.courseOfStudy}</div>
-      {/* <div>{params.educationLevel}</div> */}
 
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>

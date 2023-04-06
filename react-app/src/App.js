@@ -5,6 +5,7 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Feed from './components/Feed/Feed';
 import Profile from './components/Profile/Profile';
+import Users from './components/Users/Users';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/feed' element={<Feed />} />
           <Route exact path='/profile' element={<Profile />} />
+          <Route exact path='/users' element={<Users />} />
         </Routes>
       </Router>
     </div>

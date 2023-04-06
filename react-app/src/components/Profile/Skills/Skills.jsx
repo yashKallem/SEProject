@@ -11,6 +11,7 @@ import './Skills.css';
 
 const Skills = (props) => {
   const token = window.localStorage.getItem("token");
+  const [canEdit, setCanEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [newSkill, setNewSkill] = useState('');
@@ -19,6 +20,7 @@ const Skills = (props) => {
 
   useEffect(() => {
     if (props) {
+      setCanEdit(props.canEdit);
       setEmail(props.email);
       setSkills(props.skills);
     }
@@ -107,16 +109,20 @@ const Skills = (props) => {
     <div className="skills-component">
       <div className="header">
         <h2>Skills</h2>
-        <div className="edit-icons">
-          <FaPlus onClick={openModal} />
-        </div>
+        {canEdit &&
+          <div className="edit-icons">
+            <FaPlus onClick={openModal} />
+          </div>
+        }
       </div>
       <div className="badges">
         {skills.map(elem => (
           <Badge bg="secondary" key={elem.id}>
             <div className="badge-content" >
               {elem.skill}
-              <RxCross1 className="delete-icon" onClick={() => deleteSkill(elem.id)} />
+              {canEdit &&
+                <RxCross1 className="delete-icon" onClick={() => deleteSkill(elem.id)} />
+              }
             </div>
           </Badge>
         ))}
@@ -137,7 +143,7 @@ const Skills = (props) => {
             Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            Save
+            Add
           </Button>
         </Modal.Footer>
       </Modal>
