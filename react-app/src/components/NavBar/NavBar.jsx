@@ -15,6 +15,8 @@ const NavigationBar = () => {
           <Navbar.Brand href="/feed">Campus Collaborate</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/feed">Feed</Nav.Link>
+            <Nav.Link as={Link}>Projects</Nav.Link>
+            <Nav.Link as={Link} to="/users">Users</Nav.Link>
             <Nav.Link as={Link} state={{ email: email }} to="/profile">Profile</Nav.Link>
           </Nav>
         </Container>

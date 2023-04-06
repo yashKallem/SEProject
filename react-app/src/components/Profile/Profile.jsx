@@ -10,6 +10,8 @@ import './Profile.css';
 
 const Profile = () => {
   const token = window.localStorage.getItem("token");
+  const location = useLocation();
+  const [canEdit, setCanEdit] = useState(false);
   const [params, setParams] = useState({
     firstName: '',
     lastName: '',
@@ -22,9 +24,12 @@ const Profile = () => {
     jobs: []
   });
 
-  const location = useLocation();
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/profile?email=${location.state.email}`, {
+    const userEmail = window.localStorage.getItem("email");
+    const displayEmail = location.state.email;
+    setCanEdit(userEmail === displayEmail);
+
+    fetch(`http://localhost:8080/api/v1/users/profile?email=${displayEmail}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -63,18 +68,21 @@ const Profile = () => {
               email={params.email}
               courseOfStudy={params.courseOfStudy}
               educationLevel={params.educationLevel}
+              canEdit={canEdit}
             />
           </div>
           <div className="sidebar-content" id="contact">
             <Contact
               email={params.email}
               phone={params.phone}
+              canEdit={canEdit}
             />
           </div>
           <div className="sidebar-content" id="skills">
             <Skills
               email={params.email}
               skills={params.skills}
+              canEdit={canEdit}
             />
           </div>
         </div>
@@ -83,12 +91,14 @@ const Profile = () => {
             <Education
               email={params.email}
               array={params.colleges}
+              canEdit={canEdit}
             />
           </div>
           <div className="sidebar-content" id="work">
             <Experience
               email={params.email}
               array={params.jobs}
+              canEdit={canEdit}
             />
           </div>
         </div>

@@ -1,0 +1,10 @@
+.users-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.users-page .search-results {
+  display: flex;
+  flex-flow: row wrap;
+}

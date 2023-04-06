@@ -8,6 +8,7 @@ import './Contact.css';
 
 const Biography = (props) => {
   const token = window.localStorage.getItem("token");
+  const [canEdit, setCanEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [validated, setValidated] = useState(false);
   const [params, setParams] = useState({
@@ -18,6 +19,7 @@ const Biography = (props) => {
 
   useEffect(() => {
     if (props) {
+      setCanEdit(props.canEdit);
       setParams({
         email: props.email,
         phone: props.phone,
@@ -88,9 +90,11 @@ const Biography = (props) => {
     <div className="contact-component">
       <div className="header">
         <h2>Contact Information</h2>
-        <div className="edit-icons">
-          <FaEdit onClick={openModal} />
-        </div>
+        {canEdit &&
+          <div className="edit-icons">
+            <FaEdit onClick={openModal} />
+          </div>
+        }
       </div>
       <div>{params.email}</div>
       <div>{params.phone}</div>

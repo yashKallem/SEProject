@@ -9,6 +9,7 @@ import './Experience.css';
 
 const Experience = (props) => {
   const token = window.localStorage.getItem("token");
+  const [canEdit, setCanEdit] = useState(false);
   const [email, setEmail] = useState('');
   const [array, setArray] = useState([]);
   const [canUpdate, setCanUpdate] = useState(false);
@@ -27,6 +28,7 @@ const Experience = (props) => {
 
   useEffect(() => {
     if (props) {
+      setCanEdit(props.canEdit);
       setEmail(props.email);
       setArray(props.array);
     }
@@ -201,15 +203,19 @@ const Experience = (props) => {
     <div className="experience-component">
       <div className="header">
         <h2>Experience</h2>
-        <div>
-          <FaPlus className="edit-icons" onClick={openAddModal} />
-        </div>
+        {canEdit &&
+          <div>
+            <FaPlus className="edit-icons" onClick={openAddModal} />
+          </div>
+        }
       </div>
       <div className="table">
         {array.map(elem => (
           <div className="grid" key={elem.id}>
-            <div className="title">{elem.workTitle} ({new Date(elem.fromDate).getFullYear()}-{ new Date(elem.tillDate).getFullYear()})</div>
-            <FaEdit className="edit-icons" onClick={() => openUpdateModal(elem.id)} />
+            <div className="title">{elem.workTitle} ({new Date(elem.fromDate).getFullYear()}-{new Date(elem.tillDate).getFullYear()})</div>
+            {canEdit &&
+              <FaEdit className="edit-icons" onClick={() => openUpdateModal(elem.id)} />
+            }
             <div className="subtitle">{elem.companyName} | {elem.workIndustry}</div>
             <div className="description">{elem.description}</div>
           </div>
