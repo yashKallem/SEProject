@@ -105,12 +105,16 @@ const Biography = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
-            <FloatingLabel label="Email">
-              <Form.Control disabled defaultValue={params.email} />
-            </FloatingLabel>
-            <FloatingLabel label="Phone">
-              <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
-            </FloatingLabel>
+            <Form.Group className="mb-3" >
+              <FloatingLabel label="Email">
+                <Form.Control disabled defaultValue={params.email} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3" >
+              <FloatingLabel label="Phone">
+                <Form.Control required type="text" placeholder="Phone" name="newPhone" value={params.newPhone} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
