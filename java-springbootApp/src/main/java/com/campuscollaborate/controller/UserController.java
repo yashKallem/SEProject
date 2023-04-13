@@ -49,14 +49,14 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<UserDto> getUserByEmail(@RequestHeader("Authorization") String bearerToken, @RequestParam("email") String email) {
+    public ResponseEntity<UserDto> getUserByEmail(@RequestParam("email") String email) {
         UserDto userDto = new UserDto();
         try {
-            boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, email);
-            if (!isValid) {
-                userDto.setErrorMessage(UserMessage.TOKEN_MISMATCH);
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(userDto);
-            }
+//            boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, email);
+//            if (!isValid) {
+//                userDto.setErrorMessage(UserMessage.TOKEN_MISMATCH);
+//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(userDto);
+//            }
             userDto = userService.getUserByEmail(email);
             if (userDto != null) {
                 return ResponseEntity.ok().body(userDto);
