@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,6 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavigationBar = () => {
   const email = window.localStorage.getItem("email");
+
+  const signOut = () => {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("email");
+  }
+
   return (
     <>
       <Navbar bg="primary" variant="dark" sticky="top">
@@ -18,7 +23,7 @@ const NavigationBar = () => {
             <Nav.Link>Projects</Nav.Link>
             <Nav.Link as={Link} to="/users">Users</Nav.Link>
             <Nav.Link as={Link} state={{ email: email }} to="/profile">Profile</Nav.Link>
-            <Nav.Link>Sign out</Nav.Link>
+            <Nav.Link as={Link} to="/" onClick={signOut}>Sign out</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
