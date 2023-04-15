@@ -133,9 +133,11 @@ const Skills = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
-            <FloatingLabel label="Skill">
-              <Form.Control required type="text" placeholder="Skill" name="newSkill" value={newSkill} onKeyPress={handleKeyPress} onChange={handleChange} />
-            </FloatingLabel>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Skill">
+                <Form.Control required type="text" placeholder="Skill" name="newSkill" value={newSkill} onKeyPress={handleKeyPress} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>

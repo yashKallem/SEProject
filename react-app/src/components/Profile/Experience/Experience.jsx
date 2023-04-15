@@ -230,24 +230,36 @@ const Experience = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
-            <FloatingLabel label="Work title">
-              <Form.Control required type="text" placeholder="Work title" name="workTitle" value={params.workTitle} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Company name">
-              <Form.Control required type="text" placeholder="Company name" name="companyName" value={params.companyName} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Work industry">
-              <Form.Control required type="text" placeholder="Work industry" name="workIndustry" value={params.workIndustry} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Start date">
-              <Form.Control required type="date" placeholder="Start date" name="fromDate" value={params.fromDate} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="End date">
-              <Form.Control required type="date" placeholder="End date" name="tillDate" value={params.tillDate} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Description">
-              <Form.Control required type="text" placeholder="Description" name="description" value={params.description} onChange={handleChange} />
-            </FloatingLabel>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Work title">
+                <Form.Control required type="text" placeholder="Work title" name="workTitle" value={params.workTitle} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Company name">
+                <Form.Control required type="text" placeholder="Company name" name="companyName" value={params.companyName} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Work industry">
+                <Form.Control required type="text" placeholder="Work industry" name="workIndustry" value={params.workIndustry} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Start date">
+                <Form.Control required type="date" placeholder="Start date" name="fromDate" value={params.fromDate} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="End date">
+                <Form.Control required type="date" placeholder="End date" name="tillDate" value={params.tillDate} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Description">
+                <Form.Control required type="text" placeholder="Description" name="description" value={params.description} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
           </Form>
         </Modal.Body>
         {canUpdate

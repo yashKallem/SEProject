@@ -4,7 +4,15 @@
   justify-content: center;
 }
 
+.users-page .users-search {
+  margin: 2vh 2vw;
+  /* display: flex;
+  flex-direction: column;
+  gap: 10px; */
+}
+
 .users-page .search-results {
   display: flex;
   flex-flow: row wrap;
+  gap: 10px;
 }

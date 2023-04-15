@@ -16,7 +16,7 @@ const Users = () => {
   const [array, setArray] = useState([]);
 
   useEffect(() => {
-    fetch(`url${email}`, {
+    fetch(`http://localhost:8080/api/v1/users/all`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const Users = () => {
         return response.json();
       })
       .then(data => {
-        setArray([]);
+        setArray(data);
       })
       .catch(error => console.log(error));
   }, [email, token]);
@@ -37,84 +37,92 @@ const Users = () => {
   }
 
   const searchByFirstName = () => {
-    fetch(`url${email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        return response.json();
+    if (!!keyword) {
+      fetch(`url${keyword}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
       })
-      .then(data => {
-        setArray([]);
-      })
-      .catch(error => console.log(error));
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          setArray([]);
+        })
+        .catch(error => console.log(error));
+    }
   }
 
   const searchByLastName = () => {
-    fetch(`url${email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        return response.json();
+    if (!!keyword) {
+      fetch(`url${keyword}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
       })
-      .then(data => {
-        setArray([]);
-      })
-      .catch(error => console.log(error));
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          setArray([]);
+        })
+        .catch(error => console.log(error));
+    }
   }
 
   const searchByEmail = () => {
-    fetch(`url${email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        return response.json();
+    if (!!keyword) {
+      fetch(`http://localhost:8080/api/v1/users/profile?email=${keyword}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
       })
-      .then(data => {
-        setArray([]);
-      })
-      .catch(error => console.log(error));
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          setArray([data]);
+        })
+        .catch(error => console.log(error));
+    }
   }
 
   return (
     <div className="users-page">
       <Navbar />
-      <div className="search-bar">
-        <InputGroup>
-          <FloatingLabel label="User">
-            <Form.Control placeholder="User" name="keyword" value={keyword} onChange={handleChange} />
-          </FloatingLabel>
-          <DropdownButton variant="outline-secondary" title="Search by" align="end">
-            <Dropdown.Item onClick={searchByFirstName}>First name</Dropdown.Item>
-            <Dropdown.Item onClick={searchByLastName}>Last name</Dropdown.Item>
-            <Dropdown.Item onClick={searchByEmail}>Email</Dropdown.Item>
-          </DropdownButton>
-        </InputGroup>
-      </div>
-      <div className="search-results">
-        {array.map(elem => (
-          <Card style={{ width: '18rem' }}>
-            <Card.Body>
-              <Card.Title>{elem.firstName} {elem.lastName}</Card.Title>
-              <Card.Subtitle>{elem.courseOfStudy}</Card.Subtitle>
-              <Card.Text>
-                Skills: {elem.skills.join(', ')}
-              </Card.Text>
-              <Card.Link as={Link} state={{ email: elem.email }} to="/profile">View profile</Card.Link>
-            </Card.Body>
-          </Card>
-        ))}
+      <div className="users-search">
+        <div className="search-bar">
+          <InputGroup className="mb-3">
+            <FloatingLabel label="User">
+              <Form.Control required placeholder="User" name="keyword" value={keyword} onChange={handleChange} />
+            </FloatingLabel>
+            <DropdownButton variant="outline-secondary" title="Search by" align="end">
+              <Dropdown.Item onClick={searchByFirstName}>First name</Dropdown.Item>
+              <Dropdown.Item onClick={searchByLastName}>Last name</Dropdown.Item>
+              <Dropdown.Item onClick={searchByEmail}>Email</Dropdown.Item>
+            </DropdownButton>
+          </InputGroup>
+        </div>
+        <div className="search-results">
+          {array.length !== 0 && array.map(elem => (
+            <Card style={{ width: '18rem' }} key={elem.id}>
+              <Card.Body>
+                <Card.Title>{elem.givenName} {elem.lastName}</Card.Title>
+                <Card.Subtitle>{elem.courseOfStudy}</Card.Subtitle>
+                <Card.Text>
+                  {elem.skills.length !== 0 && elem.skills.map(item => item.skill).join(', ')}
+                </Card.Text>
+                <Card.Link as={Link} state={{ email: elem.email }} to="/profile">View profile</Card.Link>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
