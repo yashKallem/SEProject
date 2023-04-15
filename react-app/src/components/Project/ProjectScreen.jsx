@@ -6,12 +6,18 @@ import "../SignUp/SignUp.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const ProjectScreen = () => {
   const [postProject, setPostProject] = useState(false);
   const [addProject, setAddProject] = useState(false);
   const [allProjects, setAllProjects] = useState(true);
+  const [myProjects, setMyProjects] = useState(false);
   const [allProjectsData, setAllProjectsData] = useState([]);
+  const [myProjectsData, setMyProjectsData] = useState([]);
+  const [isUpdate, setIsUpdate] = useState(false)
+  const [indexupdate, setIndexUpdate] = useState(null)
+  const [Delete, setDelete] = useState(false)
   const [params, setParams] = useState({
     projectName: "",
     projectDescription: "",
@@ -21,27 +27,29 @@ const ProjectScreen = () => {
     deadline: "",
   });
   const location = useLocation();
-  // const p = () => {
-  //     console.log(params)
-  // }
 
+  const [isUpdateData, setIsUpdateData] = useState(false)
+  const [isDeleteData, setIsDeleteData] = useState(false)
+
+  const updateDataHandler = () => {
+    setIsUpdateData(true);
+  }
   const handleChange = (e) => {
-    //    console.log(params);
+
     setParams({
       ...params,
       [e.target.name]: e.target.value,
     });
 
 
-    //    console.log(params);
+
   };
 
 
   useEffect(() => {
-    console.log(postProject);
-    console.log(params, "useEffect");
+
     if (postProject) {
-      console.log(params, "useeffect post");
+
       fetch("http://localhost:8080/api/v1/projects/add", {
         method: "POST",
         headers: {
@@ -63,15 +71,19 @@ const ProjectScreen = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data, "after updation");
+
           setPostProject(false);
           setAddProject(false);
         })
-        .catch((error) => console.log(error));
+
     }
   }, [postProject]);
 
+
+
+
   useEffect(() => {
+    console.log("changes whe update")
     fetch("http://localhost:8080/api/v1/projects/all", {
       headers: {
         "Content-Type": "application/json",
@@ -82,21 +94,54 @@ const ProjectScreen = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setAllProjectsData(data);
+        setMyProjectsData(data.filter(x => x.publishedBy.email == location.state.email))
       })
       .catch((error) => console.log(error));
-  }, []);
-  console.log(allProjectsData, "after update");
+
+    if (postProject) {
+      setPostProject(false)
+    }
+
+    if (isUpdateData) {
+      setIsUpdateData(false)
+    }
+
+  }, [postProject, isUpdateData, isDeleteData]);
+
+
   const changeForm = () => {
     setAddProject(true);
   };
   const submitForm = () => {
     setPostProject(true);
   };
+  const submitUpdateForm = () => {
+    setIsUpdate(true)
+  }
 
-  const data = (data) => {
-    //    console.log("inside project all and my projects", data, params);
+  const deleteData = (id) => {
+    fetch("http://localhost:8080/api/v1/projects/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${location.state.token}`,
+      },
+      body: JSON.stringify({
+        projectId: id,
+        email: `${location.state.email}`,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setIsDeleteData(true);
+      })
+
+  }
+  const data = (data, all) => {
 
     return (
       <div
@@ -106,19 +151,66 @@ const ProjectScreen = () => {
         }}
       >
         {data.map((ob, index) => (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <p> </p>
-            <p> jsgfnsfjgnksfjnksjfsjvnfsnv</p>
-            <p> jsgfnv{index}</p>
-            <p>
-              <Example data={data[index]} index={index} handleChange={handleChange} params={params} submitForm={submitForm} />
-            </p>
-          </div>
+          <>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-start"
+              }}
+            >
+              <div style={styles.dataRow}>
+
+                <p style={styles.textBold}>{ob.projectName}      </p>
+                {all &&
+                  <>
+                    <p style={{
+                      paddingLeft: 30
+                    }}>
+                      <Example data={data[index]} index={index} handleChange={handleChange} params={params} submitForm={submitForm} isUpdate={isUpdate}
+                        setIsUpdate={setIsUpdate} updateDataHandler={updateDataHandler}
+                      />
+                    </p>
+
+
+                    <p style={{ paddingLeft: 20 }}>   <FaTrash onClick={() => deleteData(ob.projectId)} />
+                    </p>
+                  </>
+                }
+              </div>
+
+              <div style={styles.dataRow}>
+
+                <p> {ob.projectRole}</p>
+              </div>
+              <div style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+                flexDirection: "column"
+              }}>
+
+
+                <p style={{ textAlign: "left" }}>{ob.projectDescription} </p>
+              </div>
+
+              <div style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+                flexDirection: "column"
+              }}>
+
+
+                <p style={{ textAlign: "left" }}> {ob.jobDescription}</p>
+              </div>
+
+            </div>
+            {data.length != index + 1 &&
+              <hr size="3" width="100%" />
+            }
+          </>
         ))}
       </div>
     );
@@ -128,6 +220,29 @@ const ProjectScreen = () => {
     console.log('hfbgfh');
     console.log("update data modal", index, dat)
   };
+
+
+
+  const onclickAllProjects = () => {
+    if (allProjects) { }
+    else {
+      console.log(allProjectsData)
+      setMyProjects(false)
+      setAllProjects(true)
+    }
+
+  }
+  const onclickMyProjects = () => {
+    if (myProjects) {
+      console.log("my pro false")
+    }
+    else {
+      console.log("my pro")
+      setAllProjects(false)
+      setMyProjects(true)
+
+    }
+  }
   // }
   return (
     <>
@@ -152,15 +267,23 @@ const ProjectScreen = () => {
             border: "1px solid",
             borderRadius: 20,
             flex: 1,
+            //            color: "grey",
+            borderColor: "blue",
+            flexDirection: "column",
+            marginBottom: "10px"
           }}
         >
-          <Button variant="outline-primary" onClick={changeForm} size="lg">
-            Block level button
+          <Button variant="outline-primary" onClick={onclickAllProjects} size="lg">
+            view all projects
           </Button>
+          <br />
+          <Button variant="outline-primary" size="lg" onClick={onclickMyProjects}>
+            view my projects
+          </Button>
+          <br />
 
-          <Button variant="outline-primary" size="lg">
-            Block level button 2
-          </Button>
+
+          <AddProject data={allProjectsData} handleChange={handleChange} params={params} submitForm={submitForm} />
         </div>
         <div
           className="flex:2"
@@ -174,168 +297,18 @@ const ProjectScreen = () => {
           }}
         >
           <div style={{ padding: "20px" }}>
-            {allProjects && allProjectsData.length > 0 ? (
-              data(allProjectsData)
-            ) : (
-              <p> no data available</p>
-            )}
-            {addProject ? (
-              <>
-                <Form>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="project name"
-                      required
-                      name="projectName"
-                      value={params.projectName}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Example textarea</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="textarea"
-                      placeholder="project description"
-                      required
-                      name="projectDescription"
-                      value={params.projectDescription}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput1"
-                  >
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="location"
-                      required
-                      name="location"
-                      value={params.location}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput1"
-                  >
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="job description"
-                      required
-                      name="jobDescription"
-                      value={params.jobDescription}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput1"
-                  >
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="project role"
-                      required
-                      name="projectRole"
-                      value={params.projectRole}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput1"
-                  >
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="date"
-                      name="deadline"
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Button variant="secondary" onClick={submitForm}>
-                    "Add Project"
-                  </Button>
-                </Form>
-                {/* <form>
-                  <div
-                    className="form-fields"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <input
-                      type="text"
-                      placeholder="project name"
-                      required
-                      name="projectName"
-                      value={params.projectName}
-                      onChange={handleChange}
-                    />
-                    <br />
-                    <input
-                      type="textarea"
-                      placeholder="project description"
-                      required
-                      name="projectDescription"
-                      value={params.projectDescription}
-                      onChange={handleChange}
-                    />
-                    <br />
-                    <input
-                      type="text"
-                      placeholder="location"
-                      required
-                      name="location"
-                      value={params.location}
-                      onChange={handleChange}
-                    />
-                    <br />
-                    <input
-                      type="text"
-                      placeholder="job description"
-                      required
-                      name="jobDescription"
-                      value={params.jobDescription}
-                      onChange={handleChange}
-                    />
-                    <br />
-                    <input
-                      type="text"
-                      placeholder="project role"
-                      required
-                      name="projectRole"
-                      value={params.projectRole}
-                      onChange={handleChange}
-                    />
-                    <br />
-
-                    <input
-                      type="date"
-                      onChange={(event) =>
-                        setParams({ ...params, deadline: event.target.value })
-                      }
-                    />
-                    <br />
-                    <input
-                      type="button"
-                      value="Add Project"
-                      onClick={submitForm}
-                    />
-                  </div>
-                </form> */}
-              </>
-            ) : null}
+            {allProjects ?
+              (allProjectsData.length > 0 ? (
+                data(allProjectsData, false)
+              ) : (
+                <p> no data available</p>
+              )) : <></>}
+            {myProjects ?
+              (myProjectsData.length > 0 ? (
+                data(myProjectsData, true)
+              ) : (
+                <p> no data available</p>
+              )) : <></>}
           </div>
         </div>
         {/* <div
@@ -358,14 +331,216 @@ const ProjectScreen = () => {
 
 export default ProjectScreen;
 
-const styles = {
-  profile: {
-    flex: 1,
-    flexDirection: "row",
-  },
+
+const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
+  setIsUpdate, updateDataHandler }) => {
+
+  const location = useLocation();
+  //  console.log(data)
+  // console.log("update")
+  const [d, setD] = useState({
+    projectName: data.projectName,
+    projectDescription: data.projectDescription,
+    projectRole: data.projectRole,
+    location: data.location,
+    jobDescription: data.jobDescription,
+    deadline: data.deadline,
+  })
+  const [isUpTodate, setIsUpTOdate] = useState(false)
+
+
+
+  useEffect(() => {
+
+    console.log("is update enterd", isUpTodate)
+
+    if (isUpTodate) {
+      console.log("is update enterd")
+      fetch("http://localhost:8080/api/v1/projects/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${location.state.token}`,
+        },
+        body: JSON.stringify({
+          projectId: data.projectId,
+          projectName: d.projectName,
+          projectDescription: d.projectDescription,
+          projectRole: d.projectRole,
+          location: d.location,
+          publishedAt: new Date(),
+          jobDescription: d.jobDescription,
+          deadline: d.deadline,
+          email: `${location.state.email}`,
+        }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data, "after updation");
+          setIsUpTOdate(false)
+        })
+        .catch((error) => console.log(error));
+
+
+    }
+  }, [isUpTodate])
+  // console.log(d)
+
+  const [show, setShow] = useState(false);
+
+  const submitUpdateForm = () => {
+    setIsUpTOdate(true);
+    submitUpdateFormState();
+    // console.log(isUpTodate)
+    // updateDataHandler();
+    // setIsUpTOdate(false)
+    // handleClose()
+  }
+
+  const submitUpdateFormState = () => {
+    // setIsUpTOdate(true)
+    console.log(isUpTodate)
+    updateDataHandler();
+
+    handleClose()
+  }
+
+
+  const handleUpdateChange = (e) => {
+    // console.log(e);
+    setD({
+      ...d,
+      [e.target.name]: e.target.value,
+    });
+    // console.log(d[e.target.name])
+  }
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleModalAndForm = () => {
+    submitForm()
+    alert("Successfully added project")
+    handleClose()
+
+  }
+  //  console.log("inside after on click show modal this one", data, index)
+
+  return (
+    <>
+      {/* <Button variant="primary" onClick={handleShow}>
+        +
+      </Button> */}
+
+      <FaEdit onClick={handleShow} />
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Project</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Project Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="project name"
+                required
+                name="projectName"
+                value={d.projectName}
+                onChange={handleUpdateChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>project description</Form.Label>
+              <Form.Control
+                type="textarea"
+                placeholder="project description"
+                required
+                name="projectDescription"
+                value={d.projectDescription}
+                onChange={handleUpdateChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="location"
+                required
+                name="location"
+                value={d.location}
+                onChange={handleUpdateChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Job Description</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="job description"
+                required
+                name="jobDescription"
+                value={d.jobDescription}
+                onChange={handleUpdateChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Project Role</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="project role"
+                required
+                name="projectRole"
+                value={d.projectRole}
+                onChange={handleUpdateChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="date"
+                name="deadline"
+                defaultValue={new Date(d.deadline).toLocaleDateString('en-CA')}
+                //                value={(d.deadline).toLocaleDateString('en-CA')}
+                onChange={handleUpdateChange}
+              />
+            </Form.Group>
+
+          </Form>
+
+        </Modal.Body>
+        <Modal.Footer
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+
+          <Button variant="primary" onClick={submitUpdateForm} >
+            {/* //onClick={handleModalAndForm}> */}
+            Update Project
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 };
 
-const Example = ({ data, index, params, handleChange, submitForm }) => {
+
+
+const AddProject = ({ data, params, handleChange, submitForm }) => {
 
   //  console.log("exaple,", params)
   const map = () => {
@@ -385,13 +560,15 @@ const Example = ({ data, index, params, handleChange, submitForm }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+      <Button
+        variant="outline-primary" onClick={handleShow} size="lg">
+        Add Project
       </Button>
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Project</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -482,10 +659,25 @@ const Example = ({ data, index, params, handleChange, submitForm }) => {
         >
 
           <Button variant="primary" onClick={handleModalAndForm}>
-            Save Changes
+            Add Project
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
+};
+const styles = {
+  profile: {
+    flex: 1,
+    flexDirection: "row",
+  },
+
+  textBold: {
+    fontWeight: "600"
+  },
+
+  dataRow: {
+    display: "flex",
+    flexDirection: "row"
+  }
 };
