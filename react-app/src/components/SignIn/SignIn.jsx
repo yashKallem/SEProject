@@ -6,8 +6,7 @@ const SignIn = () => {
   const [params, setParams] = useState({
     email: '',
     password: '',
-    status: '',
-    token: ''
+    status: ''
   });
 
   const handleChange = (e) => {
@@ -31,12 +30,12 @@ const SignIn = () => {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
+        window.localStorage.setItem("token", data.token);
+        window.localStorage.setItem("email", params.email);
+
         setParams({
-          // email: '',
           ...params,
           password: '',
-          token: data.token,
           status: data.httpStatus
         });
       })
@@ -52,7 +51,7 @@ const SignIn = () => {
           {(() => {
             if (params.status === "OK") {
               return (
-                <Navigate to="/feed" state={{ token: params.token, email: params.email }} replace={true} />
+                <Navigate to="/feed" state={{ email: params.email }} replace={true} />
               )
             } else if (params.status === "UNAUTHORIZED") {
               return (
@@ -69,8 +68,8 @@ const SignIn = () => {
             }
           })()}
           <div className="form-fields">
-            <input type="text" placeholder="Enter your email" name="email" value={params.email} onChange={handleChange} />
-            <input type="password" placeholder="Enter your password" name="password" value={params.password} onChange={handleChange} />
+            <input type="text" required placeholder="Enter your email" name="email" value={params.email} onChange={handleChange} />
+            <input type="password" required placeholder="Enter your password" name="password" value={params.password} onChange={handleChange} />
           </div>
           <input type="submit" value="Sign in" />
         </form>

@@ -9,6 +9,8 @@ import Modal from "react-bootstrap/Modal";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const ProjectScreen = () => {
+  console.log("email", window.localStorage.getItem("email"), window.localStorage.getItem("token"))
+  const location = { state: { email: window.localStorage.getItem("email"), token: window.localStorage.getItem("token") } }
   const [postProject, setPostProject] = useState(false);
   const [addProject, setAddProject] = useState(false);
   const [allProjects, setAllProjects] = useState(true);
@@ -26,7 +28,7 @@ const ProjectScreen = () => {
     jobDescription: "",
     deadline: "",
   });
-  const location = useLocation();
+  // const location = useLocation();
 
   const [isUpdateData, setIsUpdateData] = useState(false)
   const [isDeleteData, setIsDeleteData] = useState(false)
@@ -84,6 +86,7 @@ const ProjectScreen = () => {
 
   useEffect(() => {
     console.log("changes whe update")
+    console.log(location.state.token, "token")
     fetch("http://localhost:8080/api/v1/projects/all", {
       headers: {
         "Content-Type": "application/json",
@@ -353,6 +356,7 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
   useEffect(() => {
 
     console.log("is update enterd", isUpTodate)
+    console.log("token", location.state.token)
 
     if (isUpTodate) {
       console.log("is update enterd")

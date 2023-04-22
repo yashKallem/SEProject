@@ -43,7 +43,7 @@ public class SkillController {
         }
         catch (Exception ex){
             skillDto.setErrorMessage(UserMessage.SKILL_ADDED_FAILED+" REASON "+ ex.getMessage());
-            return ResponseEntity.status(HttpStatus.OK).body(skillDto);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(skillDto);
         }
     }
     @DeleteMapping("/delete")

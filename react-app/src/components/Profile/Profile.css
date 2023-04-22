@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 2vw 2vh;
+  margin: 2vh 2vw;
   height: 100%;
 }
 
@@ -17,14 +17,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin: 0 3vw;
 }
 
 .profile-page #summary {
+  min-width: 35vw;
   flex: 1 1 0;
 }
 
 .profile-page #experience {
-  flex: 2 1 0;
+  min-width: 50vw;
+  /* flex: 2 1 0; */
 }
 
 .profile-page .sidebar-content {

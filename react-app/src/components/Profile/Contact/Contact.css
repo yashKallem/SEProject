@@ -1,13 +1,11 @@
 .contact-component {
-  display: flex;
-  flex-direction: column;
+  text-align: left;
 }
     
 .contact-component .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  row-gap: 5vw;
+  justify-content: space-between;
 }
     
 .contact-component .edit-icons > * {

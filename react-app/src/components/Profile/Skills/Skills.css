@@ -1,13 +1,11 @@
 .skills-component {
-  display: flex;
-  flex-direction: column;
+  text-align: left;
 }
  
 .skills-component .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  row-gap: 5vw;
+  justify-content: space-between;
 }
  
 .skills-component .edit-icons > * {
@@ -21,6 +19,6 @@
   gap: 5px;
 }
 
-.skills-component .badge-content RxCross1 {
+.skills-component .badge-content .delete-icon {
   cursor: pointer;
 }

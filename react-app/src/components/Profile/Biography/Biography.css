@@ -1,13 +1,11 @@
 .biography-component {
-  display: flex;
-  flex-direction: column;
+  text-align: left;
 }
   
 .biography-component .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  row-gap: 5vw;
+  justify-content: space-between;
 }
   
 .biography-component .edit-icons > * {

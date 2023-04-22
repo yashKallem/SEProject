@@ -7,6 +7,8 @@ import Feed from './components/Feed/Feed';
 import Profile from './components/Profile/Profile';
 import Project from './components/Project/ProjectScreen';
 import NavigationBar from './components/NavBar/NavBar';
+import Users from './components/Users/Users';
+
 function App() {
   return (
     <div className="App">
@@ -18,6 +20,7 @@ function App() {
           <Route exact path='/feed' element={<Feed />} />
           <Route exact path='/profile' element={<Profile />} />
           <Route exact path='/project' element={<Project />} />
+          <Route exact path='/users' element={<Users />} />
         </Routes>
       </Router>
     </div>

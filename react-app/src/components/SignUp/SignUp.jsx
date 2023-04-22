@@ -14,7 +14,6 @@ const SignUp = () => {
     phone: '',
     dobInputType: 'text',
     status: '',
-    token: ''
   });
 
   const handleFocus = () => {
@@ -61,9 +60,11 @@ const SignUp = () => {
       .then(response => response.json())
       .then(data => {
         // console.log(data);
+        window.localStorage.setItem("token", data.token);
+        window.localStorage.setItem("email", params.email);
+
         setParams({
           ...params,
-          token: data.token,
           status: data.httpStatus
         });
       })
@@ -79,15 +80,15 @@ const SignUp = () => {
           {(() => {
             if (params.status === "OK") {
               return (
-                <Navigate to="/feed" state={{ token: params.token, email: params.email }} replace={true} />
+                <Navigate to="/feed" state={{ email: params.email }} replace={true} />
               )
             } else if (params.status === "CONFLICT") {
               return (
-                <div className="error-message">Account already exists</div>
+                <div className="error-message">An account with this email address already exists.</div>
               )
             } else if (params.status === "INTERNAL_SERVER_ERROR") {
               return (
-                <div className="error-message">Something went wrong. Please try again later</div>
+                <div className="error-message">Something went wrong. Please try again later.</div>
               )
             } else {
               return (
