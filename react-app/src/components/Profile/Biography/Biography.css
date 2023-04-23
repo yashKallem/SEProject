@@ -1,6 +1,10 @@
 .biography-component {
   text-align: left;
 }
+
+.my-image {
+    height: 100px;
+  }
   
 .biography-component .header {
   display: flex;

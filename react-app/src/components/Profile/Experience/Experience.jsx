@@ -202,7 +202,7 @@ const Experience = (props) => {
   return (
     <div className="experience-component">
       <div className="header">
-        <h2>Experience</h2>
+        <h2>Work Experience</h2>
         {canEdit &&
           <div>
             <FaPlus className="edit-icons" onClick={openAddModal} />

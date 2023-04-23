@@ -145,4 +145,30 @@ public class UserService {
         }
     }
 
+    public List<UserDto> findByFirstnameAndLastname(String givenName, String lastName) {
+        List<UserEntity> users =  userRepository.findByGivenNameIgnoreCaseContainingAndLastNameIgnoreCaseContaining(givenName,lastName);
+        List<UserDto> userDtos = new ArrayList<>();
+        for (UserEntity user : users) {
+            userDtos.add(Mapper.userEntityToUserDTO(user));
+        }
+        return  userDtos;
+    }
+
+    public List<UserDto> findByFirstname(String givenName) {
+        List<UserEntity> users =  userRepository.findByGivenNameIgnoreCase(givenName);
+        List<UserDto> userDtos = new ArrayList<>();
+        for (UserEntity user : users) {
+            userDtos.add(Mapper.userEntityToUserDTO(user));
+        }
+        return  userDtos;
+    }
+
+    public List<UserDto> findByLastname(String lastName) {
+        List<UserEntity> users =  userRepository.findByLastNameIgnoreCase(lastName);
+        List<UserDto> userDtos = new ArrayList<>();
+        for (UserEntity user : users) {
+            userDtos.add(Mapper.userEntityToUserDTO(user));
+        }
+        return  userDtos;
+    }
 }

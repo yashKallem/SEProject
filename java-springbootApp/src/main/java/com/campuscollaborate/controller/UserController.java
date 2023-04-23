@@ -94,7 +94,7 @@ public class UserController {
     }
 
     @PutMapping("/contact")
-    public ResponseEntity<UserDto> updateContactSection(@RequestHeader("Authorization") String bearerToken,@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateContactSection(@RequestHeader("Authorization") String bearerToken, @RequestBody UserDto userDto) {
         try {
             boolean isValid = authenticationService.checkIfTheUserIsAccessingHisOwnAccount(bearerToken, userDto.getEmail());
             if (!isValid) {
@@ -109,9 +109,8 @@ public class UserController {
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(user);
             }
-        }
-        catch (Exception ex){
-            userDto.setErrorMessage(" REASON "+ ex.getMessage());
+        } catch (Exception ex) {
+            userDto.setErrorMessage(" REASON " + ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(userDto);
         }
     }
@@ -135,4 +134,32 @@ public class UserController {
             return ResponseEntity.ok().body(false);
         }
     }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<UserDto>> getUser(@RequestParam(required = false) String firstname,
+                                                 @RequestParam(required = false) String lastname) {
+        List<UserDto> users = null; // logic to retrieve the user information from a database or another source
+        try {
+            // Check if the firstname and lastname parameters were provided
+            if (!firstname.isEmpty() && !lastname.isEmpty()) {
+                users = userService.findByFirstnameAndLastname(firstname, lastname);
+            } else if (!firstname.isEmpty()) {
+                users = userService.findByFirstname(firstname);
+            } else if (!lastname.isEmpty()) {
+                users = userService.findByLastname(lastname);
+            }
+            // Check if a user was found
+            if (users.size() > 0) {
+                return ResponseEntity.status(HttpStatus.OK).body(users);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(users);
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(users);
+        }
+
+
+    }
+
 }

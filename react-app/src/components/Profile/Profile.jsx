@@ -6,6 +6,7 @@ import Contact from './Contact/Contact';
 import Education from './Education/Education';
 import Experience from './Experience/Experience';
 import Skills from './Skills/Skills';
+import { getProfileUrlByEmail } from "../api";
 import './Profile.css';
 
 const Profile = () => {
@@ -25,11 +26,16 @@ const Profile = () => {
   });
 
   useEffect(() => {
+   if (!token) {
+        // Redirect to root directory
+        window.location.href = "/";
+        return;
+      }
     const userEmail = window.localStorage.getItem("email");
     const displayEmail = location.state.email;
     setCanEdit(userEmail === displayEmail);
-
-    fetch(`http://localhost:8080/api/v1/users/profile?email=${displayEmail}`, {
+    const url = getProfileUrlByEmail(displayEmail);
+    fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -108,4 +114,3 @@ const Profile = () => {
 }
 
 export default Profile;
-
