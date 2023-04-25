@@ -6,11 +6,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavigationBar = () => {
-  const email = window.localStorage.getItem('email');
+  const email = window.localStorage.getItem("email");
+
   const handleSignOut = () => {
-   const token = window.localStorage.getItem("token");
     window.localStorage.removeItem("token");
-  };
+    window.localStorage.removeItem("email");
+  }
 
   return (
     <>
