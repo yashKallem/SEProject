@@ -16,11 +16,11 @@ const Users = () => {
   const [array, setArray] = useState([]);
 
   useEffect(() => {
-   if (!token) {
-          // Redirect to root directory
-          window.location.href = "/";
-          return;
-        }
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
+
     fetch(`http://localhost:8080/api/v1/users/all`, {
       method: 'GET',
       headers: {
@@ -43,7 +43,8 @@ const Users = () => {
 
   const searchByFirstName = () => {
     if (!!keyword) {
-      fetch(`url${keyword}`, {
+      const lastName = "";
+      fetch(`http://localhost:8080/api/v1/users/search?firstname=${keyword}&lastname=${lastName}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ const Users = () => {
           return response.json();
         })
         .then(data => {
-          setArray([]);
+          setArray(data);
         })
         .catch(error => console.log(error));
     }
@@ -62,7 +63,8 @@ const Users = () => {
 
   const searchByLastName = () => {
     if (!!keyword) {
-      fetch(`url${keyword}`, {
+      const firstName = "";
+      fetch(`http://localhost:8080/api/v1/users/search?firstname=${firstName}&lastname=${keyword}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +75,7 @@ const Users = () => {
           return response.json();
         })
         .then(data => {
-          setArray([]);
+          setArray(data);
         })
         .catch(error => console.log(error));
     }
@@ -131,6 +133,6 @@ const Users = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Users;
