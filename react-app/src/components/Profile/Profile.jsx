@@ -22,19 +22,20 @@ const Profile = () => {
     phone: '',
     skills: [],
     colleges: [],
-    jobs: [],
+    jobs: []
   });
 
   useEffect(() => {
-   if (!token) {
-        // Redirect to root directory
-        window.location.href = "/";
-        return;
-      }
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
+
     const userEmail = window.localStorage.getItem("email");
     const displayEmail = location.state.email;
     setCanEdit(userEmail === displayEmail);
     const url = getProfileUrlByEmail(displayEmail);
+
     fetch(url, {
       method: 'GET',
       headers: {
@@ -43,11 +44,10 @@ const Profile = () => {
       }
     }
     )
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((data) => {
-        // console.log(data);
+      .then(data => {
         setParams({
           firstName: data.givenName,
           lastName: data.lastName,

@@ -2,17 +2,17 @@
   text-align: left;
 }
 
-.my-image {
-    height: 100px;
-  }
-  
+/* .my-image {
+  height: 100px;
+} */
+
 .biography-component .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-  
-.biography-component .edit-icons > * {
+
+.biography-component .edit-icons>* {
   font-size: large;
   cursor: pointer;
 }
