@@ -224,21 +224,31 @@ const Education = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
-            <FloatingLabel label="Institute name">
-              <Form.Control required type="text" placeholder="Institute name" name="instituteName" value={params.instituteName} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Start year">
-              <Form.Control required type="number" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="End year">
-              <Form.Control required type="number" placeholder="End year" name="endYear" value={params.endYear} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Degree">
-              <Form.Control required type="text" placeholder="Degree" name="degree" value={params.degree} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Department">
-              <Form.Control required type="text" placeholder="Department" name="department" value={params.department} onChange={handleChange} />
-            </FloatingLabel>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Institute name">
+                <Form.Control required type="text" placeholder="Institute name" name="instituteName" value={params.instituteName} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Start year">
+                <Form.Control required type="number" placeholder="Start year" name="startYear" value={params.startYear} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="End year">
+                <Form.Control required type="number" placeholder="End year" name="endYear" value={params.endYear} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Degree">
+                <Form.Control required type="text" placeholder="Degree" name="degree" value={params.degree} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Department">
+                <Form.Control required type="text" placeholder="Department" name="department" value={params.department} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
           </Form>
         </Modal.Body>
         {canUpdate

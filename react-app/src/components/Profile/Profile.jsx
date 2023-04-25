@@ -22,7 +22,7 @@ const Profile = () => {
     phone: '',
     skills: [],
     colleges: [],
-    jobs: []
+    jobs: [],
   });
 
   useEffect(() => {
@@ -41,11 +41,12 @@ const Profile = () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
-    })
-      .then(response => {
+    }
+    )
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         // console.log(data);
         setParams({
           firstName: data.givenName,
@@ -56,7 +57,7 @@ const Profile = () => {
           phone: data.phone,
           skills: data.skills,
           colleges: data.educationHistory,
-          jobs: data.workHistory
+          jobs: data.workHistory,
         });
       })
       .catch(error => console.log(error));
@@ -111,6 +112,6 @@ const Profile = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Profile;

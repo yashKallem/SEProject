@@ -130,18 +130,26 @@ const Biography = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated}>
-            <FloatingLabel label="First name">
-              <Form.Control required type="text" placeholder="First name" name="newFirstName" value={params.newFirstName} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Last name">
-              <Form.Control required type="text" placeholder="Last name" name="newLastName" value={params.newLastName} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Course of study">
-              <Form.Control required type="text" placeholder="Course of study" name="newCourseOfStudy" value={params.newCourseOfStudy} onChange={handleChange} />
-            </FloatingLabel>
-            <FloatingLabel label="Education level">
-              <Form.Control required type="text" placeholder="Education level" name="newEducationLevel" value={params.newEducationLevel} onChange={handleChange} />
-            </FloatingLabel>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="First name">
+                <Form.Control required type="text" placeholder="First name" name="newFirstName" value={params.newFirstName} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Last name">
+                <Form.Control required type="text" placeholder="Last name" name="newLastName" value={params.newLastName} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Course of study">
+                <Form.Control required type="text" placeholder="Course of study" name="newCourseOfStudy" value={params.newCourseOfStudy} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Education level">
+                <Form.Control required type="text" placeholder="Education level" name="newEducationLevel" value={params.newEducationLevel} onChange={handleChange} />
+              </FloatingLabel>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
