@@ -223,6 +223,279 @@
 					"response": []
 				},
 				{
+					"name": "/api/v1/users/search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY4MjIzMDQ2NSwiZXhwIjoxNjgyMzE2ODY1fQ.qhS3i2mwpzMCMyelyHFPZWvN1acO7n0hRqlp6jXIBIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/search?firstname=shams&lastname=tabrez",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "shams"
+								},
+								{
+									"key": "lastname",
+									"value": "tabrez"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users Copy",
+			"item": [
+				{
+					"name": "/api/v1/users/all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk0OTUzNSwiZXhwIjoxNjc4OTUwOTc1fQ.R7vviQMkaItrzJUv5mYMgye8v2Sztu37EQPpQqlbdDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/{userID}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk0OTUzNSwiZXhwIjoxNjc4OTUwOTc1fQ.R7vviQMkaItrzJUv5mYMgye8v2Sztu37EQPpQqlbdDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/{userID}/projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk0OTUzNSwiZXhwIjoxNjc4OTUwOTc1fQ.R7vviQMkaItrzJUv5mYMgye8v2Sztu37EQPpQqlbdDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/1/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/projects?email=",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk0OTUzNSwiZXhwIjoxNjc4OTUwOTc1fQ.R7vviQMkaItrzJUv5mYMgye8v2Sztu37EQPpQqlbdDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/projects?email=shamsi@wiu.edu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "shamsi@wiu.edu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/profile/{email}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3ODk0OTUzNSwiZXhwIjoxNjc4OTUwOTc1fQ.R7vviQMkaItrzJUv5mYMgye8v2Sztu37EQPpQqlbdDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/profile?email=shamsi@wiu.edu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "shamsi@wiu.edu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v1/users/about",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTU1NTg2OSwiZXhwIjoxNjc5NjQyMjY5fQ.pF1XTPd7-AZyteCs2C88ZMX1RdLDZX1WRZld3ft7F6E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"givenName\": \"Shams Tabrez\",\r\n  \"lastName\": \"Mohammad\",\r\n  \"educationLevel\": \"Masters\",\r\n   \"email\": \"shamsi@wiu.edu\",\r\n  \"courseOfStudy\": \"Computer Science\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/about",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"about"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/api/v1/users/contact",
 					"request": {
 						"method": "PUT",
@@ -570,7 +843,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY3OTU5ODE5MiwiZXhwIjoxNjc5Njg0NTkyfQ.qm61Me-17nswSs4ws_qe12V3o03jEiS7eljmgYHk-uw",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFtc2lAd2l1LmVkdSIsImlhdCI6MTY4MDIzNDU2MCwiZXhwIjoxNjgwMzIwOTYwfQ.OoNe1vRIR-HW1IvpbdTCubVBCdKrVwKCR-UCmdxhMhQ",
 									"type": "string"
 								}
 							]
@@ -579,7 +852,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"skill\": \"Test ski\",\r\n\"email\":\"shamsi@wiu.edu\"\r\n}",
+							"raw": "{\r\n\"skill\": \"JavaS\",\r\n\"email\":\"shamsi@wiu.edu\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
