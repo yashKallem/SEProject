@@ -9,7 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const ProjectScreen = () => {
-  console.log("email", window.localStorage.getItem("email"), window.localStorage.getItem("token"))
+  const token = window.localStorage.getItem("token");
   const location = { state: { email: window.localStorage.getItem("email"), token: window.localStorage.getItem("token") } }
   const [postProject, setPostProject] = useState(false);
   const [addProject, setAddProject] = useState(false);
@@ -49,6 +49,11 @@ const ProjectScreen = () => {
 
 
   useEffect(() => {
+   if (!token) {
+          // Redirect to root directory
+          window.location.href = "/";
+          return;
+        }
 
     if (postProject) {
 
@@ -512,7 +517,7 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
               className="mb-3"
               controlId="exampleForm.ControlInput1"
             >
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Apply by</Form.Label>
               <Form.Control
                 type="date"
                 name="deadline"
@@ -556,7 +561,6 @@ const AddProject = ({ data, params, handleChange, submitForm }) => {
   const handleShow = () => setShow(true);
   const handleModalAndForm = () => {
     submitForm()
-    alert("Successfully added project")
     handleClose()
 
   }

@@ -16,6 +16,11 @@ const Users = () => {
   const [array, setArray] = useState([]);
 
   useEffect(() => {
+   if (!token) {
+          // Redirect to root directory
+          window.location.href = "/";
+          return;
+        }
     fetch(`http://localhost:8080/api/v1/users/all`, {
       method: 'GET',
       headers: {

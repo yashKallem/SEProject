@@ -16,7 +16,7 @@
 .profile-page .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;Profile.css
+  justify-content: space-evenly;
   margin: 0 3vw;
 }
 

@@ -10,6 +10,12 @@ const Feed = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+   if (!token) {
+          // Redirect to root directory
+          window.location.href = "/";
+          return;
+        }
+
     fetch(`http://localhost:8080/api/v1/feed/`, {
       method: 'GET',
       headers: {
