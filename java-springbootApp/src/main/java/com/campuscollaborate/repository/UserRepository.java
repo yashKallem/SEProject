@@ -20,4 +20,10 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
    // List<UserEntity> findByProjectsProjectId(Long projectId);
 
     boolean deleteByEmail(String userEmail);
+    List<UserEntity> findByGivenNameIgnoreCaseContainingAndLastNameIgnoreCaseContaining(String firstName, String lastName);
+
+    List<UserEntity> findByGivenNameIgnoreCase(String firstName);
+
+    List<UserEntity> findByLastNameIgnoreCase(String lastName);
+
 }

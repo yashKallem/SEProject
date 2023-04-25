@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import img_avatar from './img_avatar.png';
 import './Biography.css';
 
 const Biography = (props) => {
@@ -119,6 +120,7 @@ const Biography = (props) => {
           </div>
         }
       </div>
+{/*        <img className="my-image" src={img_avatar} alt="BigCo Inc. logo"/> */}
       <div>{params.firstName} {params.lastName}</div>
       <div>{params.educationLevel}, {params.courseOfStudy}</div>
 
