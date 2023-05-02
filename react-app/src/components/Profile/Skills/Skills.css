@@ -1,5 +1,10 @@
 .skills-component {
   text-align: left;
+  padding: 25px;
+  background-color: white;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
 }
  
 .skills-component .header {

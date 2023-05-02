@@ -282,11 +282,11 @@ const ProjectScreen = () => {
           }}
         >
           <Button variant="outline-primary" onClick={onclickAllProjects} size="lg">
-            view all projects
+            View All Projects
           </Button>
           <br />
           <Button variant="outline-primary" size="lg" onClick={onclickMyProjects}>
-            view my projects
+            View My Projects
           </Button>
           <br />
 
