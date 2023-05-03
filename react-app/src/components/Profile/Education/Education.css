@@ -1,5 +1,10 @@
 .education-component {
   text-align: left;
+  padding: 25px;
+  background-color: white;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
 }
 
 .education-component .header {
@@ -14,7 +19,7 @@
 }
 
 .education-component .table {
-  max-height: 35vh;
+  max-height: 30vh;
   overflow-x: hidden;
   overflow-y: auto;
 }

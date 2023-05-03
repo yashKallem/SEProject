@@ -93,7 +93,7 @@ const Profile = () => {
             />
           </div>
         </div>
-        <div className="sidebar" id="experience">
+        <div className="sidebar" id="history">
           <div className="sidebar-content" id="education">
             <Education
               email={params.email}
