@@ -101,9 +101,13 @@ const Users = () => {
   }
 
   return (
-    <div className="users-page">
+    <div className="users-page"    >
       <Navbar />
-      <div className="users-search">
+      <div className="users-search"
+        style={{
+          height: "100vh",
+        }}
+      >
         <div className="search-bar">
           <InputGroup className="mb-3">
             <FloatingLabel label="User">
@@ -118,7 +122,13 @@ const Users = () => {
         </div>
         <div className="search-results">
           {array.length !== 0 && array.map(elem => (
-            <Card style={{ width: '18rem' }} key={elem.id}>
+            <Card style={{
+              width: '18rem',
+              border: "solid",
+              borderWidth: 3,
+              borderRadius: 20,
+              borderColor: "#f5f5f5",
+            }} key={elem.id}>
               <Card.Body>
                 <Card.Title>{elem.givenName} {elem.lastName}</Card.Title>
                 <Card.Subtitle>{elem.courseOfStudy}</Card.Subtitle>

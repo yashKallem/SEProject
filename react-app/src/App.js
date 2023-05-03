@@ -11,7 +11,9 @@ import Users from './components/Users/Users';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App"
+      style={{ backgroundColor: "#f5f5f5" }}
+    >
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />} />

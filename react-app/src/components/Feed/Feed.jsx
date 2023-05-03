@@ -35,12 +35,21 @@ const Feed = () => {
   return (
     <div className="feed-page">
       <Navbar />
+
       <div className="feed-container">
         <div className="projects">
           <h2>Projects</h2>
           <div className="results">
             {projects.length !== 0 && projects.map(project => (
-              <Card style={{ width: '20rem' }} key={project.projectId}>
+              <Card style={{
+                width: '20rem',
+                border: "solid",
+                borderWidth: 3,
+                // padding: "inherit",
+                borderRadius: 20,
+                borderColor: "#f5f5f5",
+
+              }} key={project.projectId}>
                 <Card.Body>
                   <Card.Title>{project.projectName}</Card.Title>
                   <Card.Subtitle>{project.projectRole}</Card.Subtitle>
@@ -57,7 +66,14 @@ const Feed = () => {
           <h2>Users</h2>
           <div className="results">
             {users.length !== 0 && users.map(user => (
-              <Card style={{ width: '15rem' }} key={user.userId}>
+              <Card style={{
+                width: '15rem',
+                border: "solid",
+                borderWidth: 3,
+                // padding: "inherit",
+                borderRadius: 20,
+                borderColor: "#f5f5f5",
+              }} key={user.userId}>
                 <Card.Body>
                   <Card.Title>{user.givenName} {user.lastName}</Card.Title>
                   <Card.Subtitle>{user.courseOfStudy}</Card.Subtitle>

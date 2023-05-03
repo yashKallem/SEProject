@@ -1,56 +1,41 @@
-.sign-in-page {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 
-.sign-in-page #border {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border: 10px solid #0055cd;
-    margin: 5vh 25vw;
-    padding: 5vh;
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700');
 
-.sign-in-page #header {
-    white-space: pre-line;
-    font-size: 10vh;
-    font-weight: bold;
-    color: #0055cd;
-}
 
-.sign-in-page form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+/* body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+} */
 
-.sign-in-page .error-message {
-    color: red;
-}
+/* body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+  } */
+/* 
+  body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+  } */
 
-.form-fields {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
-input {
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 12px;
-    font-size: large;
-    border: 5px solid #0055cd;
-    background-color: white;
-    color: #0055cd;
-}
+  /* body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+  } */
 
-input[type=submit] {
-    background-color: #0055cd;
-    color: white;
-    cursor: pointer;
-}
+  body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  .buttond:hover{
+
+background-color: #0a66c2;
+color: white !important;
+  }
