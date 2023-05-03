@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import Navbar from "../NavBar/NavBar";
-//import './Profile.css';
 import "../SignUp/SignUp.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { getAllProjects } from "../api";
+import './Project.css'
+
+
 
 const ProjectScreen = () => {
   const token = window.localStorage.getItem("token");
@@ -18,8 +20,6 @@ const ProjectScreen = () => {
   const [allProjectsData, setAllProjectsData] = useState([]);
   const [myProjectsData, setMyProjectsData] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false)
-  const [indexupdate, setIndexUpdate] = useState(null)
-  const [Delete, setDelete] = useState(false)
   const [params, setParams] = useState({
     projectName: "",
     projectDescription: "",
@@ -28,7 +28,7 @@ const ProjectScreen = () => {
     jobDescription: "",
     deadline: "",
   });
-  // const location = useLocation();
+
 
   const [isUpdateData, setIsUpdateData] = useState(false)
   const [isDeleteData, setIsDeleteData] = useState(false)
@@ -49,11 +49,10 @@ const ProjectScreen = () => {
 
 
   useEffect(() => {
-   if (!token) {
-          // Redirect to root directory
-          window.location.href = "/";
-          return;
-        }
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
 
     if (postProject) {
 
@@ -81,18 +80,19 @@ const ProjectScreen = () => {
 
           setPostProject(false);
           setAddProject(false);
+          window.location.reload(true)
         })
 
     }
+
   }, [postProject]);
 
 
 
 
   useEffect(() => {
-    console.log("changes whe update")
-    console.log(location.state.token, "token")
-    fetch("http://localhost:8080/api/v1/projects/all", {
+
+    fetch(getAllProjects(), {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${location.state.token}`,
@@ -102,9 +102,10 @@ const ProjectScreen = () => {
         return response.json();
       })
       .then((data) => {
-        // console.log(data);
+
         setAllProjectsData(data);
-        setMyProjectsData(data.filter(x => x.publishedBy.email == location.state.email))
+
+        setMyProjectsData(data.filter(x => x.publishedBy.email === location.state.email))
       })
       .catch((error) => console.log(error));
 
@@ -119,17 +120,14 @@ const ProjectScreen = () => {
   }, [postProject, isUpdateData, isDeleteData]);
 
 
-  const changeForm = () => {
-    setAddProject(true);
-  };
+
   const submitForm = () => {
     setPostProject(true);
   };
-  const submitUpdateForm = () => {
-    setIsUpdate(true)
-  }
+
 
   const deleteData = (id) => {
+
     fetch("http://localhost:8080/api/v1/projects/delete", {
       method: "DELETE",
       headers: {
@@ -145,19 +143,35 @@ const ProjectScreen = () => {
         return response.json();
       })
       .then((data) => {
+
         setIsDeleteData(true);
       })
+    window.location.reload(true)
 
   }
   const data = (data, all) => {
 
     return (
       <div
+
+
+
         style={{
           padding: "20px",
           backgroundColor: "white",
+          borderRadius: "20px",
+          // fontFamily: 'Helvetica Neue, Arial, sans-serif'
         }}
       >
+        {/* //     display: flex;
+        //     flex-direction: column;
+        //     justify-content: flex-start;
+        //     align-items: flex-start;
+        //     border: 3px solid;
+        //     padding: inherit;
+        //     border-radius: inherit;
+        //     border-color: #f5f5f5;
+        // } */}
         {data.map((ob, index) => (
           <>
             <div
@@ -165,7 +179,16 @@ const ProjectScreen = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
-                alignItems: "flex-start"
+                alignItems: "flex-start",
+
+                border: "solid",
+                borderWidth: 3,
+                // padding: "inherit",
+                borderRadius: 20,
+                borderColor: "#f5f5f5",
+                padding: 20
+
+                //                borderC
               }}
             >
               <div style={styles.dataRow}>
@@ -177,7 +200,7 @@ const ProjectScreen = () => {
                       paddingLeft: 30
                     }}>
                       <Example data={data[index]} index={index} handleChange={handleChange} params={params} submitForm={submitForm} isUpdate={isUpdate}
-                        setIsUpdate={setIsUpdate} updateDataHandler={updateDataHandler}
+                        setIsUpdate={setIsUpdate} updateDataHandler={updateDataHandler} location={location}
                       />
                     </p>
 
@@ -215,26 +238,26 @@ const ProjectScreen = () => {
               </div>
 
             </div>
-            {data.length != index + 1 &&
+            <br />
+            {/* {data.length !== index + 1 &&
               <hr size="3" width="100%" />
-            }
+            } */}
           </>
         ))}
-      </div>
+      </div >
     );
   };
 
-  const update = (index, dat) => {
-    console.log('hfbgfh');
-    console.log("update data modal", index, dat)
-  };
+  // const update = (index, dat) => {
+  //   console.log('hfbgfh');
+  //   console.log("update data modal", index, dat)
+  // };
 
 
 
   const onclickAllProjects = () => {
     if (allProjects) { }
     else {
-      console.log(allProjectsData)
       setMyProjects(false)
       setAllProjects(true)
     }
@@ -242,10 +265,10 @@ const ProjectScreen = () => {
   }
   const onclickMyProjects = () => {
     if (myProjects) {
-      console.log("my pro false")
+
     }
     else {
-      console.log("my pro")
+
       setAllProjects(false)
       setMyProjects(true)
 
@@ -255,15 +278,14 @@ const ProjectScreen = () => {
   return (
     <>
       <Navbar />
-      {/* <Example /> */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-
           height: "100vh",
           overflow: " hidden",
-          backgroundColor: "hsla(0,0%,100%,.7)",
+          backgroundColor: "#f5f5f5",
+          // backgroundColor: "hsla(0,0%,100%,.7)",
         }}
       >
         <div
@@ -272,22 +294,42 @@ const ProjectScreen = () => {
             padding: "20px",
             margin: "40px",
             height: "400px",
-            border: "1px solid",
-            borderRadius: 20,
+            border: "1px solid rgba(0, 0, 0, 0.3)",
+            boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.08)",
+            borderRadius: 30,
             flex: 1,
-            //            color: "grey",
-            borderColor: "blue",
             flexDirection: "column",
-            marginBottom: "10px"
+            marginBottom: "10px",
+            backgroundColor: "white",
+
           }}
         >
-          <Button variant="outline-primary" onClick={onclickAllProjects} size="lg">
-            View All Projects
+          <Button
+            className="buttond"
+            style={{
+              width: '200px',
+              outline: '1px solid #0a66c2',
+              color: "#0a66c2"
+            }}
+
+            variant="outline" onClick={onclickAllProjects} size="lg">
+            view all projects
           </Button>
           <br />
-          <Button variant="outline-primary" size="lg" onClick={onclickMyProjects}>
-            View My Projects
+          <br />
+
+          <Button
+            className="buttond"
+            style={{
+              width: '200px',
+              outline: '1px solid #0a66c2',
+              color: "#0a66c2"
+
+            }}
+            variant="outline" size="lg" onClick={onclickMyProjects}>
+            view my projects
           </Button>
+          <br />
           <br />
 
 
@@ -298,10 +340,13 @@ const ProjectScreen = () => {
           style={{
             height: "80%",
             overflowY: "scroll",
-            border: "1px solid",
-            borderRadius: 20,
+            borderRadius: 30,
             margin: "40px",
             flex: 3,
+            backgroundColor: "white ",
+            border: "1px solid rgba(0, 0, 0, 0.3)",
+            boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.08)"
+
           }}
         >
           <div style={{ padding: "20px" }}>
@@ -319,20 +364,8 @@ const ProjectScreen = () => {
               )) : <></>}
           </div>
         </div>
-        {/* <div
-          className="flex:3"
-          style={{
-            height: "400px",
-            border: "1px solid",
-            borderRadius: 20,
-            margin: "40px",
-            flex: 2,
-            padding: "20px",
-          }}
-        >
-          <p></p>
-        </div> */}
-      </div>
+
+      </div >
     </>
   );
 };
@@ -341,11 +374,9 @@ export default ProjectScreen;
 
 
 const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
-  setIsUpdate, updateDataHandler }) => {
+  setIsUpdate, updateDataHandler, location }) => {
 
-  const location = useLocation();
-  //  console.log(data)
-  // console.log("update")
+
   const [d, setD] = useState({
     projectName: data.projectName,
     projectDescription: data.projectDescription,
@@ -360,11 +391,10 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
 
   useEffect(() => {
 
-    console.log("is update enterd", isUpTodate)
-    console.log("token", location.state.token)
+
 
     if (isUpTodate) {
-      console.log("is update enterd")
+
       fetch("http://localhost:8080/api/v1/projects/update", {
         method: "PUT",
         headers: {
@@ -387,7 +417,7 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
           return response.json();
         })
         .then((data) => {
-          console.log(data, "after updation");
+          // console.log(data, "after updation");
           setIsUpTOdate(false)
         })
         .catch((error) => console.log(error));
@@ -395,21 +425,18 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
 
     }
   }, [isUpTodate])
-  // console.log(d)
+
 
   const [show, setShow] = useState(false);
 
   const submitUpdateForm = () => {
     setIsUpTOdate(true);
     submitUpdateFormState();
-    // console.log(isUpTodate)
-    // updateDataHandler();
-    // setIsUpTOdate(false)
-    // handleClose()
+
   }
 
   const submitUpdateFormState = () => {
-    // setIsUpTOdate(true)
+
     console.log(isUpTodate)
     updateDataHandler();
 
@@ -418,12 +445,12 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
 
 
   const handleUpdateChange = (e) => {
-    // console.log(e);
+
     setD({
       ...d,
       [e.target.name]: e.target.value,
     });
-    // console.log(d[e.target.name])
+
   }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -433,13 +460,10 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
     handleClose()
 
   }
-  //  console.log("inside after on click show modal this one", data, index)
+
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        +
-      </Button> */}
 
       <FaEdit onClick={handleShow} />
 
@@ -521,8 +545,15 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
               <Form.Control
                 type="date"
                 name="deadline"
-                defaultValue={new Date(d.deadline).toLocaleDateString('en-CA')}
-                //                value={(d.deadline).toLocaleDateString('en-CA')}
+
+                defaultValue={
+                  new Date(d.deadline).toISOString().slice(0, 10)
+                  // console.log(new Date(d.deadline).toLocaleDateString("en-CA"))
+                  // new Date(d.deadline).toLocaleDateString("en-CA")
+                  // console.log("hi", d.deadline, new Date(d.deadline).toLocaleDateString('en-pa'))
+                  //                  new Date(d.deadline).toLocaleDateString('en-ca')
+                }
+                // value={new Date(d.deadline).toLocaleDateString('en-ca')}
                 onChange={handleUpdateChange}
               />
             </Form.Group>
@@ -538,7 +569,7 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
         >
 
           <Button variant="primary" onClick={submitUpdateForm} >
-            {/* //onClick={handleModalAndForm}> */}
+
             Update Project
           </Button>
         </Modal.Footer>
@@ -551,7 +582,7 @@ const Example = ({ data, index, params, handleChange, submitForm, isUpdate,
 
 const AddProject = ({ data, params, handleChange, submitForm }) => {
 
-  //  console.log("exaple,", params)
+
   const map = () => {
 
   }
@@ -564,12 +595,19 @@ const AddProject = ({ data, params, handleChange, submitForm }) => {
     handleClose()
 
   }
-  //  console.log("inside after on click show modal this one", data, index)
+
 
   return (
     <>
       <Button
-        variant="outline-primary" onClick={handleShow} size="lg">
+        className="buttond"
+        style={{
+          width: '200px',
+          outline: '1px solid #0a66c2',
+          color: "#0a66c2"
+
+        }}
+        variant="outline" onClick={handleShow} size="lg">
         Add Project
       </Button>
 
@@ -648,7 +686,7 @@ const AddProject = ({ data, params, handleChange, submitForm }) => {
               className="mb-3"
               controlId="exampleForm.ControlInput1"
             >
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Deadline</Form.Label>
               <Form.Control
                 type="date"
                 name="deadline"

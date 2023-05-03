@@ -15,7 +15,9 @@ const NavigationBar = () => {
 
   return (
     <>
-      <Navbar bg="primary" variant="dark" sticky="top">
+      <Navbar
+        style={{ backgroundColor: "#0a66c2" }}
+        variant="dark" sticky="top">
         <Container>
           <Navbar.Brand href="/feed">Campus Collaborate</Navbar.Brand>
           <Nav className="me-auto">
