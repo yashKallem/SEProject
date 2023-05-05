@@ -35,4 +35,3 @@ Congratulations! You have successfully installed and run the project on your loc
 
 Thank you for using our software!
 
-Updated on 1st April 2023
